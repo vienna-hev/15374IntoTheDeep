@@ -35,7 +35,7 @@ public class SparkFunOTOSDrive extends MecanumDrive {
         // tweaked slightly to compensate for imperfect mounting (eg. 1.3 degrees).
 
         // RR localizer note: these units are inches and radians
-        public SparkFunOTOS.Pose2D offset = new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0));
+        public SparkFunOTOS.Pose2D offset = new SparkFunOTOS.Pose2D(0.44, 4.965, Math.toRadians(180));
 
         // Here we can set the linear and angular scalars, which can compensate for
         // scaling issues with the sensor measurements. Note that as of firmware
@@ -53,8 +53,12 @@ public class SparkFunOTOSDrive extends MecanumDrive {
         // multiple speeds to get an average, then set the linear scalar to the
         // inverse of the error. For example, if you move the robot 100 inches and
         // the sensor reports 103 inches, set the linear scalar to 100/103 = 0.971
-        public double linearScalar = 1.0;
-        public double angularScalar = 1.0;
+
+        // 12087 tuning note:
+        // these are initial tuning numbers based on weird mount and weird tiles
+        // TODO: TEST WITH GOOD MOUNT ON REAL TILES
+        public double linearScalar = 1.0; //114/101; //1.0615; //69/65;
+        public double angularScalar = 0.999444; // 3600/3602;
     }
 
     public static SparkFunOTOSDrive.Params PARAMS = new SparkFunOTOSDrive.Params();
@@ -69,8 +73,9 @@ public class SparkFunOTOSDrive extends MecanumDrive {
         otos.setAngularUnit(SparkFunOTOS.AngularUnit.RADIANS);
 
         otos.setOffset(PARAMS.offset);
-        otos.setLinearScalar(PARAMS.linearScalar);
-        otos.setAngularScalar(PARAMS.angularScalar);
+        System.out.println("OTOS calibration beginning!");
+        System.out.println(otos.setLinearScalar(PARAMS.linearScalar));
+        System.out.println(otos.setAngularScalar(PARAMS.angularScalar));
 
         otos.setPosition(RRPoseToOTOSPose(pose));
         // The IMU on the OTOS includes a gyroscope and accelerometer, which could
@@ -86,7 +91,8 @@ public class SparkFunOTOSDrive extends MecanumDrive {
 
         // RR localizer note: numSamples number completely arbitrary at the moment, feel free to change to fit your needs
         // Will get better number once I actually get this sensor
-        otos.calibrateImu(100, true);
+        System.out.println(otos.calibrateImu(255, true));
+        System.out.println("OTOS calibration complete!");
     }
     @Override
     public PoseVelocity2d updatePoseEstimate() {
@@ -103,6 +109,7 @@ public class SparkFunOTOSDrive extends MecanumDrive {
         SparkFunOTOS.Pose2D otosPose = otos.getPosition();
         SparkFunOTOS.Pose2D otosVel = otos.getVelocity();
         pose = OTOSPoseToRRPose(otosPose);
+        lastOtosPose = pose;
 
         // rr standard
         poseHistory.add(pose);

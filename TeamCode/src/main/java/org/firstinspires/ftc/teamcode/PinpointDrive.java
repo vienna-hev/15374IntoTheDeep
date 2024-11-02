@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.messages.PoseMessage;
 
 /**
- * Experimental extension of MecanumDrive that uses the Gobilda Pinpoint sensor for localization.
+ * Expemrimental extension of MecanumDrive that uses the Gobilda Pinpoint sensor for localization.
  * <p>
  * Released under the BSD 3-Clause Clear License by j5155 from 12087 Capital City Dynamics
  * Portions of this code made and released under the MIT License by Gobilda (Base 10 Assets, LLC)
@@ -81,7 +81,7 @@ public class PinpointDrive extends MecanumDrive {
         This is recommended before you run your autonomous, as a bad initial calibration can cause
         an incorrect starting value for x, y, and heading.
          */
-        //pinpoint.recalibrateIMU();
+        pinpoint.recalibrateIMU(); /* ??? */
         pinpoint.resetPosAndIMU();
         // wait for pinpoint to finish calibrating
         try {

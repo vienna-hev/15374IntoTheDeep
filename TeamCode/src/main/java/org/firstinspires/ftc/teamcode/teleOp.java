@@ -30,7 +30,7 @@ public class teleOp extends LinearOpMode {
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE); // ???
+        // frontRight.setDirection(DcMotorSimple.Direction.REVERSE); // ???
 
         double drivespeed = 0.8;
 

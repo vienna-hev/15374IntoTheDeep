@@ -1,4 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
-public class TrajTest {
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+@Autonomous
+public class TrajTest extends LinearOpMode {
+    @Override
+    public void loop() {
+
+    }
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+
+    }
 }

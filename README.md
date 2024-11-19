@@ -1,16 +1,6 @@
-#Stuff
+# Stuff
 
 Uses the sparkfun repo for roadrunner :)
-
-
-
-
-
-
-
-
-
-
 
 # SparkFun OTOS Quickstart for Roadrunner 1.0
 

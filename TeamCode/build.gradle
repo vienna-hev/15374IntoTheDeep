@@ -28,7 +28,7 @@ repositories {
         url = 'https://maven.brott.dev/'
     }
     maven {
-        url = 'https://repo.dairy.foundation/releases'
+        url = 'https://jitpack.io'
     }
 }
 

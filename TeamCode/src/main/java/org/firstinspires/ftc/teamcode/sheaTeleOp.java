@@ -109,7 +109,10 @@ public class sheaTeleOp extends LinearOpMode {
             }
 
             if (gamepad1.dpad_left){
-                intakeLeft.setPower(.5);
+                intakeLeft.setPosition(.5);
+                //changed to setPosition by V
+                // because it only works with that?
+                // idk probably wrong control(dpad_left)
             }
 
             double speed = gamepad1.left_stick_y;

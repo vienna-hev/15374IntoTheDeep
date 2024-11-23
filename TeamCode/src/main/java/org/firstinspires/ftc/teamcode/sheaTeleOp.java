@@ -37,8 +37,8 @@ int num;
         intakeRight = hardwareMap.get(CRServo.class, "intakeServoR");
         wrist = hardwareMap.get(Servo.class, "wristServo");
         elbow = hardwareMap.get(Servo.class, "elbowServo");
-        bucketL = hardwareMap.get(Servo.class, "bucketServoL");
-        bucketR = hardwareMap.get(Servo.class, "bucketServoR");
+//        bucketL = hardwareMap.get(Servo.class, "bucketServoL");
+//        bucketR = hardwareMap.get(Servo.class, "bucketServoR");
 
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -161,6 +161,7 @@ int num;
             else{
                 upMotor.setPower(0);
             }
+
 
             double speed = gamepad1.left_stick_y;
             double turn = gamepad1.right_stick_x;

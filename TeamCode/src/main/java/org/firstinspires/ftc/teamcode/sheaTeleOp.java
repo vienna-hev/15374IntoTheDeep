@@ -20,8 +20,8 @@ int num;
     public CRServo intakeRight;
     public Servo wrist;
     public Servo elbow;
-    public Servo bucketL;
-    public Servo bucketR;
+    public Servo bucketServoL;
+    public Servo bucketServoR;
 
     @Override
     public void runOpMode() {
@@ -37,13 +37,15 @@ int num;
         intakeRight = hardwareMap.get(CRServo.class, "intakeServoR");
         wrist = hardwareMap.get(Servo.class, "wristServo");
         elbow = hardwareMap.get(Servo.class, "elbowServo");
-//        bucketL = hardwareMap.get(Servo.class, "bucketServoL");
-//        bucketR = hardwareMap.get(Servo.class, "bucketServoR");
+        bucketServoL = hardwareMap.get(Servo.class, "bucketServoL");
+        bucketServoR = hardwareMap.get(Servo.class, "bucketServoR");
 
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        upMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         //frontRight.setDirection(DcMotorSimple.Direction.REVERSE); ///undo???
@@ -117,12 +119,12 @@ int num;
             }
 
             if (gamepad2.dpad_left){
-                intakeLeft.setPower(-.5);
-                intakeRight.setPower(.5);
+                intakeLeft.setPower(-.3);
+                intakeRight.setPower(.3);
             }
             else if (gamepad2.dpad_right){
-                intakeLeft.setPower(.3);
-                intakeRight.setPower(-.3);
+                intakeLeft.setPower(.5);
+                intakeRight.setPower(-.5);
             }
             else {
                 intakeLeft.setPower(0);
@@ -158,10 +160,22 @@ int num;
 
 
             if (gamepad2.y){
-                upMotor.setPower(0.5);
+                upMotor.setPower(1);
+            }
+            else if (gamepad2.x){
+                upMotor.setPower(-0.6);
             }
             else{
                 upMotor.setPower(0);
+            }
+
+            if (gamepad2.right_trigger > .9){
+                bucketServoL.setPosition(1);
+                bucketServoR.setPosition(-1);
+            }
+            else {
+                bucketServoL.setPosition(0.3);
+                bucketServoR.setPosition(0.3);
             }
 
 

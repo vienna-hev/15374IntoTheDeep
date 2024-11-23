@@ -148,6 +148,7 @@ int num;
 //                    wrist.setPosition(0);
 //                }
 //            }
+
             if (gamepad2.right_stick_x > 0.9){
                 elbow.setPosition(0.80);
             }
@@ -155,8 +156,9 @@ int num;
                 elbow.setPosition(0.40);
             }
 
+
             if (gamepad2.y){
-                upMotor.setPower(-0.5);
+                upMotor.setPower(0.5);
             }
             else{
                 upMotor.setPower(0);

@@ -8,9 +8,7 @@ package org.firstinspires.ftc.teamcode;
         import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
-
 public class sheaTeleOp extends LinearOpMode {
-    int num;
     public DcMotor frontRight;
     public DcMotor frontLeft;
     public DcMotor backLeft;
@@ -21,7 +19,6 @@ public class sheaTeleOp extends LinearOpMode {
     public Servo wrist;
     public Servo elbow;
     public Servo bucketServoL;
-    public Servo bucketServoR;
 
     @Override
     public void runOpMode() {
@@ -38,7 +35,6 @@ public class sheaTeleOp extends LinearOpMode {
         wrist = hardwareMap.get(Servo.class, "wristServo");
         elbow = hardwareMap.get(Servo.class, "elbowServo");
         bucketServoL = hardwareMap.get(Servo.class, "bucketServoL");
-        bucketServoR = hardwareMap.get(Servo.class, "bucketServoR");
 
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -119,12 +115,12 @@ public class sheaTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.dpad_left){
-                intakeLeft.setPower(-.3);
-                intakeRight.setPower(.3);
+                intakeLeft.setPower(-.4);
+                intakeRight.setPower(.4);
             }
             else if (gamepad2.dpad_right){
-                intakeLeft.setPower(.5);
-                intakeRight.setPower(-.5);
+                intakeLeft.setPower(.2);
+                intakeRight.setPower(-.2);
             }
             else {
                 intakeLeft.setPower(0);
@@ -169,13 +165,12 @@ public class sheaTeleOp extends LinearOpMode {
                 upMotor.setPower(0);
             }
 
+            //bucket drop
             if (gamepad2.right_trigger > .9){
                 bucketServoL.setPosition(1);
-                bucketServoR.setPosition(-1);
             }
             else {
                 bucketServoL.setPosition(0.3);
-                bucketServoR.setPosition(0.3);
             }
 
 

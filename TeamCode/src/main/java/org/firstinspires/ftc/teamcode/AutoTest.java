@@ -32,5 +32,6 @@ public class AutoTest extends LinearOpMode {
     public void runOpMode() {
     //start with sample, deposit in HB
     //drive to sample (x3) line, intake sample
+    //deposit in HB and park?
     }
 }

@@ -10,7 +10,7 @@ package org.firstinspires.ftc.teamcode;
 @TeleOp
 
 public class sheaTeleOp extends LinearOpMode {
-int num;
+    int num;
     public DcMotor frontRight;
     public DcMotor frontLeft;
     public DcMotor backLeft;

@@ -17,12 +17,12 @@ public class AutoTest extends LinearOpMode {
     public CRServo intakeRight;
     public Servo wrist;
     public Servo elbow;
-    public Servo bucketServoL;
+    public Servo bucketServo;
 
     public void depositHB() {
         upMotor.setPower(1);
         sleep(3000); //time the slide rises for to reach
-        bucketServoL.setPosition(1); //position that drops sample
+        bucketServo.setPosition(1); //position that drops sample
         sleep(2000); //hopefully goes back after this time, position needs to be set again?
         upMotor.setPower(-1);
         sleep(1000); //goes back down for 1 sec

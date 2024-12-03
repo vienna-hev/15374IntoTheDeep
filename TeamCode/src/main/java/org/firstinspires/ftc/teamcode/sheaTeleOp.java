@@ -18,7 +18,7 @@ public class sheaTeleOp extends LinearOpMode {
     public CRServo intakeRight;
     public Servo wrist;
     public Servo elbow;
-    public Servo bucketServoL;
+    public Servo bucketServo;
 
     @Override
     public void runOpMode() {
@@ -34,7 +34,7 @@ public class sheaTeleOp extends LinearOpMode {
         intakeRight = hardwareMap.get(CRServo.class, "intakeServoR");
         wrist = hardwareMap.get(Servo.class, "wristServo");
         elbow = hardwareMap.get(Servo.class, "elbowServo");
-        bucketServoL = hardwareMap.get(Servo.class, "bucketServoL");
+        bucketServo = hardwareMap.get(Servo.class, "bucketServo");
 
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -167,10 +167,10 @@ public class sheaTeleOp extends LinearOpMode {
 
             //bucket drop
             if (gamepad2.right_trigger > .9){
-                bucketServoL.setPosition(1);
+                bucketServo.setPosition(1);
             }
             else {
-                bucketServoL.setPosition(0.3);
+                bucketServo.setPosition(0.3);
             }
 
 

@@ -86,6 +86,7 @@ public class AutoTestRL extends LinearOpMode {
         elbowOut();
         moveIntake(.4); //intake
         wristUp();
+        elbowIn(); //???
         Actions.runBlocking(S1toHB);
         depositHB();
     }

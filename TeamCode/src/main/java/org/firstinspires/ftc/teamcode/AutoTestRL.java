@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorDigitalTouch;
+
 @Autonomous
 public class AutoTestRL extends LinearOpMode {
     public DcMotor upMotor;
@@ -22,6 +24,8 @@ public class AutoTestRL extends LinearOpMode {
     Action driveToHB;
     Action driveToS1;
     Action S1toHB;
+//    public SensorDigitalTouch touchSensor;
+//    touchSensor = hardwaremap.get(SensorDigitalTouch.class, "touchSensor");
 
     public void depositHB() {
         upMotor.setPower(1);

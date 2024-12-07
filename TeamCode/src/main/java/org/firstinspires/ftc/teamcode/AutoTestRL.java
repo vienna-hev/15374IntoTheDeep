@@ -30,6 +30,19 @@ public class AutoTestRL extends LinearOpMode {
         upMotor.setPower(-1);
         sleep(1000); //goes back down for 1 sec
     }
+    public void moveIntake(double power) {
+        intakeLeft.setPower(power);
+        intakeRight.setPower(-power);
+    }
+    public void WristUp() {
+        wrist.setPosition(.3);
+    }
+    public void WristDown() {
+        wrist.setPosition(.8);
+    }
+    public void moveElbow() {
+        elbow.setPosition();
+    }
 
     @Override
     public void runOpMode() {
@@ -42,18 +55,22 @@ public class AutoTestRL extends LinearOpMode {
 
         Pose2d dropRedHB = new Pose2d(-60, -20.25, Math.toRadians(225));
 
+
         driveToHB = drive.actionBuilder(initialPose)
                 .splineTo(new Vector2d(-60, -20.25), Math.toRadians(225))
                 //y vector coordinate may be too high
                 .build();
 
         driveToS1 = drive.actionBuilder(dropRedHB)
-                        .build();
+                .splineTo(new Vector2d(-49.5, -46), Math.toRadians(90))
+                .build();
 
         waitForStart();
         Actions.runBlocking(driveToHB);
         depositHB();
+        Actions.runBlocking(driveToS1);
+
     }
 }
 
-//17.5 wide x 10 long to center
+//robot dimensions: 17.5 wide x 10 long to center

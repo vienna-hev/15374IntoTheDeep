@@ -21,6 +21,7 @@ public class AutoTestRL extends LinearOpMode {
     public Servo bucketServo;
     Action driveToHB;
     Action driveToS1;
+    Action S1toHB;
 
     public void depositHB() {
         upMotor.setPower(1);
@@ -31,45 +32,58 @@ public class AutoTestRL extends LinearOpMode {
         sleep(1000); //goes back down for 1 sec
     }
     public void moveIntake(double power) {
-        intakeLeft.setPower(power);
-        intakeRight.setPower(-power);
+        intakeLeft.setPower(-power);
+        intakeRight.setPower(power);
     }
-    public void WristUp() {
+    //.4 to go intake, -.2 to outtake
+    public void wristUp() {
         wrist.setPosition(.3);
     }
-    public void WristDown() {
+    public void wristDown() {
         wrist.setPosition(.8);
     }
-    public void moveElbow(double position) {
-        elbow.setPosition(position);
+    public void elbowOut() {
+        elbow.setPosition(.8);
+    }
+    public void elbowIn() {
+        elbow.setPosition(.4);
     }
 
     @Override
     public void runOpMode() {
         //start with sample, deposit in HB
         //drive to sample (x3) line, intake sample
-        //deposit in HB and park?
+        //deposit in HB and park at submersible
         Pose2d initialPose = new Pose2d(-15.25, -62, Math.toRadians(90));
         //x start position is left side aligned with tile side, against the back, facing forward
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
-        Pose2d dropRedHB = new Pose2d(-60, -20.25, Math.toRadians(225));
+        Pose2d redHB = new Pose2d(-60, -20.25, Math.toRadians(225));
 
 
         driveToHB = drive.actionBuilder(initialPose)
-                .splineTo(new Vector2d(-60, -20.25), Math.toRadians(225))
+                .splineTo(new Vector2d(-60, -20.25), Math.toRadians(225)) //HB
                 //y vector coordinate may be too high
                 .build();
 
-        driveToS1 = drive.actionBuilder(dropRedHB)
-                .splineTo(new Vector2d(-49.5, -46), Math.toRadians(90))
+        driveToS1 = drive.actionBuilder(redHB)
+                .splineTo(new Vector2d(-49.5, -46), Math.toRadians(90)) //S1
+                .build();
+
+        S1toHB = drive.actionBuilder(new Pose2d(-49.5, -46, Math.toRadians(90))) //S1
+                .splineTo(new Vector2d(-60, -20.25), Math.toRadians(225)) //HB
                 .build();
 
         waitForStart();
         Actions.runBlocking(driveToHB);
         depositHB();
         Actions.runBlocking(driveToS1);
-
+        wristDown();
+        elbowOut();
+        moveIntake(.4); //intake
+        wristUp();
+        Actions.runBlocking(S1toHB);
+        depositHB();
     }
 }
 

@@ -40,8 +40,8 @@ public class AutoTestRL extends LinearOpMode {
     public void WristDown() {
         wrist.setPosition(.8);
     }
-    public void moveElbow() {
-        elbow.setPosition();
+    public void moveElbow(double position) {
+        elbow.setPosition(position);
     }
 
     @Override

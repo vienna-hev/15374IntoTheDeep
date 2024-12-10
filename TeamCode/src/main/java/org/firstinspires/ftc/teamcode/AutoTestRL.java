@@ -25,7 +25,7 @@ public class AutoTestRL extends LinearOpMode {
     Action driveToHB;
     Action driveToS1;
     Action S1toHB;
-//    public TouchSensor touchSensor;
+    public TouchSensor touchSensor;
 //    TouchSensor touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
 
     public void depositHB() {
@@ -37,14 +37,25 @@ public class AutoTestRL extends LinearOpMode {
         sleep(1000); //goes back down for 1 sec
     }
     public void moveIntake(double power) {
+        for (int x = 8; x > 0; x--){
+            if(!touchSensor.isPressed()){
+                intakeLeft.setPower(-power);hg
+                intakeRight.setPower(power);
+                sleep(1000);
+            }
+            else {
+                intakeLeft.setPower(0);
+                intakeRight.setPower(0);
+                break;
+            }
+        }
+
 //        while (!touchSensor.isPressed()){
 //            intakeLeft.setPower(-power);
 //            intakeRight.setPower(power);
 //        }
-        intakeLeft.setPower(-power);
-        intakeRight.setPower(power);
     }
-    //.4 to go intake, -.2 to outtake
+    //.4 to intake, -.2 to outtake
     public void wristUp() {
         wrist.setPosition(.3);
     }

@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorDigitalTouch;
 
@@ -24,8 +25,8 @@ public class AutoTestRL extends LinearOpMode {
     Action driveToHB;
     Action driveToS1;
     Action S1toHB;
-//    public SensorDigitalTouch touchSensor;
-//    touchSensor = hardwaremap.get(SensorDigitalTouch.class, "touchSensor");
+//    public TouchSensor touchSensor;
+//    TouchSensor touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
 
     public void depositHB() {
         upMotor.setPower(1);
@@ -36,6 +37,10 @@ public class AutoTestRL extends LinearOpMode {
         sleep(1000); //goes back down for 1 sec
     }
     public void moveIntake(double power) {
+//        while (!touchSensor.isPressed()){
+//            intakeLeft.setPower(-power);
+//            intakeRight.setPower(power);
+//        }
         intakeLeft.setPower(-power);
         intakeRight.setPower(power);
     }

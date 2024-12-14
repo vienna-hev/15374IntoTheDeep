@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -10,6 +11,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorDigitalTouch;
 
 @Autonomous
 public class AutoTestRL extends LinearOpMode {
@@ -82,9 +85,8 @@ public class AutoTestRL extends LinearOpMode {
 
         Pose2d redHB = new Pose2d(-56, -52, Math.toRadians(225));
 
-
         driveToHB = drive.actionBuilder(initialPose)
-                .splineTo(new Vector2d(-56, -52), Math.toRadians(225)) //HB
+                .splineToLinearHeading(new Pose2d(-56, -52, Math.toRadians(90)), Math.toRadians(225)) //HB
                 //y vector coordinate may be too high
                 .build();
 

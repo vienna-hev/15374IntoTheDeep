@@ -23,8 +23,13 @@ public class AutoTestRL extends LinearOpMode {
     public Servo elbow;
     public Servo bucketServo;
     Action driveToHB;
-    Action driveToS1;
+    Action HBtoS1;
     Action S1toHB;
+    Action HBtoS2;
+    Action S2toHB;
+//    Action HBtoS3;
+//    Action S3toHB;
+    Action HBtoPark;
     public TouchSensor touchSensor;
 //    TouchSensor touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
 
@@ -39,7 +44,7 @@ public class AutoTestRL extends LinearOpMode {
     public void moveIntake(double power) {
         for (int x = 8; x > 0; x--){
             if(!touchSensor.isPressed()){
-                intakeLeft.setPower(-power);hg
+                intakeLeft.setPower(-power);
                 intakeRight.setPower(power);
                 sleep(1000);
             }
@@ -78,26 +83,46 @@ public class AutoTestRL extends LinearOpMode {
         //x start position is left side aligned with tile side, against the back, facing forward
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
-        Pose2d redHB = new Pose2d(-60, -20.25, Math.toRadians(225));
+        Pose2d redHB = new Pose2d(-56, -52, Math.toRadians(225));
 
 
         driveToHB = drive.actionBuilder(initialPose)
-                .splineTo(new Vector2d(-60, -20.25), Math.toRadians(225)) //HB
+                .splineTo(new Vector2d(-56, -52), Math.toRadians(225)) //HB
                 //y vector coordinate may be too high
                 .build();
 
-        driveToS1 = drive.actionBuilder(redHB)
+        HBtoS1 = drive.actionBuilder(redHB)
                 .splineTo(new Vector2d(-49.5, -46), Math.toRadians(90)) //S1
                 .build();
 
         S1toHB = drive.actionBuilder(new Pose2d(-49.5, -46, Math.toRadians(90))) //S1
-                .splineTo(new Vector2d(-60, -20.25), Math.toRadians(225)) //HB
+                .splineTo(new Vector2d(-56, -52), Math.toRadians(225)) //HB
+                .build();
+
+        HBtoS2 = drive.actionBuilder(redHB)
+                .splineTo(new Vector2d(-58, -46), Math.toRadians(90))
+                .build();
+
+        S2toHB = drive.actionBuilder(new Pose2d(-58, -46, Math.toRadians(90)))
+                .splineTo(new Vector2d(-56, -52), Math.toRadians(225))
+                .build();
+
+//        HBtoS3 = drive.actionBuilder(redHB)
+//                .splineTo(new Vector2d(-63, -46), Math.toRadians(90))
+//                .build();
+//
+//        S3toHB = drive.actionBuilder(new Pose2d(-63, -46, Math.toRadians(90)))
+//                .splineTo(new Vector2d(-56, -52), Math.toRadians(225))
+//                .build();
+
+        HBtoPark = drive.actionBuilder(redHB)
+                .splineTo(new Vector2d(-26, -10), Math.toRadians(360))
                 .build();
 
         waitForStart();
         Actions.runBlocking(driveToHB);
         depositHB();
-        Actions.runBlocking(driveToS1);
+        Actions.runBlocking(HBtoS1);
         wristDown();
         elbowOut();
         moveIntake(.4); //intake
@@ -105,6 +130,15 @@ public class AutoTestRL extends LinearOpMode {
         elbowIn(); //???
         Actions.runBlocking(S1toHB);
         depositHB();
+        Actions.runBlocking(HBtoS2);
+        wristDown();
+        elbowOut();
+        moveIntake(.4); //intake
+        wristUp();
+        elbowIn(); //???
+        Actions.runBlocking(S2toHB);
+        depositHB();
+        Actions.runBlocking(HBtoPark);
     }
 }
 

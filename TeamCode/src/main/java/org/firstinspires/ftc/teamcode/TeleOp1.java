@@ -153,7 +153,7 @@ public class TeleOp1 extends LinearOpMode {
 //            }
 
             if (gamepad2.right_stick_x > 0.9){
-                elbow.setPosition(0.80); 
+                elbow.setPosition(0.80);
             }
             else{
                 elbow.setPosition(0.40);

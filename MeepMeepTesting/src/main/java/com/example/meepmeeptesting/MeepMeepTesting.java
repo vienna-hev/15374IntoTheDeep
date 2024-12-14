@@ -1,6 +1,7 @@
 package com.example.meepmeeptesting;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 
 import org.rowlandhall.meepmeep.MeepMeep;
 import org.rowlandhall.meepmeep.roadrunner.DefaultBotBuilder;
@@ -13,8 +14,15 @@ public class MeepMeepTesting {
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 16.5)
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(15.75, -60, Math.toRadians(90)))
-                        .forward(.01)
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-15.25, -62, Math.toRadians(90)))
+                        .splineTo(new Vector2d(-56, -52), Math.toRadians(225))
+                        .splineTo(new Vector2d(-49.5, -46), Math.toRadians(90))
+                        .splineTo(new Vector2d(-56, -52), Math.toRadians(225))
+                        .splineTo(new Vector2d(-58, -46), Math.toRadians(90))
+                        .splineTo(new Vector2d(-56, -52), Math.toRadians(225))
+                        .splineTo(new Vector2d(-63, -46), Math.toRadians(90))
+                       // .splineTo(new Vector2d(-56, -52), Math.toRadians(225))
+                        .splineTo(new Vector2d(-26, -10), Math.toRadians(360))
                         .build());
 
 

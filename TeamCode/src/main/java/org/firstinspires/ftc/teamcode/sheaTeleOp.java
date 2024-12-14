@@ -16,25 +16,30 @@ public class sheaTeleOp extends LinearOpMode {
     public DcMotor upMotor;
     public CRServo intakeLeft;
     public CRServo intakeRight;
-    public Servo wrist;
+    public Servo wristRight;
+    public Servo wristLeft;
+    public Servo wristFront;
     public Servo elbow;
     public Servo bucketServo;
 
     @Override
     public void runOpMode() {
 
-        frontRight = hardwareMap.get(DcMotor.class, "right_front");
-        frontLeft = hardwareMap.get(DcMotor.class, "left_front");
-        backLeft = hardwareMap.get(DcMotor.class, "left_back");
-        backRight = hardwareMap.get(DcMotor.class, "right_back");
+        frontRight = hardwareMap.get(DcMotor.class, "FR");
+        frontLeft = hardwareMap.get(DcMotor.class, "FL");
+        backLeft = hardwareMap.get(DcMotor.class, "BL");
+        backRight = hardwareMap.get(DcMotor.class, "BR");
 
-        upMotor = hardwareMap.get(DcMotor.class, "upMotor");
+        upMotor = hardwareMap.get(DcMotor.class, "UM");
 
-        intakeLeft = hardwareMap.get(CRServo.class, "intakeServoL");
-        intakeRight = hardwareMap.get(CRServo.class, "intakeServoR");
-        wrist = hardwareMap.get(Servo.class, "wristServo");
-        elbow = hardwareMap.get(Servo.class, "elbowServo");
-        bucketServo = hardwareMap.get(Servo.class, "bucketServo");
+        intakeLeft = hardwareMap.get(CRServo.class, "ISL");
+        intakeRight = hardwareMap.get(CRServo.class, "ISR");
+        wristRight = hardwareMap.get(Servo.class, "WR");
+        wristLeft = hardwareMap.get(Servo.class, "WL");
+        elbow = hardwareMap.get(Servo.class, "ES");
+        bucketServo = hardwareMap.get(Servo.class, "BS");
+        wristFront = hardwareMap.get(Servo.class, "WF");
+
 
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -148,7 +153,7 @@ public class sheaTeleOp extends LinearOpMode {
 //            }
 
             if (gamepad2.right_stick_x > 0.9){
-                elbow.setPosition(0.80);
+                elbow.setPosition(0.80); 1v
             }
             else{
                 elbow.setPosition(0.40);

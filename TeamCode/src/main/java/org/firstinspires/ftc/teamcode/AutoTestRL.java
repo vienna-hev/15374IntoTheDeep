@@ -120,7 +120,7 @@ public class AutoTestRL extends LinearOpMode {
 
         waitForStart();
         Actions.runBlocking(driveToHB);
-        depositHB();
+        depositHB(); //error
         Actions.runBlocking(HBtoS1);
         wristDown();
         elbowOut();

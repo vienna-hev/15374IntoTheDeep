@@ -11,68 +11,26 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 @Autonomous
 public class AutoTestRL extends LinearOpMode {
-    public DcMotor upMotor;
-    public CRServo intakeLeft;
-    public CRServo intakeRight;
-    public Servo wrist;
-    public Servo elbow;
-    public Servo bucketServo;
     Action driveToHB;
     Action HBtoS1;
     Action S1toHB;
     Action HBtoS2;
     Action S2toHB;
+    Action depositHB;
     //    Action HBtoS3;
 //    Action S3toHB;
     Action HBtoPark;
-    public TouchSensor touchSensor;
-//    TouchSensor touchSensor = hardwareMap.get(TouchSensor.class, "touchSensor");
-
-    public void depositHB() {
-        upMotor.setPower(1);
-        sleep(3000); //time the slide rises for to reach
-        bucketServo.setPosition(1); //position that drops sample
-        sleep(2000); //hopefully goes back after this time, position needs to be set again?
-        upMotor.setPower(-1);
-        sleep(1000); //goes back down for 1 sec
-        }
-    public void moveIntake(double power) {
-        for (int x = 8; x > 0; x--){
-            if(!touchSensor.isPressed()){
-                intakeLeft.setPower(-power);
-                intakeRight.setPower(power);
-                sleep(1000);
-            }
-            else {
-                intakeLeft.setPower(0);
-                intakeRight.setPower(0);
-                break;
-            }
-        }
-
-//        while (!touchSensor.isPressed()){
-//            intakeLeft.setPower(-power);
-//            intakeRight.setPower(power);
-//        }
-    }
-    //.4 to intake, -.2 to outtake
-    public void wristUp() {
-        wrist.setPosition(.3);
-    }
-    public void wristDown() {
-        wrist.setPosition(.8);
-    }
-    public void elbowOut() {
-        elbow.setPosition(.8);
-    }
-    public void elbowIn() {
-        elbow.setPosition(.4);
-    }
+    public RRHardware hardware;
 
     @Override
     public void runOpMode() {
+        hardware = new RRHardware(hardwareMap);
         //start with sample, deposit in HB
         //drive to sample (x3) line, intake sample
         //deposit in HB and park at submersible
@@ -117,23 +75,23 @@ public class AutoTestRL extends LinearOpMode {
 
         waitForStart();
         Actions.runBlocking(driveToHB);
-        depositHB(); //error
+        hardware.depositHB(); //error
         Actions.runBlocking(HBtoS1);
-        wristDown();
-        elbowOut();
-        moveIntake(.4); //intake
-        wristUp();
-        elbowIn(); //???
+        hardware.wristDown();
+        hardware.elbowOut();
+     //   moveIntake(.4); //intake
+        hardware.wristUp();
+        hardware.elbowIn(); //???
         Actions.runBlocking(S1toHB);
-        depositHB();
+        hardware.depositHB();
         Actions.runBlocking(HBtoS2);
-        wristDown();
-        elbowOut();
-        moveIntake(.4); //intake
-        wristUp();
-        elbowIn(); //???
+        hardware.wristDown();
+        hardware.elbowOut();
+     //   moveIntake(.4); //intake
+        hardware.wristUp();
+        hardware.elbowIn();
         Actions.runBlocking(S2toHB);
-        depositHB();
+        hardware.depositHB();
         Actions.runBlocking(HBtoPark);
     }
 }

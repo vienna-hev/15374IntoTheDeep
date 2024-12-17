@@ -48,9 +48,9 @@ public class sheaTeleOp extends LinearOpMode {
         upMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         //frontRight.setDirection(DcMotorSimple.Direction.REVERSE); ///undo???
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
         //backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         double drivespeed = -0.5;
@@ -83,16 +83,18 @@ public class sheaTeleOp extends LinearOpMode {
 //                backRight.setPower(1);
 
             if (gamepad1.right_bumper) {
-                frontLeft.setPower(-turnSpeed);
-                frontRight.setPower(turnSpeed);
-                backLeft.setPower(-turnSpeed);
-                backRight.setPower(turnSpeed);
-            } else if (gamepad1.left_bumper) {
                 frontLeft.setPower(turnSpeed);
                 frontRight.setPower(-turnSpeed);
                 backLeft.setPower(turnSpeed);
                 backRight.setPower(-turnSpeed);
-            } else if (gamepad1.left_stick_y > 0.9) {
+            } else if (gamepad1.left_bumper) {
+                frontLeft.setPower(-turnSpeed);
+                frontRight.setPower(turnSpeed);
+                backLeft.setPower(-turnSpeed);
+                backRight.setPower(turnSpeed);
+
+            }
+            if (gamepad1.left_stick_y > 0.9) {
                 frontLeft.setPower(drivespeed);
                 frontRight.setPower(drivespeed);
                 backLeft.setPower(drivespeed);
@@ -119,31 +121,33 @@ public class sheaTeleOp extends LinearOpMode {
                 backRight.setPower(0);
             }
 
-            if (gamepad2.dpad_left){
+            if (gamepad2.dpad_left) {
                 intakeLeft.setPower(-.4);
                 intakeRight.setPower(.4);
-            }
-            else if (gamepad2.dpad_right){
+            } else if (gamepad2.dpad_right) {
                 intakeLeft.setPower(.2);
                 intakeRight.setPower(-.2);
-            }
-            else {
+            } else {
                 intakeLeft.setPower(0);
                 intakeRight.setPower(0);
             }
 
-            if (gamepad2.left_stick_y> 0.9){
-                wristLeft.setPosition(.30);
-                wristRight.setPosition(.30);
+            if (gamepad2.left_stick_y > 0.9) {
+                wristLeft.setPosition(.20);
+                wristRight.setPosition(-.20);
                 wristFront.setPosition(0);
 //                num = 1;
-            }
-            else if (gamepad2.left_stick_y< 0.9){
-                wristLeft.setPosition(.80);
-                wristRight.setPosition(.80);
+            } else if (gamepad2.left_stick_y < 0.9) {
+                wristLeft.setPosition(-.77);
+                wristRight.setPosition(.77);
                 wristFront.setPosition(1);
 //                num =2;
             }
+//            else {
+//                wristLeft.setPosition(.9);
+//                wristRight.setPosition(-.9);
+//                wristFront.setPosition(1);
+
 //            else{
 //                if (num == 1){
 //                    wrist.setPosition(.85);
@@ -156,29 +160,25 @@ public class sheaTeleOp extends LinearOpMode {
 //                }
 //            }
 
-            if (gamepad2.right_stick_x > 0.9){
+            if (gamepad2.right_stick_x > 0.9) {
                 elbow.setPosition(0.80);
-            }
-            else{
+            } else {
                 elbow.setPosition(0.40);
             }
 
 
-            if (gamepad2.y){
+            if (gamepad2.y) {
                 upMotor.setPower(1);
-            }
-            else if (gamepad2.x){
+            } else if (gamepad2.x) {
                 upMotor.setPower(-0.6);
-            }
-            else{
+            } else {
                 upMotor.setPower(0);
             }
 
             //bucket drop
-            if (gamepad2.right_trigger > .9){
+            if (gamepad2.right_trigger > .9) {
                 bucketServo.setPosition(1);
-            }
-            else {
+            } else {
                 bucketServo.setPosition(0.3);
             }
 

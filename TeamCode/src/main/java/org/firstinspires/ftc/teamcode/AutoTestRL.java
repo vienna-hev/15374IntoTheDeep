@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -11,8 +10,6 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.SensorDigitalTouch;
 
 @Autonomous
 public class AutoTestRL extends LinearOpMode {
@@ -40,7 +37,7 @@ public class AutoTestRL extends LinearOpMode {
         sleep(2000); //hopefully goes back after this time, position needs to be set again?
         upMotor.setPower(-1);
         sleep(1000); //goes back down for 1 sec
-    }
+        }
     public void moveIntake(double power) {
         for (int x = 8; x > 0; x--){
             if(!touchSensor.isPressed()){

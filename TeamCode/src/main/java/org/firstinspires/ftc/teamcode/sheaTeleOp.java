@@ -134,10 +134,14 @@ public class sheaTeleOp extends LinearOpMode {
 
             if (gamepad2.left_stick_y> 0.9){
                 wristLeft.setPosition(.30);
+                wristRight.setPosition(.30);
+                wristFront.setPosition(0);
 //                num = 1;
             }
             else if (gamepad2.left_stick_y< 0.9){
                 wristLeft.setPosition(.80);
+                wristRight.setPosition(.80);
+                wristFront.setPosition(1);
 //                num =2;
             }
 //            else{

@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple; //???
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -13,7 +14,7 @@ public class sheaTeleOp extends LinearOpMode {
     public DcMotor frontLeft;
     public DcMotor backLeft;
     public DcMotor backRight;
-    public DcMotor upMotor;
+    public DcMotorEx upMotor;
     public CRServo intakeLeft;
     public CRServo intakeRight;
     public Servo wristRight;
@@ -30,7 +31,7 @@ public class sheaTeleOp extends LinearOpMode {
         backLeft = hardwareMap.get(DcMotor.class, "BL");
         backRight = hardwareMap.get(DcMotor.class, "BR");
 
-        upMotor = hardwareMap.get(DcMotor.class, "UM");
+        upMotor = hardwareMap.get(DcMotorEx.class, "UM");
 
         intakeLeft = hardwareMap.get(CRServo.class, "ISL");
         intakeRight = hardwareMap.get(CRServo.class, "ISR");
@@ -45,7 +46,7 @@ public class sheaTeleOp extends LinearOpMode {
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        upMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        upMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
 
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -82,12 +83,12 @@ public class sheaTeleOp extends LinearOpMode {
 //                backLeft.setPower(-1);
 //                backRight.setPower(1);
 
-            if (gamepad1.right_bumper) {
+            if (gamepad1.left_bumper) {
                 frontLeft.setPower(turnSpeed);
                 frontRight.setPower(-turnSpeed);
                 backLeft.setPower(turnSpeed);
                 backRight.setPower(-turnSpeed);
-            } else if (gamepad1.left_bumper) {
+            } else if (gamepad1.right_bumper) {
                 frontLeft.setPower(-turnSpeed);
                 frontRight.setPower(turnSpeed);
                 backLeft.setPower(-turnSpeed);
@@ -122,43 +123,26 @@ public class sheaTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.dpad_left) {
-                intakeLeft.setPower(-.4);
-                intakeRight.setPower(.4);
+                intakeLeft.setPower(-.5);
+                intakeRight.setPower(.5);
             } else if (gamepad2.dpad_right) {
-                intakeLeft.setPower(.2);
-                intakeRight.setPower(-.2);
+                intakeLeft.setPower(.6);
+                intakeRight.setPower(-.6);
             } else {
                 intakeLeft.setPower(0);
                 intakeRight.setPower(0);
             }
 
             if (gamepad2.left_stick_y > 0.9) {
-                wristLeft.setPosition(.20);
-                wristRight.setPosition(-.20);
-                wristFront.setPosition(0);
-//                num = 1;
-            } else if (gamepad2.left_stick_y < 0.9) {
-                wristLeft.setPosition(-.77);
-                wristRight.setPosition(.77);
+                wristLeft.setPosition(.1);
+                wristRight.setPosition(.1);
                 wristFront.setPosition(1);
-//                num =2;
             }
-//            else {
-//                wristLeft.setPosition(.9);
-//                wristRight.setPosition(-.9);
-//                wristFront.setPosition(1);
-
-//            else{
-//                if (num == 1){
-//                    wrist.setPosition(.85);
-//                }
-//                else if (num == 2){
-//                    wrist.setPosition(.25);
-//                }
-//                else {
-//                    wrist.setPosition(0);
-//                }
-//            }
+            else if (gamepad2.left_stick_y < 0.9) {
+                wristLeft.setPosition(1);
+                wristRight.setPosition(1);
+                wristFront.setPosition(0);
+            }
 
             if (gamepad2.right_stick_x > 0.9) {
                 elbow.setPosition(0.80);
@@ -166,6 +150,12 @@ public class sheaTeleOp extends LinearOpMode {
                 elbow.setPosition(0.40);
             }
 
+//            if (gamepad1.x) {
+//                wristFront.setPosition(1);
+//            }
+//            else {
+//                wristFront.setPosition(0);
+//            }
 
             if (gamepad2.y) {
                 upMotor.setPower(1);

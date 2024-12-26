@@ -55,14 +55,6 @@ public class RRHardware {
         sleep(2000); //hopefully goes back after this time, position needs to be set again?
         upMotor.setPower(-1);
         sleep(2000); //goes back down for 1 sec
-//        upMotor.setTargetPosition(1000);
-//        upMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        sleep(1500); //time the slide rises for to reach
-//        bucketServo.setPosition(1); //position that drops sample
-//        sleep(2000); //hopefully goes back after this time, position needs to be set again?
-//        upMotor.setTargetPosition(200);
-//        upMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        sleep(2000); //goes back down for 1 sec
     }
     public void intakeDown(double power) {
         intakeLeft.setPower(-power);
@@ -85,8 +77,6 @@ public class RRHardware {
         wristFront.setPosition(1);
         sleep(1000);
     }
-
-
 //    public void moveIntake(double power) {
 //        for (int x = 8; x > 0; x--){
 //            if(!touchSensor.isPressed()){

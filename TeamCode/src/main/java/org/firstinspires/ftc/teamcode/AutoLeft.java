@@ -15,8 +15,8 @@ public class AutoLeft extends LinearOpMode {
     Action HBtoS2;
     Action S2toHB;
     Action depositHB;
-    //    Action HBtoS3;
-//    Action S3toHB;
+    Action HBtoS3;
+    Action S3toHB;
     Action HBtoPark;
     public RRHardware hardware;
 
@@ -30,7 +30,7 @@ public class AutoLeft extends LinearOpMode {
         //x start position is left side aligned with tile side, against the back, facing forward
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
-        Pose2d redHB = new Pose2d(-56, -52, Math.toRadians(45));
+        Pose2d redHB = new Pose2d(-54, -57, Math.toRadians(45));
 
         driveToHB = drive.actionBuilder(initialPose)
                 .splineToLinearHeading(new Pose2d(-54, -57, Math.toRadians(45)), Math.toRadians(270))
@@ -38,7 +38,7 @@ public class AutoLeft extends LinearOpMode {
                 .build();
 
         HBtoS1 = drive.actionBuilder(redHB)
-                .splineTo(new Vector2d(-49.5, -46), Math.toRadians(90)) //S1
+                .splineToLinearHeading(new Pose2d(-49.5, -46, Math.toRadians(90)), Math.toRadians(90)) //S1
                 .build();
 
         S1toHB = drive.actionBuilder(new Pose2d(-49.5, -46, Math.toRadians(90))) //S1

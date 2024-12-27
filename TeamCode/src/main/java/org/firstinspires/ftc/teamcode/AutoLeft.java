@@ -33,6 +33,7 @@ public class AutoLeft extends LinearOpMode {
         Pose2d redHB = new Pose2d(-54, -57, Math.toRadians(45));
 
         driveToHB = drive.actionBuilder(initialPose)
+                .setTangent(Math.toRadians(90))
                 .splineToLinearHeading(new Pose2d(-54, -57, Math.toRadians(45)), Math.toRadians(270))
                 //y vector coordinate may be too high
                 .build();
@@ -53,13 +54,13 @@ public class AutoLeft extends LinearOpMode {
                 .splineTo(new Vector2d(-56, -52), Math.toRadians(225))
                 .build();
 
-//        HBtoS3 = drive.actionBuilder(redHB)
-//                .splineTo(new Vector2d(-63, -46), Math.toRadians(90))
-//                .build();
-//
-//        S3toHB = drive.actionBuilder(new Pose2d(-63, -46, Math.toRadians(90)))
-//                .splineTo(new Vector2d(-56, -52), Math.toRadians(225))
-//                .build();
+        HBtoS3 = drive.actionBuilder(redHB)
+                .splineTo(new Vector2d(-63, -46), Math.toRadians(90))
+                .build();
+
+        S3toHB = drive.actionBuilder(new Pose2d(-63, -46, Math.toRadians(90)))
+                .splineTo(new Vector2d(-56, -52), Math.toRadians(225))
+                .build();
 
         HBtoPark = drive.actionBuilder(redHB)
                 .splineTo(new Vector2d(-26, -10), Math.toRadians(360))
@@ -68,23 +69,23 @@ public class AutoLeft extends LinearOpMode {
         waitForStart();
         Actions.runBlocking(driveToHB);
         hardware.depositHB();
-        //Actions.runBlocking(HBtoS1);
-//        hardware.wristDown();
-//        hardware.elbowOut();
-//        hardware.intakeDown(.4); //intake
-//        hardware.wristUp();
-//        hardware.elbowIn(); //???
-//        Actions.runBlocking(S1toHB);
-//        hardware.depositHB();
-//        Actions.runBlocking(HBtoS2);
-//        hardware.wristDown();
-//        hardware.elbowOut();
-//        hardware.intakeUp(.4); //intake
-//        hardware.wristUp();
-//        hardware.elbowIn();
-//        Actions.runBlocking(S2toHB);
-//        hardware.depositHB();
-//        Actions.runBlocking(HBtoPark);
+        Actions.runBlocking(HBtoS1);
+        hardware.wristDown();
+        hardware.elbowOut();
+        hardware.intakeDown(.4); //intake
+        hardware.wristUp();
+        hardware.elbowIn(); //???
+        Actions.runBlocking(S1toHB);
+        hardware.depositHB();
+        Actions.runBlocking(HBtoS2);
+        hardware.wristDown();
+        hardware.elbowOut();
+        hardware.intakeUp(.4); //intake
+        hardware.wristUp();
+        hardware.elbowIn();
+        Actions.runBlocking(S2toHB);
+        hardware.depositHB();
+        Actions.runBlocking(HBtoPark);
     }
 }
 

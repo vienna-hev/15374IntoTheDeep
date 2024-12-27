@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -26,6 +27,9 @@ public class RRHardware {
         frontLeft = hardwareMap.get(DcMotor.class, "FL");
         backLeft = hardwareMap.get(DcMotor.class, "BL");
         backRight = hardwareMap.get(DcMotor.class, "BR");
+
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         upMotor = hardwareMap.get(DcMotorEx.class, "UM");
 

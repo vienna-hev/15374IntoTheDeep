@@ -50,12 +50,12 @@ public class sheaTeleOp extends LinearOpMode {
 
 
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        //frontRight.setDirection(DcMotorSimple.Direction.REVERSE); ///undo???
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        //backRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        double drivespeed = -0.5;
-        double turnSpeed = -1;
+        double drivespeed = 0.8;
+        double turnSpeed = 1;
 
 
         waitForStart();
@@ -82,7 +82,7 @@ public class sheaTeleOp extends LinearOpMode {
 //                frontRight.setPower(1);
 //                backLeft.setPower(-1);
 //                backRight.setPower(1);
-
+/*
             if (gamepad1.left_bumper) {
                 frontLeft.setPower(turnSpeed);
                 frontRight.setPower(-turnSpeed);
@@ -121,7 +121,7 @@ public class sheaTeleOp extends LinearOpMode {
                 backLeft.setPower(0);
                 backRight.setPower(0);
             }
-
+*/
             if (gamepad2.dpad_left) {
                 intakeLeft.setPower(-.5);
                 intakeRight.setPower(.5);
@@ -160,7 +160,7 @@ public class sheaTeleOp extends LinearOpMode {
             if (gamepad2.y) {
                 upMotor.setPower(1);
             } else if (gamepad2.x) {
-                upMotor.setPower(-0.6);
+                upMotor.setPower(-1);
             } else {
                 upMotor.setPower(0);
             }
@@ -173,9 +173,20 @@ public class sheaTeleOp extends LinearOpMode {
             }
 
 
-            double speed = gamepad1.left_stick_y;
-            double turn = gamepad1.right_stick_x;
-            double strafe = gamepad1.left_stick_x;
+            double speed = gamepad1.left_stick_y * drivespeed;
+            double turn = gamepad1.right_trigger - gamepad1.left_trigger * turnSpeed;
+            double strafe = gamepad1.left_stick_x * drivespeed;
+
+            if(Math.abs(speed) < 0.1){
+                speed = 0;
+            }
+            if(Math.abs(turn) < 0.1){
+                turn = 0;
+            }
+            if(Math.abs(strafe) < 0.1){
+                strafe = 0;
+            }
+
             frontLeft.setPower(-speed + turn + strafe);
             frontRight.setPower(-speed - turn - strafe);
             backLeft.setPower(-speed + turn - strafe);

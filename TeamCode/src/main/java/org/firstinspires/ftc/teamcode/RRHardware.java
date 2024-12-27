@@ -53,6 +53,7 @@ public class RRHardware {
         sleep(1500); //time the slide rises for to reach
         bucketServo.setPosition(1); //position that drops sample
         sleep(2000); //hopefully goes back after this time, position needs to be set again?
+        bucketServo.setPosition(0.3); //reset the bucket so it does not hit the baskets
         upMotor.setPower(-1);
         sleep(2000); //goes back down for 1 sec
     }

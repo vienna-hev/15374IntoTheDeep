@@ -14,7 +14,6 @@ public class AutoLeft extends LinearOpMode {
     Action S1toHB;
     Action HBtoS2;
     Action S2toHB;
-    Action depositHB;
     Action HBtoS3;
     Action S3toHB;
     Action HBtoPark;
@@ -30,19 +29,17 @@ public class AutoLeft extends LinearOpMode {
         //x start position is left side aligned with tile side, against the back, facing forward
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
-        Pose2d redHB = new Pose2d(-54, -57, Math.toRadians(45));
+        Pose2d redHB = new Pose2d(-52, -56, Math.toRadians(45));
 
         driveToHB = drive.actionBuilder(initialPose)
-                .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(-54, -57, Math.toRadians(45)), Math.toRadians(270))
-                //y vector coordinate may be too high
+                .splineToLinearHeading(new Pose2d(-52, -56, Math.toRadians(45)), Math.toRadians(270))
                 .build();
 
         HBtoS1 = drive.actionBuilder(redHB)
-                .splineToLinearHeading(new Pose2d(-49.5, -46, Math.toRadians(90)), Math.toRadians(90)) //S1
+                .splineToLinearHeading(new Pose2d(-49, -44, Math.toRadians(90)), Math.toRadians(90)) //S1
                 .build();
 
-        S1toHB = drive.actionBuilder(new Pose2d(-49.5, -46, Math.toRadians(90))) //S1
+        S1toHB = drive.actionBuilder(new Pose2d(-49.5, -44, Math.toRadians(90))) //S1
                 .splineTo(new Vector2d(-56, -52), Math.toRadians(225)) //HB
                 .build();
 
@@ -69,23 +66,24 @@ public class AutoLeft extends LinearOpMode {
         waitForStart();
         Actions.runBlocking(driveToHB);
         hardware.depositHB();
-        Actions.runBlocking(HBtoS1);
-        hardware.wristDown();
-        hardware.elbowOut();
-        hardware.intakeDown(.4); //intake
-        hardware.wristUp();
-        hardware.elbowIn(); //???
-        Actions.runBlocking(S1toHB);
-        hardware.depositHB();
-        Actions.runBlocking(HBtoS2);
-        hardware.wristDown();
-        hardware.elbowOut();
-        hardware.intakeUp(.4); //intake
-        hardware.wristUp();
-        hardware.elbowIn();
-        Actions.runBlocking(S2toHB);
-        hardware.depositHB();
-        Actions.runBlocking(HBtoPark);
+
+//        Actions.runBlocking(HBtoS1);
+//        hardware.wristDown();
+//        hardware.elbowOut();
+//        hardware.intakeDown(.4); //intake
+//        hardware.wristUp();
+//        hardware.elbowIn(); //???
+//        Actions.runBlocking(S1toHB);
+//        hardware.depositHB();
+//        Actions.runBlocking(HBtoS2);
+//        hardware.wristDown();
+//        hardware.elbowOut();
+//        hardware.intakeUp(.4); //intake
+//        hardware.wristUp();
+//        hardware.elbowIn();
+//        Actions.runBlocking(S2toHB);
+//        hardware.depositHB();
+//        Actions.runBlocking(HBtoPark);
     }
 }
 

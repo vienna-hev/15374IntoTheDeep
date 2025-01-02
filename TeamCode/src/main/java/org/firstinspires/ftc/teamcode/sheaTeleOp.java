@@ -61,28 +61,28 @@ public class sheaTeleOp extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-//            if (gamepad1.right_bumper) {
-//                frontLeft.setPower(-drivespeed);
-//                frontRight.setPower(drivespeed);
-//                backLeft.setPower(-drivespeed);
-//                backRight.setPower(drivespeed);
-//            } else if (gamepad1.left_bumper) {
-//                frontLeft.setPower(drivespeed);
-//                frontRight.setPower(-drivespeed);
-//                backLeft.setPower(drivespeed);
-//                backRight.setPower(-drivespeed);
+/*            if (gamepad1.right_bumper) {
+                frontLeft.setPower(-drivespeed);
+                frontRight.setPower(drivespeed);
+                backLeft.setPower(-drivespeed);
+                backRight.setPower(drivespeed);
+            } else if (gamepad1.left_bumper) {
+                frontLeft.setPower(drivespeed);
+                frontRight.setPower(-drivespeed);
+                backLeft.setPower(drivespeed);
+                backRight.setPower(-drivespeed);
 
-//            if (gamepad1.right_bumper) {
-//                frontLeft.setPower(1);
-//                frontRight.setPower(-1);
-//                backLeft.setPower(1);
-//                backRight.setPower(-1);
-//            } else if (gamepad1.left_bumper) {
-//                frontLeft.setPower(-1);
-//                frontRight.setPower(1);
-//                backLeft.setPower(-1);
-//                backRight.setPower(1);
-/*
+            if (gamepad1.right_bumper) {
+                frontLeft.setPower(1);
+                frontRight.setPower(-1);
+                backLeft.setPower(1);
+                backRight.setPower(-1);
+            } else if (gamepad1.left_bumper) {
+                frontLeft.setPower(-1);
+                frontRight.setPower(1);
+                backLeft.setPower(-1);
+                backRight.setPower(1);
+
             if (gamepad1.left_bumper) {
                 frontLeft.setPower(turnSpeed);
                 frontRight.setPower(-turnSpeed);
@@ -167,11 +167,10 @@ public class sheaTeleOp extends LinearOpMode {
 
             //bucket drop
             if (gamepad2.right_trigger > .9) {
-                bucketServo.setPosition(1);
+                bucketServo.setPosition(.5);
             } else {
-                bucketServo.setPosition(0.3);
+                bucketServo.setPosition(0);
             }
-
 
             double speed = gamepad1.left_stick_y * drivespeed;
             double turn = gamepad1.right_trigger - gamepad1.left_trigger * turnSpeed;

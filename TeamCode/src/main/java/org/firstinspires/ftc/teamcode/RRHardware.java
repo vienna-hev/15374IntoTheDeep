@@ -44,6 +44,7 @@ public class RRHardware {
         upMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         upMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
     public final void sleep(long milliseconds) {
         try {
             Thread.sleep(milliseconds);
@@ -55,22 +56,24 @@ public class RRHardware {
     public void depositHB() {
         upMotor.setPower(1);
         sleep(1500); //time the slide rises for to reach
-        bucketServo.setPosition(1); //position that drops sample
-        sleep(2000); //hopefully goes back after this time, position needs to be set again?
-        bucketServo.setPosition(0.3); //reset the bucket so it does not hit the baskets
+        bucketServo.setPosition(.5); //position that drops sample
+        sleep(1600); //hopefully goes back after this time, position needs to be set again?
+        bucketServo.setPosition(0); //reset the bucket so it does not hit the baskets
         upMotor.setPower(-1);
         sleep(2000); //goes back down for 1 sec
     }
+
     public void intakeDown(double power) {
         intakeLeft.setPower(-power);
         intakeRight.setPower(power);
-        wristFront.setPosition(0);
+        wristFront.setPosition(1);
         sleep(1000);
     }
+
     public void intakeUp(double power) {
         intakeLeft.setPower(power);
         intakeRight.setPower(-power);
-        wristFront.setPosition(1);
+        wristFront.setPosition(0);
         sleep(1000);
     }
 
@@ -78,6 +81,7 @@ public class RRHardware {
         wristFront.setPosition(0);
         sleep(1000);
     }
+
     public void turnUp(double power) {
         wristFront.setPosition(1);
         sleep(1000);
@@ -106,13 +110,16 @@ public class RRHardware {
         wristLeft.setPosition(-.3);
         wristRight.setPosition(.3);
     }
+
     public void wristDown() {
         wristLeft.setPosition(.3);
         wristRight.setPosition(-.3);
     }
+
     public void elbowOut() {
         elbow.setPosition(.8);
     }
+
     public void elbowIn() {
         elbow.setPosition(.4);
     }

@@ -62,16 +62,20 @@ public class RRHardware {
         sleep(2000); //goes back down for 1 sec
     }
 
-    public void intakeIn() {
+    public void intakeOut() {
         intakeLeft.setPower(-1);
         intakeRight.setPower(1);
-        sleep(1500);
     }
 
-    public void intakeOut() {
+    public void intakeIn() {
         intakeLeft.setPower(1);
         intakeRight.setPower(-1);
-        sleep(1500);
+        sleep(2000);
+    }
+
+    public void intakeStop() {
+        intakeLeft.setPower(0);
+        intakeRight.setPower(0);
     }
 
     public void turnDown(double power) {
@@ -86,8 +90,8 @@ public class RRHardware {
 
     public void wristDown() {
         wristFront.setPosition(1);
-        wristLeft.setPosition(-.3);
-        wristRight.setPosition(.3);
+        wristLeft.setPosition(-.25);
+        wristRight.setPosition(.25);
         sleep(2000);
     }
 

@@ -12,6 +12,7 @@ public class AutoLeft extends LinearOpMode {
     Action driveToHB;
     Action HBtoS1;
     Action S1toHB;
+    Action forwardAfter;
     Action HBtoS2;
     Action S2toHB;
     Action HBtoS3;
@@ -25,7 +26,7 @@ public class AutoLeft extends LinearOpMode {
         //start with sample, deposit in HB
         //drive to sample (x3) line, intake sample
         //deposit in HB and park at submersible
-        Pose2d initialPose = new Pose2d(-15.25, -62, Math.toRadians(90));
+        Pose2d initialPose = new Pose2d(-15.25, -61, Math.toRadians(90));
         //x start position is left side aligned with tile side, against the back, facing forward
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
@@ -36,10 +37,14 @@ public class AutoLeft extends LinearOpMode {
                 .build();
 
         HBtoS1 = drive.actionBuilder(redHB)
-                .splineToLinearHeading(new Pose2d(-20, -20, Math.toRadians(90)), Math.toRadians(45)) //S1
+                .splineToLinearHeading(new Pose2d(-47.5, -49, Math.toRadians(88)), Math.toRadians(45)) //S1
                 .build();
 
-        S1toHB = drive.actionBuilder(new Pose2d(-49.5, -44, Math.toRadians(90))) //S1
+        forwardAfter = drive.actionBuilder(new Pose2d(-47.5, -49, Math.toRadians(88)))
+                .lineToY(-46)
+                .build();
+
+        S1toHB = drive.actionBuilder(new Pose2d(-49.5, -46, Math.toRadians(88))) //S1
                 .splineToLinearHeading(new Pose2d(-53, -55, Math.toRadians(45)), Math.toRadians(270))
                 .build();
 
@@ -69,7 +74,9 @@ public class AutoLeft extends LinearOpMode {
         Actions.runBlocking(HBtoS1);
         hardware.wristDown();
         hardware.intakeIn();
+        Actions.runBlocking(forwardAfter);
         hardware.wristUp();
+        hardware.intakeStop();
         hardware.intakeOut();
         Actions.runBlocking(S1toHB);
         hardware.depositHB();

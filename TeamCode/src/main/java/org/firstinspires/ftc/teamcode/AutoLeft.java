@@ -42,12 +42,13 @@ public class AutoLeft extends LinearOpMode {
                 .build();
 
         forwardAfter = drive.actionBuilder(new Pose2d(-48, -49, Math.toRadians(88)))
+                .turnTo(Math.toRadians(95))
+                .turnTo(Math.toRadians(85))
+                .turnTo(Math.toRadians(90))
                 .lineToY(-42)
-                .turn(Math.toRadians(110))
-                .turn(Math.toRadians(70))
                 .build();
 
-        S1toHB = drive.actionBuilder(new Pose2d(-42, -49, Math.toRadians(70))) //S1
+        S1toHB = drive.actionBuilder(new Pose2d(-42, -49, Math.toRadians(90))) //S1
                 .splineToLinearHeading(new Pose2d(-53, -50, Math.toRadians(45)), Math.toRadians(180))
                 .build();
 
@@ -56,20 +57,22 @@ public class AutoLeft extends LinearOpMode {
                 .build();
 
         forwardAfter2 = drive.actionBuilder(new Pose2d(-58, -49, Math.toRadians(88)))
-                .lineToY(-44)
+                .turnTo(Math.toRadians(95))
+                .turnTo(Math.toRadians(85))
+                .turnTo(Math.toRadians(90))
+                .lineToY(-42)
                 .build();
 
-        S2toHB = drive.actionBuilder(new Pose2d(-58, -44, Math.toRadians(90)))
-                .splineTo(new Vector2d(-53, -50), Math.toRadians(225))
+        S2toHB = drive.actionBuilder(new Pose2d(-58, -42, Math.toRadians(90)))
+                .splineTo(new Vector2d(-53, -50), Math.toRadians(45))
                 .build();
 
         HBtoS3 = drive.actionBuilder(redHB)
-                .splineTo(new Vector2d(-63, -44), Math.toRadians(90))
-                .waitSeconds(1)
+                .splineTo(new Vector2d(-63, -18), Math.toRadians(180))
                 .build();
 
-        S3toHB = drive.actionBuilder(new Pose2d(-63, -46, Math.toRadians(90)))
-                .splineTo(new Vector2d(-53, -55), Math.toRadians(225))
+        S3toHB = drive.actionBuilder(new Pose2d(-63, -18, Math.toRadians(180)))
+                .strafeTo(new Vector2d(-53, -50))
                 .build();
 
         HBtoPark = drive.actionBuilder(redHB)
@@ -79,27 +82,35 @@ public class AutoLeft extends LinearOpMode {
         waitForStart();
         Actions.runBlocking(driveToHB);
         hardware.depositHB();
-//        Actions.runBlocking(HBtoS1);
-//        hardware.wristDown();
-//        hardware.intakeIn();
-//        Actions.runBlocking(forwardAfter);
-//        hardware.wristUp();
-//        hardware.intakeStop();
-//        hardware.intakeSlideIn();
-//        hardware.intakeOut();
-//        Actions.runBlocking(S1toHB);
-//        hardware.depositHB();
+        Actions.runBlocking(HBtoS1);
+        hardware.upMotor.setPower(-1);
+        hardware.intakeIn();
+        hardware.wristDown();
+        sleep(2000);
+        Actions.runBlocking(forwardAfter); //intake in MORE after?
+        hardware.wristUp();
+        hardware.intakeStop();
+        hardware.intakeSlideIn();
+        sleep(3000);
+        hardware.intakeOut();
+        sleep(1500);
+        Actions.runBlocking(S1toHB);
+        hardware.depositHB();
+        hardware.upMotor.setPower(-1);
+        sleep(1900);
 //        Actions.runBlocking(HBtoS2);
-//        hardware.wristDown();
 //        hardware.intakeIn();
+//        hardware.wristDown();
 //        Actions.runBlocking(forwardAfter2);
 //        hardware.wristUp();
 //        hardware.intakeStop();
 //        hardware.intakeSlideIn();
 //        hardware.intakeOut();
+//        hardware.intakeStop();
 //        Actions.runBlocking(S2toHB);
 //        hardware.depositHB();
-//        Actions.runBlocking(HBtoPark);
+        Actions.runBlocking(HBtoS3);
+        Actions.runBlocking(S3toHB);
     }
 }
 

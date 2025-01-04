@@ -55,24 +55,23 @@ public class RRHardware {
 
     public void depositHB() {
         upMotor.setPower(1);
-        sleep(1900); //time the slide rises for to reach
+        sleep(2500); //time the slide rises for to reach
         bucketServo.setPosition(.5); //position that drops sample
         sleep(1600); //hopefully goes back after this time, position needs to be set again?
         bucketServo.setPosition(0); //reset the bucket so it does not hit the baskets
         upMotor.setPower(-1);
-        sleep(2000); //goes back down for 1 sec
+//        sleep(1900); //goes back down for 1 sec
     }
 
     public void intakeOut() {
         intakeLeft.setPower(-1);
         intakeRight.setPower(1);
-        sleep(3000);
     }
 
     public void intakeIn() {
         intakeLeft.setPower(1);
         intakeRight.setPower(-1);
-        sleep(3000);
+//        sleep(1000);
     }
 
     public void intakeStop() {
@@ -84,14 +83,14 @@ public class RRHardware {
         wristFront.setPosition(1);
         wristLeft.setPosition(-.25);
         wristRight.setPosition(.25);
-        sleep(2000);
+//        sleep(2000);
     }
 
     public void wristUp() {
         wristFront.setPosition(0);
         wristLeft.setPosition(-.79);
         wristRight.setPosition(.79);
-        sleep(3000);
+//        sleep(3000);
     }
 
     public void intakeSlideOut() {

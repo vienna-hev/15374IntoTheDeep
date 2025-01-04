@@ -137,8 +137,7 @@ public class sheaTeleOp extends LinearOpMode {
                 wristLeft.setPosition(.1);
                 wristRight.setPosition(.1);
                 wristFront.setPosition(1);
-            }
-            else if (gamepad2.left_stick_y < 0.9) {
+            } else if (gamepad2.left_stick_y < 0.9) {
                 wristLeft.setPosition(1);
                 wristRight.setPosition(1);
                 wristFront.setPosition(0);
@@ -173,23 +172,23 @@ public class sheaTeleOp extends LinearOpMode {
             }
 
             double speed = gamepad1.left_stick_y * drivespeed;
-            double turn = gamepad1.right_trigger - gamepad1.left_trigger * turnSpeed;
+            double turn = (gamepad1.right_trigger - gamepad1.left_trigger) * turnSpeed;
             double strafe = gamepad1.left_stick_x * drivespeed;
 
-            if(Math.abs(speed) < 0.1){
+            if (Math.abs(speed) < 0.1) {
                 speed = 0;
             }
-            if(Math.abs(turn) < 0.1){
+            if (Math.abs(turn) < 0.1) {
                 turn = 0;
             }
-            if(Math.abs(strafe) < 0.1){
+            if (Math.abs(strafe) < 0.1) {
                 strafe = 0;
             }
 
-            frontLeft.setPower(-speed + turn + strafe);
-            frontRight.setPower(-speed - turn - strafe);
-            backLeft.setPower(-speed + turn - strafe);
-            backRight.setPower(-speed - turn + strafe);
+        frontLeft.setPower(-speed + turn + strafe);
+        frontRight.setPower(-speed - turn - strafe);
+        backLeft.setPower(-speed + turn - strafe);
+        backRight.setPower(-speed - turn + strafe);
         }
     }
 }

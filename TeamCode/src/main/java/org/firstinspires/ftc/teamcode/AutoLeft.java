@@ -29,34 +29,34 @@ public class AutoLeft extends LinearOpMode {
         //x start position is left side aligned with tile side, against the back, facing forward
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
-        Pose2d redHB = new Pose2d(-52, -56, Math.toRadians(45));
+        Pose2d redHB = new Pose2d(-53, -50, Math.toRadians(45));
 
         driveToHB = drive.actionBuilder(initialPose)
-                .splineToLinearHeading(new Pose2d(-52, -56, Math.toRadians(45)), Math.toRadians(270))
+                .splineToLinearHeading(new Pose2d(-53, -50, Math.toRadians(45)), Math.toRadians(270))
                 .build();
 
         HBtoS1 = drive.actionBuilder(redHB)
-                .splineToLinearHeading(new Pose2d(-49, -44, Math.toRadians(90)), Math.toRadians(90)) //S1
+                .splineToLinearHeading(new Pose2d(-20, -20, Math.toRadians(90)), Math.toRadians(45)) //S1
                 .build();
 
         S1toHB = drive.actionBuilder(new Pose2d(-49.5, -44, Math.toRadians(90))) //S1
-                .splineTo(new Vector2d(-56, -52), Math.toRadians(225)) //HB
+                .splineToLinearHeading(new Pose2d(-53, -55, Math.toRadians(45)), Math.toRadians(270))
                 .build();
 
         HBtoS2 = drive.actionBuilder(redHB)
-                .splineTo(new Vector2d(-58, -46), Math.toRadians(90))
+                .splineTo(new Vector2d(-58, -44), Math.toRadians(90))
                 .build();
 
         S2toHB = drive.actionBuilder(new Pose2d(-58, -46, Math.toRadians(90)))
-                .splineTo(new Vector2d(-56, -52), Math.toRadians(225))
+                .splineTo(new Vector2d(-53, -55), Math.toRadians(225))
                 .build();
 
         HBtoS3 = drive.actionBuilder(redHB)
-                .splineTo(new Vector2d(-63, -46), Math.toRadians(90))
+                .splineTo(new Vector2d(-63, -44), Math.toRadians(90))
                 .build();
 
         S3toHB = drive.actionBuilder(new Pose2d(-63, -46, Math.toRadians(90)))
-                .splineTo(new Vector2d(-56, -52), Math.toRadians(225))
+                .splineTo(new Vector2d(-53, -55), Math.toRadians(225))
                 .build();
 
         HBtoPark = drive.actionBuilder(redHB)
@@ -66,24 +66,22 @@ public class AutoLeft extends LinearOpMode {
         waitForStart();
         Actions.runBlocking(driveToHB);
         hardware.depositHB();
-
-//        Actions.runBlocking(HBtoS1);
-//        hardware.wristDown();
-//        hardware.elbowOut();
-//        hardware.intakeDown(.4); //intake
-//        hardware.wristUp();
-//        hardware.elbowIn(); //???
-//        Actions.runBlocking(S1toHB);
-//        hardware.depositHB();
-//        Actions.runBlocking(HBtoS2);
-//        hardware.wristDown();
-//        hardware.elbowOut();
-//        hardware.intakeUp(.4); //intake
-//        hardware.wristUp();
-//        hardware.elbowIn();
-//        Actions.runBlocking(S2toHB);
-//        hardware.depositHB();
-//        Actions.runBlocking(HBtoPark);
+        Actions.runBlocking(HBtoS1);
+        hardware.wristDown();
+        hardware.intakeIn();
+        hardware.wristUp();
+        hardware.intakeOut();
+        Actions.runBlocking(S1toHB);
+        hardware.depositHB();
+        Actions.runBlocking(HBtoS2);
+        hardware.wristDown();
+        hardware.intakeSlideOut();
+        hardware.intakeIn(); //intake
+        hardware.wristUp();
+        hardware.intakeSlideIn();
+        Actions.runBlocking(S2toHB);
+        hardware.depositHB();
+        Actions.runBlocking(HBtoPark);
     }
 }
 

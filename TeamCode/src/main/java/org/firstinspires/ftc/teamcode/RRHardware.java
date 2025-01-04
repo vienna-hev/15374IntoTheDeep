@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -65,27 +66,18 @@ public class RRHardware {
     public void intakeOut() {
         intakeLeft.setPower(-1);
         intakeRight.setPower(1);
+        sleep(3000);
     }
 
     public void intakeIn() {
         intakeLeft.setPower(1);
         intakeRight.setPower(-1);
-        sleep(2000);
+        sleep(3000);
     }
 
     public void intakeStop() {
         intakeLeft.setPower(0);
         intakeRight.setPower(0);
-    }
-
-    public void turnDown(double power) {
-        wristFront.setPosition(0);
-        sleep(1000);
-    }
-
-    public void turnUp(double power) {
-        wristFront.setPosition(1);
-        sleep(1000);
     }
 
     public void wristDown() {
@@ -97,8 +89,8 @@ public class RRHardware {
 
     public void wristUp() {
         wristFront.setPosition(0);
-        wristLeft.setPosition(-.77);
-        wristRight.setPosition(.77);
+        wristLeft.setPosition(-.79);
+        wristRight.setPosition(.79);
         sleep(3000);
     }
 
@@ -111,6 +103,15 @@ public class RRHardware {
     }
 }
 
+//        public void turnDown(double power) {
+//        wristFront.setPosition(0);
+//        sleep(1000);
+//    }
+//
+//    public void turnUp(double power) {
+//        wristFront.setPosition(1);
+//        sleep(1000);
+//    }
 
 //public void moveIntake(double power) {
 //        for (int x = 8; x > 0; x--){

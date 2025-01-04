@@ -54,7 +54,7 @@ public class sheaTeleOp extends LinearOpMode {
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        double drivespeed = 0.8;
+        double drivespeed = 1;
         double turnSpeed = 1;
 
 

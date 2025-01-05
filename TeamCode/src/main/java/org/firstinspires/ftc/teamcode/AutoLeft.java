@@ -88,7 +88,7 @@ public class AutoLeft extends LinearOpMode {
         hardware.intakeIn();
         hardware.wristDown();
         sleep(2000);
-        Actions.runBlocking(forwardAfter); //intake in MORE after?
+        Actions.runBlocking(forwardAfter);
         hardware.wristUp();
         hardware.intakeStop();
         hardware.intakeSlideIn();
@@ -110,7 +110,7 @@ public class AutoLeft extends LinearOpMode {
 //        hardware.intakeStop();
 //        Actions.runBlocking(S2toHB);
 //        hardware.depositHB();
-        Actions.runBlocking(HBtoS3);
+        Actions.runBlocking(HBtoS3); //THIS IS ACTUALLY MOVING S2
         Actions.runBlocking(S3toHB);
     }
 }

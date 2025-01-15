@@ -34,7 +34,7 @@ public class sharkMode extends LinearOpMode {
         bucketServo = hardwareMap.get(Servo.class, "BS");
 
         intakeServo = hardwareMap.get(CRServo.class, "IS");
-        intakeExtension = hardwareMap.get(Servo.class, "EI");
+        intakeExtension = hardwareMap.get(Servo.class, "IE");
         wristRight = hardwareMap.get(Servo.class, "WR");
         wristLeft = hardwareMap.get(Servo.class, "WL");
         wristFront = hardwareMap.get(Servo.class, "WF");

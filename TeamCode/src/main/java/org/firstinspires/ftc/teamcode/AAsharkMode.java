@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
-public class sharkMode extends LinearOpMode {
+public class AAsharkMode extends LinearOpMode {
     public DcMotor frontRight;
     public DcMotor frontLeft;
     public DcMotor backLeft;
@@ -19,7 +19,8 @@ public class sharkMode extends LinearOpMode {
     public Servo wristRight;
     public Servo wristLeft;
     public Servo wristFront;
-    public Servo intakeExtension;
+    public Servo intakeExtensionR;
+    public Servo intakeExtensionL;
     public Servo bucketServo;
 
     @Override
@@ -34,7 +35,8 @@ public class sharkMode extends LinearOpMode {
         bucketServo = hardwareMap.get(Servo.class, "BS");
 
         intakeServo = hardwareMap.get(CRServo.class, "IS");
-        intakeExtension = hardwareMap.get(Servo.class, "IE");
+        intakeExtensionR = hardwareMap.get(Servo.class, "IER");
+        intakeExtensionL = hardwareMap.get(Servo.class, "IEL");
         wristRight = hardwareMap.get(Servo.class, "WR");
         wristLeft = hardwareMap.get(Servo.class, "WL");
         wristFront = hardwareMap.get(Servo.class, "WF");
@@ -73,9 +75,11 @@ public class sharkMode extends LinearOpMode {
             }
 
             if (gamepad2.right_stick_x > 0.9) { //arm out
-                intakeExtension.setPosition(0.80);
+                intakeExtensionL.setPosition(0.80);
+                intakeExtensionR.setPosition(-0.80);
             } else {
-                intakeExtension.setPosition(0.40);
+                intakeExtensionL.setPosition(0.40);
+                intakeExtensionR.setPosition(-0.40);
             }
 
             if (gamepad2.y) { //bucket rise

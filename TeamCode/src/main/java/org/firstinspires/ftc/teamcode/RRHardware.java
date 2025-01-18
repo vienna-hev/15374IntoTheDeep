@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -19,7 +18,8 @@ public class RRHardware {
     public Servo wristRight;
     public Servo wristLeft;
     public Servo wristFront;
-    public Servo elbow;
+    public Servo intakeExtensionR;
+    public Servo intakeExtensionL;
     public Servo bucketServo;
 
     public RRHardware(HardwareMap hardwareMap) {
@@ -37,7 +37,8 @@ public class RRHardware {
         intakeRight = hardwareMap.get(CRServo.class, "ISR");
         wristRight = hardwareMap.get(Servo.class, "WR");
         wristLeft = hardwareMap.get(Servo.class, "WL");
-        elbow = hardwareMap.get(Servo.class, "ES");
+        intakeExtensionL = hardwareMap.get(Servo.class, "IEL");
+        intakeExtensionR = hardwareMap.get(Servo.class, "IER");
         bucketServo = hardwareMap.get(Servo.class, "BS");
         wristFront = hardwareMap.get(Servo.class, "WF");
 
@@ -60,7 +61,6 @@ public class RRHardware {
         sleep(1600); //hopefully goes back after this time, position needs to be set again?
         bucketServo.setPosition(0); //reset the bucket so it does not hit the baskets
         upMotor.setPower(-1);
-//        sleep(1900); //goes back down for 1 sec
     }
 
     public void intakeOut() {
@@ -71,7 +71,6 @@ public class RRHardware {
     public void intakeIn() {
         intakeLeft.setPower(1);
         intakeRight.setPower(-1);
-//        sleep(1000);
     }
 
     public void intakeStop() {
@@ -83,23 +82,22 @@ public class RRHardware {
         wristFront.setPosition(1);
         wristLeft.setPosition(-.25);
         wristRight.setPosition(.25);
-//        sleep(2000);
     }
 
     public void wristUp() {
         wristFront.setPosition(0);
         wristLeft.setPosition(-.79);
         wristRight.setPosition(.79);
-//        sleep(3000);
     }
 
     public void intakeSlideOut() {
-        elbow.setPosition(.8);
+        intakeExtensionL.setPosition(.8);
+        intakeExtensionR.setPosition(-.8);
     }
 
     public void intakeSlideIn() {
-        elbow.setPosition(.4);
-    }
+        intakeExtensionL.setPosition(.4);
+        intakeExtensionR.setPosition(-.4);    }
 }
 
 //        public void turnDown(double power) {

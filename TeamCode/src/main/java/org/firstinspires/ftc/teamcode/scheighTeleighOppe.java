@@ -9,18 +9,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class scheighTeleighOppe extends LinearOpMode {
-    public DcMotor frontRight;
-    public DcMotor frontLeft;
-    public DcMotor backLeft;
-    public DcMotor backRight;
-    public DcMotorEx lift;
-    public CRServo clawLeft;
-    public CRServo clawRight;
-    public Servo pitchRight;
-    public Servo pitchLeft;
-    public Servo roll;
-    public Servo extend;
-    public Servo bucket;
+    public DcMotor frontRight, frontLeft, backRight, backLeft;
+    public DcMotorEx liftRight, liftLeft;
+    public Servo pitchRight, pitchLeft, extendRight, extendLeft, bucket, roll;
+    public CRServo intakeRight, intakeLeft;
 
     @Override
     public void runOpMode() {
@@ -30,21 +22,17 @@ public class scheighTeleighOppe extends LinearOpMode {
         backRight = hardwareMap.get(DcMotor.class, "BR");
         backLeft = hardwareMap.get(DcMotor.class, "BL");
 
-        lift = hardwareMap.get(DcMotorEx.class, "UM");
-        clawRight = hardwareMap.get(CRServo.class, "ISR");
-        clawLeft = hardwareMap.get(CRServo.class, "ISL");
-        pitchRight = hardwareMap.get(Servo.class, "WR");
-        pitchLeft = hardwareMap.get(Servo.class, "WL");
-        extend = hardwareMap.get(Servo.class, "ES");
-        bucket = hardwareMap.get(Servo.class, "BS");
-        roll = hardwareMap.get(Servo.class, "WF");
-        
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        lift.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        
+        liftRight = hardwareMap.get(DcMotorEx.class, "RUM");
+        liftLeft = hardwareMap.get(DcMotorEx.class, "LUM");
+        intakeRight = hardwareMap.get(CRServo.class, "intakeServoRight"); //STILL NEED TO CONFIGURE
+        intakeLeft = hardwareMap.get(CRServo.class, "intakeServoLeft"); //STILL NEED TO CONFIGURE
+        pitchRight = hardwareMap.get(Servo.class, "intakeFoldRight");
+        pitchLeft = hardwareMap.get(Servo.class, "intakeFoldLeft");
+        extendRight = hardwareMap.get(Servo.class, "intakeExtensionRight");
+        extendLeft = hardwareMap.get(Servo.class, "intakeExtensionLeft");
+        bucket = hardwareMap.get(Servo.class, "bucketServo");
+        roll = hardwareMap.get(Servo.class, "intakeTurn");
+
         double drivespeed = 1;
         double strafespeed = 1;
         double turnSpeed = 1;
@@ -55,14 +43,14 @@ public class scheighTeleighOppe extends LinearOpMode {
 
         while (opModeIsActive()) {
             if (gamepad2.dpad_left) {
-                clawLeft.setPower(-.5);
-                clawRight.setPower(.5);
+                intakeLeft.setPower(-.5);
+                intakeRight.setPower(.5);
             } else if (gamepad2.dpad_right) {
-                clawLeft.setPower(.6);
-                clawRight.setPower(-.6);
+                intakeLeft.setPower(.6);
+                intakeRight.setPower(-.6);
             } else {
-                clawLeft.setPower(0);
-                clawRight.setPower(0);
+                intakeLeft.setPower(0);
+                intakeRight.setPower(0);
             }
 
             if (gamepad2.left_stick_y > 0.5) {
@@ -76,17 +64,22 @@ public class scheighTeleighOppe extends LinearOpMode {
             }
 
             if (gamepad2.right_stick_x > 0.5) {
-                extend.setPosition(0.80);
+                extendRight.setPosition(0.80);
+                extendLeft.setPosition(-0.80);
             } else {
-                extend.setPosition(0.40);
+                extendRight.setPosition(0.40);
+                extendLeft.setPosition(-0.40);
             }
 
             if (gamepad2.y) {
-                lift.setPower(1 - gamepad2.left_trigger);
+                liftRight.setPower(1 - gamepad2.left_trigger);
+                liftLeft.setPower(gamepad2.left_trigger - 1);
             } else if (gamepad2.x) {
-                lift.setPower(gamepad2.left_trigger - 1);
+                liftRight.setPower(gamepad2.left_trigger - 1);
+                liftLeft.setPower(1 - gamepad2.left_trigger);
             } else {
-                lift.setPower(0);
+                liftRight.setPower(0);
+                liftLeft.setPower(0);
             }
 
             if (gamepad2.right_trigger > .5) {

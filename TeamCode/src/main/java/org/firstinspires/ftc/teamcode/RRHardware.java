@@ -12,11 +12,11 @@ public class RRHardware {
     public DcMotor frontLeft;
     public DcMotor backLeft;
     public DcMotor backRight;
-    public DcMotorEx upMotor;
+    public DcMotorEx leftUpMotor;
+    public DcMotorEx rightUpMotor;
     public CRServo intakeLeft;
     public CRServo intakeRight;
     public Servo wristRight;
-    public Servo wristLeft;
     public Servo wristFront;
     public Servo intakeExtensionR;
     public Servo intakeExtensionL;
@@ -31,19 +31,18 @@ public class RRHardware {
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        upMotor = hardwareMap.get(DcMotorEx.class, "UM");
+        leftUpMotor = hardwareMap.get(DcMotorEx.class, "LUM");
+        rightUpMotor = hardwareMap.get(DcMotorEx.class, "RUM");
+        intakeLeft = hardwareMap.get(CRServo.class, "intakeServoLeft");
+        intakeRight = hardwareMap.get(CRServo.class, "intakeServoRight");
+        wristRight = hardwareMap.get(Servo.class, "wristRight");
+        intakeExtensionL = hardwareMap.get(Servo.class, "intakeExtensionLeft");
+        intakeExtensionR = hardwareMap.get(Servo.class, "intakeExtensionRight");
+        bucketServo = hardwareMap.get(Servo.class, "bucketServo");
+        wristFront = hardwareMap.get(Servo.class, "wristFront");
 
-        intakeLeft = hardwareMap.get(CRServo.class, "ISL");
-        intakeRight = hardwareMap.get(CRServo.class, "ISR");
-        wristRight = hardwareMap.get(Servo.class, "WR");
-        wristLeft = hardwareMap.get(Servo.class, "WL");
-        intakeExtensionL = hardwareMap.get(Servo.class, "IEL");
-        intakeExtensionR = hardwareMap.get(Servo.class, "IER");
-        bucketServo = hardwareMap.get(Servo.class, "BS");
-        wristFront = hardwareMap.get(Servo.class, "WF");
-
-        upMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        upMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        upMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        upMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public final void sleep(long milliseconds) {
@@ -55,12 +54,14 @@ public class RRHardware {
     }
 
     public void depositHB() {
-        upMotor.setPower(1);
+        leftUpMotor.setPower(1);
+        rightUpMotor.setPower(1);
         sleep(2500); //time the slide rises for to reach
         bucketServo.setPosition(.5); //position that drops sample
         sleep(1600); //hopefully goes back after this time, position needs to be set again?
         bucketServo.setPosition(0); //reset the bucket so it does not hit the baskets
-        upMotor.setPower(-1);
+        leftUpMotor.setPower(-1);
+        rightUpMotor.setPower(-1);
     }
 
     public void intakeOut() {
@@ -80,13 +81,13 @@ public class RRHardware {
 
     public void wristDown() {
         wristFront.setPosition(1);
-        wristLeft.setPosition(-.25);
+        wristRight.setPosition(-.25);
         wristRight.setPosition(.25);
     }
 
     public void wristUp() {
         wristFront.setPosition(0);
-        wristLeft.setPosition(-.79);
+        wristRight.setPosition(-.79);
         wristRight.setPosition(.79);
     }
 

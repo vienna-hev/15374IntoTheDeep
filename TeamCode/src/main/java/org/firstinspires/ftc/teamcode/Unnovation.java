@@ -81,16 +81,19 @@ public class Unnovation extends LinearOpMode {
                 .build();
 
         waitForStart();
-        hardware.upMotor.setPower(1); //START moving the lift upward before moving
+        hardware.leftUpMotor.setPower(1); //START moving the lift upward before moving
+        hardware.rightUpMotor.setPower(1);
         Actions.runBlocking(driveToHB); //drive to the high basket while lift lifts
         sleep(1000L); //wait for lift to finish lifting and go fkvjhspvhwlfvgrflfvbskivtwlfgbvbqdquj
         hardware.bucketServo.setPosition(0.5); //drop the preloaded sample
         sleep(1500L); //wait for the sample to fall
         hardware.bucketServo.setPosition(0); //reset the bucket to avoid hitting the baskets
-        hardware.upMotor.setPower(-1); //START moving the lift downward
+        hardware.leftUpMotor.setPower(-1); //START moving the lift downward
+        hardware.rightUpMotor.setPower(-1);
         hardware.intakeIn(); //START intaking before moving to mitigate long delay
         Actions.runBlocking(HBtoS1); //drive to the first sample while lift lowers and intake starts
-        hardware.upMotor.setPower(0); //stop the lift from lowering to mitigate the loppfasdhrfejgtk
+        hardware.leftUpMotor.setPower(0);
+        hardware.rightUpMotor.setPower(0); //stop the lift from lowering to mitigate the loppfasdhrfejgtk
         hardware.wristDown(); //lower the intake (after moving to stop it from dragging)
         sleep(1000L); //wait for the intake to lower
         Actions.runBlocking(forwardAfter); //move forward to eat the sample
@@ -99,16 +102,19 @@ public class Unnovation extends LinearOpMode {
         hardware.intakeSlideIn(); //ensure that the intake is aligned with the outtake
         sleep(3000L); //wait for intake to get positioned for transfer to outtake
         hardware.intakeOut(); //transfer the sample from the intake to the outtake
-        hardware.upMotor.setPower(1); //START lifting lift before moving
+        hardware.leftUpMotor.setPower(1); //START lifting lift before moving
+        hardware.rightUpMotor.setPower(1);
         hardware.intakeStop(); //stop intaking
         Actions.runBlocking(S1toHB); //drive to the high basket
         sleep(1000L); //wait for lift to finish lifting and go akpakcfgjmqwopclsbncuqoncdgqhcqhwvqsk
         hardware.bucketServo.setPosition(0.5); //drop the sample
         sleep(1500L); //wait for the sample to fall
         hardware.bucketServo.setPosition(0); //reset the bucket to avoid hitting the baskets
-        hardware.upMotor.setPower(-1); //START lowering the lift
+        hardware.leftUpMotor.setPower(-1); //START lowering the lift
+        hardware.rightUpMotor.setPower(-1); //START lowering the lift
         sleep(3000L); //TEMPORARY: wait for lift to lower
-        hardware.upMotor.setPower(0); //TEMPORARY: stop lift from lowering
+        hardware.leftUpMotor.setPower(0);
+        hardware.rightUpMotor.setPower(0); //stop the lift from lowering to mitigate the loppfasdhrfejgtk
 //        Actions.runBlocking(HBtoS2);
 //        hardware.intakeIn();
 //        hardware.wristDown();

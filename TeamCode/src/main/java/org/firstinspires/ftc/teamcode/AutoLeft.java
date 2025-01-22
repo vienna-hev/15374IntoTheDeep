@@ -84,7 +84,8 @@ public class AutoLeft extends LinearOpMode {
         Actions.runBlocking(driveToHB);
         hardware.depositHB();
         Actions.runBlocking(HBtoS1);
-        hardware.upMotor.setPower(-1);
+        hardware.leftUpMotor.setPower(1);
+        hardware.rightUpMotor.setPower(1);
         hardware.intakeIn();
         hardware.wristDown();
         sleep(2000);
@@ -97,7 +98,8 @@ public class AutoLeft extends LinearOpMode {
         Actions.runBlocking(S1toHB);
         hardware.depositHB();
         hardware.intakeStop();
-        hardware.upMotor.setPower(-1);
+        hardware.leftUpMotor.setPower(-1);
+        hardware.rightUpMotor.setPower(-1);
         sleep(1900);
 //        Actions.runBlocking(HBtoS2);
 //        hardware.intakeIn();

@@ -14,9 +14,10 @@ public class AAsharkMode extends LinearOpMode {
     public DcMotor frontLeft;
     public DcMotor backLeft;
     public DcMotor backRight;
-    public DcMotorEx upMotor;
-    public CRServo intakeServo;
-    public Servo wristRight;
+    public DcMotorEx leftUpMotor;
+    public DcMotorEx rightUpMotor;
+    public CRServo intakeLeft;
+    public CRServo intakeRight;
     public Servo wristLeft;
     public Servo wristFront;
     public Servo intakeExtensionR;
@@ -25,19 +26,18 @@ public class AAsharkMode extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-
         frontRight = hardwareMap.get(DcMotor.class, "FR");
         frontLeft = hardwareMap.get(DcMotor.class, "FL");
         backLeft = hardwareMap.get(DcMotor.class, "BL");
         backRight = hardwareMap.get(DcMotor.class, "BR");
 
-        upMotor = hardwareMap.get(DcMotorEx.class, "UM");
-        bucketServo = hardwareMap.get(Servo.class, "BS");
-
-        intakeServo = hardwareMap.get(CRServo.class, "IS");
-        intakeExtensionR = hardwareMap.get(Servo.class, "IER");
-        intakeExtensionL = hardwareMap.get(Servo.class, "IEL");
-        wristRight = hardwareMap.get(Servo.class, "WR");
+        leftUpMotor = hardwareMap.get(DcMotorEx.class, "LUM");
+        rightUpMotor = hardwareMap.get(DcMotorEx.class, "RUM");
+        intakeLeft = hardwareMap.get(CRServo.class, "intakeLeft");
+        intakeRight = hardwareMap.get(CRServo.class, "intakeRight");
+        intakeExtensionL = hardwareMap.get(Servo.class, "intakeExtensionLeft");
+        intakeExtensionR = hardwareMap.get(Servo.class, "intakeExtensionRight");
+        bucketServo = hardwareMap.get(Servo.class, "bucketServo");
         wristLeft = hardwareMap.get(Servo.class, "WL");
         wristFront = hardwareMap.get(Servo.class, "WF");
 
@@ -45,7 +45,8 @@ public class AAsharkMode extends LinearOpMode {
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        upMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftUpMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightUpMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -55,45 +56,54 @@ public class AAsharkMode extends LinearOpMode {
         double drivespeed = 1;
         double turnSpeed = 1;
 
-
         waitForStart();
 
         while (opModeIsActive()) {
+            if (gamepad1.b) {
+                intakeExtensionL.setPosition(-.1);
+                intakeExtensionR.setPosition(.1);
+            } else if (gamepad1.x) {
+                intakeExtensionL.setPosition(-.9);
+                intakeExtensionR.setPosition(.9);
+            }
+
             //game pad spots will be changed
-            if (gamepad2.dpad_left) { //arm rotate up and probably intake
+            if (gamepad2.dpad_left) { //arm rotate up and probably outtake
                 wristLeft.setPosition(1);
-                wristRight.setPosition(1);
                 wristFront.setPosition(0);
-                intakeServo.setPower(.5);
-            } else if (gamepad2.dpad_right) { //arm rotate down and probably outtake
+                intakeLeft.setPower(.5);
+                intakeRight.setPower(.5);
+            } else if (gamepad2.dpad_right) { //arm rotate down
                 wristLeft.setPosition(.1);
-                wristRight.setPosition(.1);
                 wristFront.setPosition(1);
-                intakeServo.setPower(-.5);
             } else {
-                intakeServo.setPower(0);
+                intakeLeft.setPower(0);
+                intakeRight.setPower(0);
             }
 
             if (gamepad2.right_stick_x > 0.9) { //arm out
-                intakeExtensionL.setPosition(0.80);
-                intakeExtensionR.setPosition(-0.80);
+                intakeExtensionL.setPosition(0.90);
+                intakeExtensionR.setPosition(-0.90);
             } else {
-                intakeExtensionL.setPosition(0.40);
-                intakeExtensionR.setPosition(-0.40);
+                intakeExtensionL.setPosition(0.10);
+                intakeExtensionR.setPosition(-0.10);
             }
 
             if (gamepad2.y) { //bucket rise
-                upMotor.setPower(1);
+                leftUpMotor.setPower(-1);
+                rightUpMotor.setPower(1);
             } else if (gamepad2.x) { //bucket fall
-                upMotor.setPower(-1);
+                leftUpMotor.setPower(1);
+                rightUpMotor.setPower(-1);
             } else {
-                upMotor.setPower(0);
+                leftUpMotor.setPower(0);
+                rightUpMotor.setPower(0);
             }
 
             if (gamepad2.right_trigger > .9) { //dump bucket
-                bucketServo.setPosition(.5);
+                bucketServo.setPosition(.9);
             } else {
-                bucketServo.setPosition(0);
+                bucketServo.setPosition(.1);
             }
 
             double speed = gamepad1.left_stick_y * drivespeed;
@@ -117,3 +127,6 @@ public class AAsharkMode extends LinearOpMode {
         }
     }
 }
+
+//left extension: 0 extended, left in
+//right extension: 0 extended, right in

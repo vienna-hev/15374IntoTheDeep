@@ -58,15 +58,15 @@ public class AAsharkMode extends LinearOpMode {
                 intakeExtensionR.setPosition(0.465);
             } else if (gamepad1.x) { //extension in
                 intakeExtensionL.setPosition(0.12);
-                intakeExtensionR.setPosition(.68);
+                intakeExtensionR.setPosition(.675);
             }
 
             if (gamepad2.a) { //arm rotate up
+                wristLeft.setPosition(0.45);
+                wristFront.setPosition(1);
+            } else if (gamepad2.b) { //arm rotate down
                 wristLeft.setPosition(1);
                 wristFront.setPosition(-1);
-            } else if (gamepad2.b) { //arm rotate down
-                wristLeft.setPosition(.3);
-                wristFront.setPosition(1);
             }
 
             if (gamepad2.y) { //bucket rise

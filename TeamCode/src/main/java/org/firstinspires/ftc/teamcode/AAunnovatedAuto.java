@@ -31,7 +31,7 @@ public class AAunnovatedAuto extends LinearOpMode {
         //x start position is left side aligned with tile side, against the back, facing forward
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
-        Pose2d redHB = new Pose2d(-54, -46, Math.toRadians(45));
+        Pose2d redHB = new Pose2d(-52, -46, Math.toRadians(45));
 
         driveToHB = drive.actionBuilder(initialPose)
                 .splineToLinearHeading(redHB, Math.toRadians(270))
@@ -39,15 +39,15 @@ public class AAunnovatedAuto extends LinearOpMode {
 
         HBtoS1 = drive.actionBuilder(redHB)
 //                .setTangent(Math.toRadians(45))
-                .splineToLinearHeading(new Pose2d(-48, -46, Math.toRadians(90)), Math.toRadians(45)) //S1
+                .splineToLinearHeading(new Pose2d(-48, -50, Math.toRadians(90)), Math.toRadians(45)) //S1
                 .build();
 
-        forwardAfter = drive.actionBuilder(new Pose2d(-48, -46, Math.toRadians(88)))
+        forwardAfter = drive.actionBuilder(new Pose2d(-48, -50, Math.toRadians(88)))
                 .turnTo(Math.toRadians(90))
                 .lineToY(-42)
                 .build();
 
-        S1toHB = drive.actionBuilder(new Pose2d(-48, -50, Math.toRadians(90))) //S1
+        S1toHB = drive.actionBuilder(new Pose2d(-48, -42, Math.toRadians(90))) //S1
                 .splineToLinearHeading(redHB, Math.toRadians(180))
                 .build();
 
@@ -80,8 +80,7 @@ public class AAunnovatedAuto extends LinearOpMode {
                 .build();
 
         waitForStart();
-        hardware.leftUpMotor.setPower(1); //START moving the lift upward before moving
-        hardware.rightUpMotor.setPower(-1);
+        hardware.liftPower(1); //START moving the lift upward before moving
         Actions.runBlocking(driveToHB); //drive to the high basket while lift lifts
         hardware.leftUpMotor.setPower(0.5);
         hardware.rightUpMotor.setPower(-0.5);
@@ -89,23 +88,25 @@ public class AAunnovatedAuto extends LinearOpMode {
         sleep(1100L); //wait for the sample to fall
         hardware.bucketServo.setPosition(1); //reset the bucket to avoid hitting the baskets
         hardware.wristDown(); //lower the intake (after moving to stop it from dragging)
-        hardware.leftUpMotor.setPower(-1); //START moving the lift downward
-        hardware.rightUpMotor.setPower(1);
+        hardware.liftPower(-1); //START moving the lift downward
         hardware.intakeIn();//START intaking before moving to mitigate long delay
         hardware.intakeSlideIn();
         Actions.runBlocking(HBtoS1); //drive to the first sample while lift lowers and intake starts
         sleep(700L); //wait for the intake to lower
         Actions.runBlocking(forwardAfter); //move forward to eat the sample
-        hardware.leftUpMotor.setPower(0);
-        hardware.rightUpMotor.setPower(0); //stop the lift from lowering to mitigate the loppfasdhrfejgtk
+        hardware.liftPower(0); //stop the lift from lowering to mitigate the loppfasdhrfejgtk
         sleep(800L);
         hardware.wristUp(); //start lifting the intake
         hardware.intakeStop(); //stop intaking
         hardware.intakeSlideIn(); //ensure that the intake is aligned with the outtake
-        sleep(3000L); //wait for intake to get positioned for transfer to outtake
+        sleep(1500L); //wait for intake to get positioned for transfer to outtake
         hardware.intakeOut();
-        sleep(3000L);
-
+        sleep(500L);
+        hardware.liftPower(1);
+        Actions.runBlocking(S1toHB);
+        hardware.bucketServo.setPosition(0.3);
+        hardware.liftPower(0);
+        sleep(1100L);
     }
 }
 

@@ -64,6 +64,11 @@ public class RRHardware {
         rightUpMotor.setPower(-1);
     }
 
+    public void liftPower(double liftPwr) {
+        leftUpMotor.setPower(liftPwr);
+        rightUpMotor.setPower(-liftPwr);
+    }
+
     public void intakeOut() {
         intakeLeft.setPower(-1);
         intakeRight.setPower(1);

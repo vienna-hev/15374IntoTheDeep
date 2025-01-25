@@ -63,12 +63,12 @@ public class MecanumDrive {
 
         // drive model parameters
         public double inPerTick = 1; // SparkFun OTOS Note: you can probably leave this at 1
-        public double lateralInPerTick = 0.6558257375725579;
-        public double trackWidthTicks = 15.33284685090122; //may not need
+        public double lateralInPerTick = 0.6499914395508954;
+        public double trackWidthTicks = 15.377407084235463; //may not need
 
         // feedforward parameters (in tick units)
-        public double kS = 0.9921347480940881;
-        public double kV = 0.19750777512294207;
+        public double kS = 1.3155275649013523;
+        public double kV = 0.14317272425828168;
         public double kA = 0;
 
         // path profile parameters (in inches)
@@ -81,9 +81,9 @@ public class MecanumDrive {
         public double maxAngAccel = Math.PI;
 
         // path controller gains
-        public double axialGain = 4;
-        public double lateralGain = 3;
-        public double headingGain = 6; // shared with turn
+        public double axialGain = 3; //forward
+        public double lateralGain = 5; //left and right
+        public double headingGain = 7; // turning
 
         public double axialVelGain = 0.0;
         public double lateralVelGain = 0.0;
@@ -225,8 +225,6 @@ public class MecanumDrive {
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
         lazyImu = new LazyImu(hardwareMap, "imu", new RevHubOrientationOnRobot(

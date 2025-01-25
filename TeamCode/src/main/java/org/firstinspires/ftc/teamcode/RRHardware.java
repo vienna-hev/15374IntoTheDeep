@@ -16,7 +16,7 @@ public class RRHardware {
     public DcMotorEx rightUpMotor;
     public CRServo intakeLeft;
     public CRServo intakeRight;
-    public Servo wristRight;
+    public Servo wristLeft;
     public Servo wristFront;
     public Servo intakeExtensionR;
     public Servo intakeExtensionL;
@@ -33,13 +33,13 @@ public class RRHardware {
 
         leftUpMotor = hardwareMap.get(DcMotorEx.class, "LUM");
         rightUpMotor = hardwareMap.get(DcMotorEx.class, "RUM");
-        intakeLeft = hardwareMap.get(CRServo.class, "intakeServoLeft");
-        intakeRight = hardwareMap.get(CRServo.class, "intakeServoRight");
-        wristRight = hardwareMap.get(Servo.class, "wristRight");
+        intakeLeft = hardwareMap.get(CRServo.class, "intakeLeft");
+        intakeRight = hardwareMap.get(CRServo.class, "intakeRight");
         intakeExtensionL = hardwareMap.get(Servo.class, "intakeExtensionLeft");
         intakeExtensionR = hardwareMap.get(Servo.class, "intakeExtensionRight");
         bucketServo = hardwareMap.get(Servo.class, "bucketServo");
-        wristFront = hardwareMap.get(Servo.class, "wristFront");
+        wristLeft = hardwareMap.get(Servo.class, "WL");
+        wristFront = hardwareMap.get(Servo.class, "WF");
 
 //        upMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        upMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -80,25 +80,24 @@ public class RRHardware {
     }
 
     public void wristDown() {
-        wristFront.setPosition(1);
-        wristRight.setPosition(-.25);
-        wristRight.setPosition(.25);
+        wristLeft.setPosition(1);
+        wristFront.setPosition(-1);
     }
 
     public void wristUp() {
-        wristFront.setPosition(0);
-        wristRight.setPosition(-.79);
-        wristRight.setPosition(.79);
+        wristLeft.setPosition(.3);
+        wristFront.setPosition(1);
     }
 
     public void intakeSlideOut() {
-        intakeExtensionL.setPosition(.8);
-        intakeExtensionR.setPosition(-.8);
+        intakeExtensionL.setPosition(0.35);
+        intakeExtensionR.setPosition(0.465);
     }
 
     public void intakeSlideIn() {
-        intakeExtensionL.setPosition(.4);
-        intakeExtensionR.setPosition(-.4);    }
+        intakeExtensionL.setPosition(0.12);
+        intakeExtensionR.setPosition(.68);
+    }
 }
 
 //        public void turnDown(double power) {

@@ -10,14 +10,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class AAsharkMode extends LinearOpMode {
-    public DcMotor frontRight;
-    public DcMotor frontLeft;
-    public DcMotor backLeft;
-    public DcMotor backRight;
+    public DcMotor frontRight, frontLeft, backLeft, backRight;
     public DcMotorEx leftUpMotor;
     public DcMotorEx rightUpMotor;
-    public CRServo intakeLeft;
-    public CRServo intakeRight;
+    public CRServo intakeLeft, intakeRight;
     public Servo wristLeft;
     public Servo wristFront;
     public Servo intakeExtensionR;
@@ -48,9 +44,7 @@ public class AAsharkMode extends LinearOpMode {
         leftUpMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         rightUpMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         double drivespeed = 1;
@@ -59,34 +53,20 @@ public class AAsharkMode extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            if (gamepad1.b) {
-                intakeExtensionL.setPosition(-.1);
-                intakeExtensionR.setPosition(.1);
-            } else if (gamepad1.x) {
-                intakeExtensionL.setPosition(-.9);
-                intakeExtensionR.setPosition(.9);
+            if (gamepad1.b) { //extension out
+                intakeExtensionL.setPosition(0.35);
+                intakeExtensionR.setPosition(0.465);
+            } else if (gamepad1.x) { //extension in
+                intakeExtensionL.setPosition(0.12);
+                intakeExtensionR.setPosition(.68);
             }
 
-            //game pad spots will be changed
-            if (gamepad2.dpad_left) { //arm rotate up and probably outtake
+            if (gamepad2.a) { //arm rotate up
                 wristLeft.setPosition(1);
-                wristFront.setPosition(0);
-                intakeLeft.setPower(.5);
-                intakeRight.setPower(.5);
-            } else if (gamepad2.dpad_right) { //arm rotate down
-                wristLeft.setPosition(.1);
+                wristFront.setPosition(-1);
+            } else if (gamepad2.b) { //arm rotate down
+                wristLeft.setPosition(.3);
                 wristFront.setPosition(1);
-            } else {
-                intakeLeft.setPower(0);
-                intakeRight.setPower(0);
-            }
-
-            if (gamepad2.right_stick_x > 0.9) { //arm out
-                intakeExtensionL.setPosition(0.90);
-                intakeExtensionR.setPosition(-0.90);
-            } else {
-                intakeExtensionL.setPosition(0.10);
-                intakeExtensionR.setPosition(-0.10);
             }
 
             if (gamepad2.y) { //bucket rise
@@ -100,11 +80,23 @@ public class AAsharkMode extends LinearOpMode {
                 rightUpMotor.setPower(0);
             }
 
-            if (gamepad2.right_trigger > .9) { //dump bucket
-                bucketServo.setPosition(.9);
+            if (gamepad1.right_bumper) { //dump bucket
+                bucketServo.setPosition(0);
             } else {
-                bucketServo.setPosition(.1);
+                bucketServo.setPosition(1);
             }
+
+            if (gamepad1.a) {
+                    intakeLeft.setPower(1);
+                    intakeRight.setPower(-1);
+            } else if (gamepad1.y) {
+                intakeLeft.setPower(-1);
+                intakeRight.setPower(1);
+            } else {
+                intakeLeft.setPower(0);
+                intakeRight.setPower(0);
+            }
+
 
             double speed = gamepad1.left_stick_y * drivespeed;
             double turn = (gamepad1.right_trigger - gamepad1.left_trigger) * turnSpeed;

@@ -104,9 +104,9 @@ public class AAunnovatedAuto extends LinearOpMode {
         sleep(500L);
         hardware.liftPower(1);
         Actions.runBlocking(S1toHB);
+        sleep(800L);
         hardware.bucketServo.setPosition(0.3);
         hardware.liftPower(0);
-        sleep(1100L);
     }
 }
 

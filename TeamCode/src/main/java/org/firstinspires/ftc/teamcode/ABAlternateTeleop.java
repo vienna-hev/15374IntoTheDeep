@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
-public class AASuperCoolTeleop extends LinearOpMode {
+public class ABAlternateTeleop extends LinearOpMode {
     public DcMotor frontRight, frontLeft, backRight, backLeft;
     public DcMotorEx liftRight, liftLeft;
     public Servo pitch, extendRight, extendLeft, bucket, roll;
@@ -50,10 +50,10 @@ public class AASuperCoolTeleop extends LinearOpMode {
 
         //intake in and out
         while (opModeIsActive()) {
-            if (gamepad2.dpad_left) {
-                    intakeLeft.setPower(-1);
-                    intakeRight.setPower(1);
-            } else if (gamepad2.dpad_right) {
+            if (gamepad2.a) {
+                intakeLeft.setPower(-1);
+                intakeRight.setPower(1);
+            } else if (gamepad2.b) {
                 intakeLeft.setPower(1);
                 intakeRight.setPower(-1);
             } else {
@@ -62,7 +62,7 @@ public class AASuperCoolTeleop extends LinearOpMode {
             }
 
             //intake down and up
-            if (gamepad2.left_stick_y > 0.5) {
+            if (gamepad2.right_bumper) {
                 pitch.setPosition(1);
                 roll.setPosition(-1);
             } else {
@@ -71,8 +71,8 @@ public class AASuperCoolTeleop extends LinearOpMode {
             }
 
             //intake extend and retract
-            extendLeft.setPosition(exLIn + (exLOut - exLIn) * gamepad2.right_stick_x);
-            extendRight.setPosition(exRIn + (exROut - exRIn) * gamepad2.right_stick_x);
+            extendLeft.setPosition(exLIn + (exLOut - exLIn) * gamepad2.right_trigger);
+            extendRight.setPosition(exRIn + (exROut - exRIn) * gamepad2.right_trigger);
 
             //outtake up and down
             if (gamepad2.left_bumper) {
@@ -81,10 +81,10 @@ public class AASuperCoolTeleop extends LinearOpMode {
                 tortoisity = gamepad2.left_trigger;
             }
 
-            if (gamepad2.x) {
+            if (gamepad2.dpad_up) {
                 liftRight.setPower(1 - tortoisity);
                 liftLeft.setPower(tortoisity - 1);
-            } else if (gamepad2.y) {
+            } else if (gamepad2.dpad_down) {
                 liftRight.setPower(tortoisity - 1);
                 liftLeft.setPower(1 - tortoisity);
             } else {
@@ -93,7 +93,7 @@ public class AASuperCoolTeleop extends LinearOpMode {
             }
 
             //outtake out and in
-            if (gamepad2.right_trigger > .5) {
+            if (gamepad2.x) {
                 bucket.setPosition(0);
             } else {
                 bucket.setPosition(1);
@@ -101,7 +101,7 @@ public class AASuperCoolTeleop extends LinearOpMode {
 
             speed = gamepad1.left_stick_y * drivespeed;
             strafe = gamepad1.left_stick_x * strafespeed;
-            turn = gamepad1.right_trigger - gamepad1.left_trigger;
+            turn = gamepad1.right_stick_x;
 
             if (Math.abs(speed) < 0.1) {
                 speed = 0;

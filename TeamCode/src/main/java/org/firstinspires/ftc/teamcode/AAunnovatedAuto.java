@@ -14,7 +14,6 @@ public class AAunnovatedAuto extends LinearOpMode {
     Action S1toHB;
     Action forwardAfter;
     Action forwardAfter2;
-    Action forwardAfter3;
     Action HBtoS2;
     Action S2toHB;
     Action HBtoS3;
@@ -32,52 +31,39 @@ public class AAunnovatedAuto extends LinearOpMode {
         //x start position is left side aligned with tile side, against the back, facing forward
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
-        Pose2d redHB = new Pose2d(-53, -47, Math.toRadians(45));
-
         driveToHB = drive.actionBuilder(initialPose)
-                .splineToLinearHeading(redHB, Math.toRadians(295)) //tangent changed 1/26 (270 --> 295)
+                .splineToLinearHeading(new Pose2d(-53, -45, Math.toRadians(45)), Math.toRadians(180)) //tangent changed 1/26 (270 --> 295)
                 .build();
 
-        HBtoS1 = drive.actionBuilder(redHB)
+        HBtoS1 = drive.actionBuilder(new Pose2d(-53, -45, Math.toRadians(45)))
                 .splineToLinearHeading(new Pose2d(-48, -50, Math.toRadians(90)), Math.toRadians(45)) //S1
-                .build();
-
-        forwardAfter = drive.actionBuilder(new Pose2d(-48, -50, Math.toRadians(90)))
-                .lineToY(-42)
+                .strafeTo(new Vector2d(-48, -42))
                 .build();
 
         S1toHB = drive.actionBuilder(new Pose2d(-48, -42, Math.toRadians(90))) //S1
-                .splineToLinearHeading(redHB, Math.toRadians(225)) //tangent changed 1/26 (180 --> 270)
+                .splineToLinearHeading(new Pose2d(-53, -45, Math.toRadians(45)), Math.toRadians(225)) //tangent changed 1/26 (180 --> 270)
                 .build();
 
-        HBtoS2 = drive.actionBuilder(redHB)
-                .splineToLinearHeading(new Pose2d(-58, -49, Math.toRadians(90)), Math.toRadians(180)) //tangent changed 1/26 (90 --> 180)
+        HBtoS2 = drive.actionBuilder(new Pose2d(-54, -46, Math.toRadians(45)))
+                .splineToLinearHeading(new Pose2d(-57.5, -49, Math.toRadians(90)), Math.toRadians(180)) //tangent changed 1/26 (90 --> 180)
+                .strafeTo(new Vector2d(-57.5, -42))
                 .build();
 
-        forwardAfter2 = drive.actionBuilder(new Pose2d(-58, -49, Math.toRadians(90)))
-                .lineToY(-42)
+        S2toHB = drive.actionBuilder(new Pose2d(-57.5, -42, Math.toRadians(90)))
+                .splineToLinearHeading(new Pose2d(-56, -47, Math.toRadians(45)), Math.toRadians(225))
                 .build();
 
-        S2toHB = drive.actionBuilder(new Pose2d(-58, -42, Math.toRadians(90)))
-                .splineToLinearHeading(redHB, Math.toRadians(225))
+        HBtoS3 = drive.actionBuilder(new Pose2d(-56, -47, Math.toRadians(45))) //uh oh this will probably break the robot
+                .splineToLinearHeading(new Pose2d(-57.5, -49, Math.toRadians(135)), Math.toRadians(135))
+                .splineToLinearHeading(new Pose2d(-56, -42, Math.toRadians(90)), Math.toRadians(90)) //tangent more than 90?
                 .build();
 
-        HBtoS3 = drive.actionBuilder(redHB) //uh oh this will probably break the robot
-                .splineToLinearHeading(new Pose2d(-48, -49, Math.toRadians(135)), Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d())
+        S3toHB = drive.actionBuilder(new Pose2d(-56, -42, Math.toRadians(90)))
+                .splineToLinearHeading(new Pose2d(-56, -47, Math.toRadians(45)), Math.toRadians(0))
                 .build();
 
-        forwardAfter3 = drive.actionBuilder(new Pose2d(-48, -49, Math.toRadians(135))) //combine to HBtoS3?
-                .spline
-                .build();
-
-        S3toHB = drive.actionBuilder(new Pose2d(-48, -18, Math.toRadians(180)))
-                .strafeTo(new Vector2d(-55, -61))
-                .strafeTo(new Vector2d(-55, -45))
-                .build();
-
-        HBtoBack = drive.actionBuilder(redHB)
-                .splineTo(new Vector2d(-26, -10), Math.toRadians(360))
+        HBtoBack = drive.actionBuilder(new Pose2d(-56, -47, Math.toRadians(45)))
+                .splineToLinearHeading(new Pose2d(-28, -24, Math.toRadians(180)), Math.toRadians(45))
                 .build();
 
         waitForStart();
@@ -86,22 +72,22 @@ public class AAunnovatedAuto extends LinearOpMode {
         hardware.leftUpMotor.setPower(0.5);
         hardware.rightUpMotor.setPower(-0.5);
         hardware.bucketServo.setPosition(0.3); //drop preloaded sample
-        sleep(900L); //wait for sample to fall
+        sleep(1100L); //wait for sample to fall
         hardware.bucketServo.setPosition(1); //reset bucket (no hit basket)
         hardware.wristDown(); //here or later?
         hardware.liftPower(-1); //START lowering lift
         hardware.intakeIn();//START intaking before moving to mitigate long delay
 
-        Actions.runBlocking(HBtoS1); //drive to the first sample while lift lowers and intake starts
         hardware.intakeSlideIn();
-//        sleep(700L); //wait for intake to lower, maybe remove?
-        Actions.runBlocking(forwardAfter); //move forward to eat sample
+        Actions.runBlocking(HBtoS1); //drive to the first sample while lift lowers and intake starts
+////        sleep(700L); //wait for intake to lower, maybe remove?
+//        Actions.runBlocking(forwardAfter); //move forward to eat sample
         hardware.liftPower(0); //stop lift to mitigate loppfasdhrfejgtk
-        sleep(600L); //time to pick up sample
+        sleep(400L); //time to pick up sample
         hardware.wristUp(); //START transfer of sample
         hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
         hardware.intakeStop(); //stop intaking
-        sleep(400L); //less wait for intake to position for transfer?
+        sleep(1000L);
         hardware.intakeOut();
         sleep(500L);
         hardware.liftPower(1);
@@ -113,21 +99,22 @@ public class AAunnovatedAuto extends LinearOpMode {
         hardware.bucketServo.setPosition(0.3); //drop sample
         sleep(900L); //wait for sample to fall
         hardware.bucketServo.setPosition(1); //reset bucket (no hit basket)
+        hardware.wristDown();
         hardware.liftPower(-1); //START moving the lift downward
         hardware.intakeIn();//START intaking before moving to mitigate long delay
 
-        Actions.runBlocking(HBtoS2); //drive to the first sample while lift lowers and intake starts
         hardware.intakeSlideIn();
-//        sleep(700L); //wait for intake to lower, maybe remove?
-        Actions.runBlocking(forwardAfter2); //move forward to eat sample
+        Actions.runBlocking(HBtoS2); //drive to the first sample while lift lowers and intake starts
+////        sleep(700L); //wait for intake to lower, maybe remove?
+//        Actions.runBlocking(forwardAfter2); //move forward to eat sample
         hardware.liftPower(0); //stop lift to mitigate loppfasdhrfejgtk
-        sleep(600L); //time to pick up sample
+        sleep(500L); //time to pick up sample
         hardware.wristUp(); //START transfer of sample
         hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
         hardware.intakeStop(); //stop intaking
-        sleep(400L); //less wait for intake to position for transfer?
+        sleep(1000L);
         hardware.intakeOut();
-        sleep(500L);
+        sleep(700L);
         hardware.liftPower(1);
 
         Actions.runBlocking(S2toHB);
@@ -137,13 +124,44 @@ public class AAunnovatedAuto extends LinearOpMode {
         hardware.bucketServo.setPosition(0.3); //drop sample
         sleep(900L); //wait for sample to fall
         hardware.bucketServo.setPosition(1); //reset bucket (no hit basket)
+        hardware.wristDown();
+        hardware.liftPower(-1); //START moving the lift downward
+        hardware.intakeIn();//START intaking before moving to mitigate long delay
+
+//        Actions.runBlocking(HBtoBack);
+//        hardware.liftPower(1);
+//        sleep(500);
+//        hardware.liftPower(0);
+//        hardware.bucketServo.setPosition(.3);
+
+        hardware.intakeSlideIn();
+        Actions.runBlocking(HBtoS3); //drive to the first sample while lift lowers and intake starts
+//        sleep(700L); //wait for intake to lower, maybe remove?
+        hardware.liftPower(0); //stop lift to mitigate loppfasdhrfejgtk
+        sleep(1000L); //time to pick up sample
+        hardware.wristUp(); //START transfer of sample
+        hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
+        hardware.intakeStop(); //stop intaking
+        sleep(400L); //less wait for intake to position for transfer?
+        hardware.intakeOut();
+        sleep(500L);
+        hardware.liftPower(1);
+
+        Actions.runBlocking(S3toHB);
+        sleep(900L); //this long to wait for lift?
+        hardware.leftUpMotor.setPower(0.5);
+        hardware.rightUpMotor.setPower(-0.5);
+        hardware.bucketServo.setPosition(0.3); //drop sample
+        sleep(900L); //wait for sample to fall
+        hardware.bucketServo.setPosition(1); //reset bucket (no hit basket)
         hardware.liftPower(-1); //START moving the lift downward
 //        hardware.intakeIn();//START intaking before moving to mitigate long delay
 
-        sleep(2000); //maybe the end?
-        // time left: ??
+//        sleep(2000);
+//        hardware.liftPower(0);
+        // time left:
     }
 }
 
 //robot dimensions: 17.5 wide x 10 long to center
-//heading --> looking, tangent --> moving, Pose2D includes (x, y, heading)
+//heading --> looking, tangent --> moving, Pose2D includes (x, y, heading), then tangent in a trajectory

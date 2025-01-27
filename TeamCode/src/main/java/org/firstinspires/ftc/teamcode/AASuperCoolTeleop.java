@@ -101,7 +101,7 @@ public class AASuperCoolTeleop extends LinearOpMode {
 
             speed = gamepad1.left_stick_y * drivespeed;
             strafe = gamepad1.left_stick_x * strafespeed;
-            turn = gamepad1.right_trigger - gamepad1.left_trigger;
+            turn = Math.max(gamepad1.right_stick_x, gamepad1.right_trigger - gamepad1.left_trigger);
 
             if (Math.abs(speed) < 0.1) {
                 speed = 0;

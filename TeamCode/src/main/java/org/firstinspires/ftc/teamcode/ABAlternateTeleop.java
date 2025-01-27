@@ -50,10 +50,10 @@ public class ABAlternateTeleop extends LinearOpMode {
 
         //intake in and out
         while (opModeIsActive()) {
-            if (gamepad2.a) {
+            if (gamepad2.b) {
                 intakeLeft.setPower(-1);
                 intakeRight.setPower(1);
-            } else if (gamepad2.b) {
+            } else if (gamepad2.a) {
                 intakeLeft.setPower(1);
                 intakeRight.setPower(-1);
             } else {
@@ -76,15 +76,15 @@ public class ABAlternateTeleop extends LinearOpMode {
 
             //outtake up and down
             if (gamepad2.left_bumper) {
-                tortoisity = 0.5;
+                tortoisity = 0.7;
             } else {
                 tortoisity = gamepad2.left_trigger;
             }
 
-            if (gamepad2.dpad_up) {
+            if (gamepad2.dpad_down) {
                 liftRight.setPower(1 - tortoisity);
                 liftLeft.setPower(tortoisity - 1);
-            } else if (gamepad2.dpad_down) {
+            } else if (gamepad2.dpad_up) {
                 liftRight.setPower(tortoisity - 1);
                 liftLeft.setPower(1 - tortoisity);
             } else {
@@ -101,7 +101,7 @@ public class ABAlternateTeleop extends LinearOpMode {
 
             speed = gamepad1.left_stick_y * drivespeed;
             strafe = gamepad1.left_stick_x * strafespeed;
-            turn = gamepad1.right_stick_x;
+            turn = Math.max(gamepad1.right_stick_x, gamepad1.right_trigger - gamepad1.left_trigger);
 
             if (Math.abs(speed) < 0.1) {
                 speed = 0;

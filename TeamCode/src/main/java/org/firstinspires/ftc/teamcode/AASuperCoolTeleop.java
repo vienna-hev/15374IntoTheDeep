@@ -39,12 +39,12 @@ public class AASuperCoolTeleop extends LinearOpMode {
         double driveSpeed = 1;
         double strafeSpeed = 1;
         double turnSpeed = 0.5;
-        double speed, strafe, turn, flPwr, frPwr, blPwr, brPwr, denominator, tortoisity;
+        double speed, strafe, turn, flPwr, frPwr, blPwr, brPwr, denominator, tortoisity, telescopicity;
 
-        double exLIn = 0.12; //retracted position for the left slide
+        double exLIn = 0.14; //retracted position for the left slide
         double exLOut = 0.35; //extended position for the left slide
-        double exRIn = 0.675; //retracted position for the right slide
-        double exROut = 0.465; //extended position for the right slide
+        double exRIn = 1; //retracted position for the right slide
+        double exROut = 0.475; //extended position for the right slide
 
         waitForStart();
 
@@ -63,16 +63,22 @@ public class AASuperCoolTeleop extends LinearOpMode {
 
             //intake down and up
             if (gamepad2.left_stick_y > 0.5) {
-                pitch.setPosition(1);
-                roll.setPosition(-1);
+                pitch.setPosition(.9);
+                roll.setPosition(.95);
             } else {
                 pitch.setPosition(0.45);
-                roll.setPosition(1);
+                roll.setPosition(-1);
             }
 
             //intake extend and retract
-            extendLeft.setPosition(exLIn + (exLOut - exLIn) * gamepad2.right_stick_x);
-            extendRight.setPosition(exRIn + (exROut - exRIn) * gamepad2.right_stick_x);
+            telescopicity = gamepad2.right_stick_x;
+            if (telescopicity > 0) {
+                extendLeft.setPosition(exLIn + (exLOut - exLIn) * telescopicity);
+                extendRight.setPosition(exRIn + (exROut - exRIn) * telescopicity);
+            } else {
+                extendLeft.setPosition(exLIn);
+                extendRight.setPosition(exRIn);
+            }
 
             //outtake up and down
             if (gamepad2.left_bumper) {

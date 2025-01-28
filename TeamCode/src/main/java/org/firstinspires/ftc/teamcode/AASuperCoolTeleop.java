@@ -36,15 +36,15 @@ public class AASuperCoolTeleop extends LinearOpMode {
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        double drivespeed = 1;
-        double strafespeed = 1;
+        double driveSpeed = 1;
+        double strafeSpeed = 1;
         double turnSpeed = 0.5;
         double speed, strafe, turn, flPwr, frPwr, blPwr, brPwr, denominator, tortoisity;
 
-        double exLIn = 0.12;
-        double exLOut = 0.35;
-        double exRIn = 0.675;
-        double exROut = 0.465;
+        double exLIn = 0.12; //retracted position for the left slide
+        double exLOut = 0.35; //extended position for the left slide
+        double exRIn = 0.675; //retracted position for the right slide
+        double exROut = 0.465; //extended position for the right slide
 
         waitForStart();
 
@@ -99,8 +99,8 @@ public class AASuperCoolTeleop extends LinearOpMode {
                 bucket.setPosition(1);
             }
 
-            speed = gamepad1.left_stick_y * drivespeed;
-            strafe = gamepad1.left_stick_x * strafespeed;
+            speed = gamepad1.left_stick_y * driveSpeed;
+            strafe = gamepad1.left_stick_x * strafeSpeed;
             turn = Math.max(gamepad1.right_stick_x, gamepad1.right_trigger - gamepad1.left_trigger);
 
             if (Math.abs(speed) < 0.1) {

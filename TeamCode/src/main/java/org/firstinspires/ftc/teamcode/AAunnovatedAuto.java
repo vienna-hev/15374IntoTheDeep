@@ -68,7 +68,8 @@ public class AAunnovatedAuto extends LinearOpMode {
                 .build();
 
         test = drive.actionBuilder(new Pose2d(0, 0, Math.toRadians(90)))
-                .splineToLinearHeading(new Pose2d(-12, -12, Math.toRadians(180)), Math.toRadians(180))
+                .splineToLinearHeading(new Pose2d(0, 0, Math.toRadians(90)), Math.toRadians(90))
+//                .splineToLinearHeading(new Pose2d(6, 6, Math.toRadians(180)), Math.toRadians(180))
                 .build();
 
         waitForStart();

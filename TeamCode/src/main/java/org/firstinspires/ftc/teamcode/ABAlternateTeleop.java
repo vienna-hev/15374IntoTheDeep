@@ -66,7 +66,7 @@ public class ABAlternateTeleop extends LinearOpMode {
                 pitch.setPosition(1);
                 roll.setPosition(-1);
             } else {
-                pitch.setPosition(0.45);
+                pitch.setPosition(.15);
                 roll.setPosition(1);
             }
 
@@ -101,7 +101,7 @@ public class ABAlternateTeleop extends LinearOpMode {
 
             speed = gamepad1.left_stick_y * driveSpeed;
             strafe = gamepad1.left_stick_x * strafeSpeed;
-            turn = Math.max(gamepad1.right_stick_x, gamepad1.right_trigger - gamepad1.left_trigger);
+            turn = gamepad1.right_stick_x + gamepad1.right_trigger - gamepad1.left_trigger;
 
             if (Math.abs(speed) < 0.1) {
                 speed = 0;

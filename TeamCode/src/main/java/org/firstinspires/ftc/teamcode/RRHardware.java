@@ -85,7 +85,7 @@ public class RRHardware {
     }
 
     public void wristDown() {
-        wFold.setPosition(1);
+        wFold.setPosition(-1);
         wTurn.setPosition(.95);
     }
 

@@ -34,7 +34,7 @@ public class AAunnovatedAuto extends LinearOpMode {
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
         driveToHB = drive.actionBuilder(initialPose)
-                .splineToLinearHeading(new Pose2d(-53, -45, Math.toRadians(45)), Math.toRadians(180)) //tangent changed 1/26 (270 --> 295)
+                .splineToLinearHeading(new Pose2d(-55, -48, Math.toRadians(45)), Math.toRadians(180)) //tangent changed 1/26 (270 --> 295)
                 .build();
 
         HBtoS1 = drive.actionBuilder(new Pose2d(-53, -45, Math.toRadians(45)))
@@ -52,10 +52,10 @@ public class AAunnovatedAuto extends LinearOpMode {
                 .build();
 
         S2toHB = drive.actionBuilder(new Pose2d(-57.5, -42, Math.toRadians(90)))
-                .splineToLinearHeading(new Pose2d(-56, -47, Math.toRadians(45)), Math.toRadians(225))
+                .splineToLinearHeading(new Pose2d(-55, -48, Math.toRadians(45)), Math.toRadians(225))
                 .build();
 
-        HBtoS3 = drive.actionBuilder(new Pose2d(-56, -47, Math.toRadians(45))) //uh oh this will probably break the robot
+        HBtoS3 = drive.actionBuilder(new Pose2d(-55, -48, Math.toRadians(45))) //uh oh this will probably break the robot
                 .splineToLinearHeading(new Pose2d(-58.5, -55, Math.toRadians(135)), Math.toRadians(135))
                 .splineToLinearHeading(new Pose2d(-56, -42, Math.toRadians(90)), Math.toRadians(90)) //tangent more than 90?
                 .build();
@@ -80,8 +80,8 @@ public class AAunnovatedAuto extends LinearOpMode {
         hardware.rightUpMotor.setPower(-0.5);
         hardware.bucketServo.setPosition(0.3); //drop preloaded sample
         sleep(1100L); //wait for sample to fall
-        hardware.bucketServo.setPosition(1); //reset bucket (no hit basket)
         hardware.wristDown(); //here or later?
+        hardware.bucketServo.setPosition(1); //reset bucket (no hit basket)
         hardware.liftPower(-1); //START lowering lift
         hardware.intakeIn();//START intaking before moving to mitigate long delay
 

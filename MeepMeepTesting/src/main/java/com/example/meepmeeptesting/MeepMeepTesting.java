@@ -9,16 +9,15 @@ import org.rowlandhall.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class MeepMeepTesting {
     public static void main(String[] args) {
-        MeepMeep meepMeep = new MeepMeep(800);
+        MeepMeep meepMeep = new MeepMeep(700);
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0, 0, Math.toRadians(90))) //-15, -63.5
-//                        .splineToLinearHeading(new Pose2d(-53, -45, Math.toRadians(45)), Math.toRadians(180))
-//                        .splineToLinearHeading(new Pose2d(-48, -50, Math.toRadians(90)), Math.toRadians(45)) //S1
-//                        .strafeTo(new Vector2d(-48, -42))
-                        .splineToLinearHeading(new Pose2d(-1, -1, Math.toRadians(90)), Math.toRadians(90))
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(-15, -63.5, Math.toRadians(90))) //-15, -63.5
+                        .splineToLinearHeading(new Pose2d(-57, -58, Math.toRadians(45)), Math.toRadians(180))
+                        .splineToLinearHeading(new Pose2d(-48, -48, Math.toRadians(90)), Math.toRadians(45)) //S1
+                        .strafeTo(new Vector2d(-48, -42))
                         .build());
 
 

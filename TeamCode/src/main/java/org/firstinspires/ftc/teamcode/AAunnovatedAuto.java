@@ -34,10 +34,10 @@ public class AAunnovatedAuto extends LinearOpMode {
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
         driveToHB = drive.actionBuilder(initialPose)
-                .splineToLinearHeading(new Pose2d(-57, -58, Math.toRadians(45)), Math.toRadians(180)) //tangent changed 1/26 (270 --> 295)
+                .splineToLinearHeading(new Pose2d(-53, -45, Math.toRadians(45)), Math.toRadians(180)) //tangent changed 1/26 (270 --> 295)
                 .build();
 
-        HBtoS1 = drive.actionBuilder(new Pose2d(-57, -58, Math.toRadians(45)))
+        HBtoS1 = drive.actionBuilder(new Pose2d(-53, -45, Math.toRadians(45)))
                 .splineToLinearHeading(new Pose2d(-48, -48, Math.toRadians(90)), Math.toRadians(45)) //S1
                 .strafeTo(new Vector2d(-48, -42))
                 .build();

@@ -16,8 +16,8 @@ public class RRHardware {
     public DcMotorEx rightUpMotor;
     public CRServo intakeLeft;
     public CRServo intakeRight;
-    public Servo wristLeft;
-    public Servo wristFront;
+    public Servo wFold;
+    public Servo wTurn;
     public Servo intakeExtensionR;
     public Servo intakeExtensionL;
     public Servo bucketServo;
@@ -38,8 +38,8 @@ public class RRHardware {
         intakeExtensionL = hardwareMap.get(Servo.class, "intakeExtensionLeft");
         intakeExtensionR = hardwareMap.get(Servo.class, "intakeExtensionRight");
         bucketServo = hardwareMap.get(Servo.class, "bucketServo");
-        wristLeft = hardwareMap.get(Servo.class, "WL");
-        wristFront = hardwareMap.get(Servo.class, "WF");
+        wFold = hardwareMap.get(Servo.class, "WL");
+        wTurn = hardwareMap.get(Servo.class, "WF");
 
 //        upMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        upMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -85,13 +85,13 @@ public class RRHardware {
     }
 
     public void wristDown() {
-        wristLeft.setPosition(1);
-        wristFront.setPosition(-1);
+        wFold.setPosition(1);
+        wTurn.setPosition(.95);
     }
 
     public void wristUp() {
-        wristLeft.setPosition(.3);
-        wristFront.setPosition(1);
+        wFold.setPosition(.15);
+        wTurn.setPosition(-1);
     }
 
     public void intakeSlideOut() {
@@ -106,12 +106,12 @@ public class RRHardware {
 }
 
 //        public void turnDown(double power) {
-//        wristFront.setPosition(0);
+//        wTurn.setPosition(0);
 //        sleep(1000);
 //    }
 //
 //    public void turnUp(double power) {
-//        wristFront.setPosition(1);
+//        wTurn.setPosition(1);
 //        sleep(1000);
 //    }
 

@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class AASuperCoolTeleop extends LinearOpMode {
     public DcMotor frontRight, frontLeft, backRight, backLeft;
     public DcMotorEx liftRight, liftLeft;
-    public Servo pitch, extendRight, extendLeft, bucket, roll;
+    public Servo wFold, extendRight, extendLeft, bucket, wTurn;
     public CRServo intakeRight, intakeLeft;
 
     @Override
@@ -30,8 +30,8 @@ public class AASuperCoolTeleop extends LinearOpMode {
         extendLeft = hardwareMap.get(Servo.class, "intakeExtensionLeft");
         extendRight = hardwareMap.get(Servo.class, "intakeExtensionRight");
         bucket = hardwareMap.get(Servo.class, "bucketServo");
-        pitch = hardwareMap.get(Servo.class, "WL");
-        roll = hardwareMap.get(Servo.class, "WF");
+        wFold = hardwareMap.get(Servo.class, "WL");
+        wTurn = hardwareMap.get(Servo.class, "WF");
 
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -70,11 +70,11 @@ public class AASuperCoolTeleop extends LinearOpMode {
 
             //intake down and up
             if (gamepad2.left_stick_y > 0.5) {
-                pitch.setPosition(1);
-                roll.setPosition(.95);
+                wFold.setPosition(1);
+                wTurn.setPosition(.95);
             } else {
-                pitch.setPosition(.15);
-                roll.setPosition(-1);
+                wFold.setPosition(.15);
+                wTurn.setPosition(-1);
             }
 
             //intake extend and retract

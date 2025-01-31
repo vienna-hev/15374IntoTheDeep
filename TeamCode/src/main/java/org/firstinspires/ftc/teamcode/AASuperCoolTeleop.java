@@ -48,10 +48,10 @@ public class AASuperCoolTeleop extends LinearOpMode {
         double turnSpeed = 0.5;
         double speed, strafe, turn, flPwr, frPwr, blPwr, brPwr, denominator, tortoisity, telescopicity;
 
-        double exLIn = 0.14; //retracted position for the left slide
-        double exLOut = 0.35; //extended position for the left slide
+        double exLIn = 0; //retracted position for the left slide
+        double exLOut = 0.45; //extended position for the left slide
         double exRIn = 1; //retracted position for the right slide
-        double exROut = 0.475; //extended position for the right slide
+        double exROut = 0.55; //extended position for the right slide
 
         waitForStart();
 
@@ -77,18 +77,14 @@ public class AASuperCoolTeleop extends LinearOpMode {
                 wTurn.setPosition(-1);
             }
 
-//            //intake extend and retract
-//            telescopicity = gamepad2.right_stick_x;
-//            if (telescopicity > 0.1) {
-//                extendLeft.setPosition(exLIn + (exLOut - exLIn) * telescopicity);
-//                extendRight.setPosition(exRIn + (exROut - exRIn) * telescopicity);
-//            } else {
-//                extendLeft.setPosition(exLIn);
-//                extendRight.setPosition(exRIn);
-//            }
-
-            if (gamepad1.x){
-                extendLeft.setPosition(.8);
+            //intake extend and retract
+            telescopicity = gamepad2.right_stick_x;
+            if (telescopicity > 0.1) {
+                extendLeft.setPosition(exLIn + (exLOut - exLIn) * telescopicity);
+                extendRight.setPosition(exRIn + (exROut - exRIn) * telescopicity);
+            } else {
+                extendLeft.setPosition(exLIn);
+                extendRight.setPosition(exRIn);
             }
 
             //outtake up and down

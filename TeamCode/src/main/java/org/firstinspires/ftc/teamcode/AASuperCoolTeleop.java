@@ -73,23 +73,27 @@ public class AASuperCoolTeleop extends LinearOpMode {
                 wFold.setPosition(1);
                 wTurn.setPosition(.95);
             } else {
-                wFold.setPosition(.15);
+                wFold.setPosition(.4);
                 wTurn.setPosition(-1);
             }
 
-            //intake extend and retract
-            telescopicity = gamepad2.right_stick_x;
-            if (telescopicity > 0) {
-                extendLeft.setPosition(exLIn + (exLOut - exLIn) * telescopicity);
-                extendRight.setPosition(exRIn + (exROut - exRIn) * telescopicity);
-            } else {
-                extendLeft.setPosition(exLIn);
-                extendRight.setPosition(exRIn);
+//            //intake extend and retract
+//            telescopicity = gamepad2.right_stick_x;
+//            if (telescopicity > 0.1) {
+//                extendLeft.setPosition(exLIn + (exLOut - exLIn) * telescopicity);
+//                extendRight.setPosition(exRIn + (exROut - exRIn) * telescopicity);
+//            } else {
+//                extendLeft.setPosition(exLIn);
+//                extendRight.setPosition(exRIn);
+//            }
+
+            if (gamepad1.x){
+                extendLeft.setPosition(.8);
             }
 
             //outtake up and down
             if (gamepad2.left_bumper) {
-                tortoisity = 0.5;
+                tortoisity = 0.7;
             } else {
                 tortoisity = gamepad2.left_trigger;
             }

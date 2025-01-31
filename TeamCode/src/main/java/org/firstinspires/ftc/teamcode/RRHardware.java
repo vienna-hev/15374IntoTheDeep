@@ -85,23 +85,23 @@ public class RRHardware {
     }
 
     public void wristDown() {
-        wFold.setPosition(-1);
+        wFold.setPosition(1);
         wTurn.setPosition(.95);
     }
 
     public void wristUp() {
-        wFold.setPosition(.15);
+        wFold.setPosition(.4);
         wTurn.setPosition(-1);
     }
 
     public void intakeSlideOut() {
         intakeExtensionL.setPosition(0.35);
-        intakeExtensionR.setPosition(0.465);
+        intakeExtensionR.setPosition(0.475);
     }
 
     public void intakeSlideIn() {
-        intakeExtensionL.setPosition(0.12);
-        intakeExtensionR.setPosition(.68);
+        intakeExtensionL.setPosition(0.14);
+        intakeExtensionR.setPosition(1);
     }
 }
 

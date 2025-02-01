@@ -99,6 +99,11 @@ public class RRHardware {
         intakeExtensionR.setPosition(0.475);
     }
 
+    public void intakeSlideOutLess() {
+        intakeExtensionL.setPosition(0.28);
+        intakeExtensionR.setPosition(0.62);
+    }
+
     public void intakeSlideIn() {
         intakeExtensionL.setPosition(0.14);
         intakeExtensionR.setPosition(1);

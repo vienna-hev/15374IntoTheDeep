@@ -69,14 +69,14 @@ public class ABAlternateTeleop extends LinearOpMode {
             //intake down and up
             if (gamepad2.right_bumper) {
                 pitch.setPosition(1);
-                roll.setPosition(0.95);
+                roll.setPosition(-1);
             } else {
                 pitch.setPosition(0.4);
-                roll.setPosition(-1);
+                roll.setPosition(0.95);
             }
 
             //intake extend and retract
-            telescopicity = gamepad2.right_stick_x;
+            telescopicity = gamepad2.right_trigger;
             if (telescopicity > 0) {
                 extendLeft.setPosition(exLIn + (exLOut - exLIn) * telescopicity);
                 extendRight.setPosition(exRIn + (exROut - exRIn) * telescopicity);

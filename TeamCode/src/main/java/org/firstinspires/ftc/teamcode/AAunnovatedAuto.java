@@ -48,25 +48,24 @@ public class AAunnovatedAuto extends LinearOpMode {
                 .build();
 
         HBtoS2 = drive.actionBuilder(new Pose2d(-52, -48, Math.toRadians(45)))
-                .splineToLinearHeading(new Pose2d(-58.5, -47, Math.toRadians(90)), Math.toRadians(180)) //tangent changed 1/26 (90 --> 180)
-                .strafeTo(new Vector2d(-58.5, -42))
+                .splineToLinearHeading(new Pose2d(-59, -47, Math.toRadians(91)), Math.toRadians(180)) //tangent changed 1/26 (90 --> 180)
+                .strafeTo(new Vector2d(-59, -42))
                 .build();
 
-        S2toHB = drive.actionBuilder(new Pose2d(-58.5, -42, Math.toRadians(90)))
+        S2toHB = drive.actionBuilder(new Pose2d(-59, -42, Math.toRadians(91)))
                 .splineToLinearHeading(new Pose2d(-54, -48, Math.toRadians(45)), Math.toRadians(225))
                 .build();
 
         HBtoS3 = drive.actionBuilder(new Pose2d(-54, -48, Math.toRadians(45))) //uh oh this will probably break the robot
-                .splineToLinearHeading(new Pose2d(-49, -51, Math.toRadians(135)), Math.toRadians(135))
+                .splineToLinearHeading(new Pose2d(-55, -54, Math.toRadians(120)), Math.toRadians(120))
                 .build();
 
-        S3toSpin = drive.actionBuilder(new Pose2d(-49, -51, Math.toRadians(138)))
-                .turnTo(Math.toRadians(137))
-                .turn(Math.toRadians(138))
+        S3toSpin = drive.actionBuilder(new Pose2d(-55, -54, Math.toRadians(120)))
+                .turnTo(Math.toRadians(116))
+                .turnTo(Math.toRadians(119))
                 .build();
-
-        S3toHB = drive.actionBuilder(new Pose2d(-49, -51, Math.toRadians(138)))
-                .splineToLinearHeading(new Pose2d(-54, -48, Math.toRadians(45)), Math.toRadians(0))
+        S3toHB = drive.actionBuilder(new Pose2d(-54, -54, Math.toRadians(120)))
+                .splineToLinearHeading(new Pose2d(-55, -50, Math.toRadians(45)), Math.toRadians(0))
                 .build();
 
         waitForStart();
@@ -74,7 +73,7 @@ public class AAunnovatedAuto extends LinearOpMode {
         Actions.runBlocking(driveToHB); //drive to the high basket
         hardware.liftPower(.3);
         hardware.bucketServo.setPosition(0.3); //drop sample
-        sleep(1000L); //wait for sample to fall
+        sleep(1100L); //wait for sample to fall
         hardware.bucketServo.setPosition(1); //reset bucket (no hit basket)
         hardware.wristDown();
         hardware.liftPower(-1); //START moving the lift downward
@@ -89,7 +88,7 @@ public class AAunnovatedAuto extends LinearOpMode {
         hardware.wristUp(); //START transfer of sample
         hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
         hardware.intakeStop(); //stop intaking
-        sleep(800L);
+        sleep(900L);
         hardware.intakeOut();
         sleep(900L);
         hardware.liftPower(1);
@@ -105,17 +104,18 @@ public class AAunnovatedAuto extends LinearOpMode {
         hardware.intakeIn();//START intaking before moving to mitigate long delay
 
         hardware.intakeSlideIn();
+        sleep(500L);
         Actions.runBlocking(HBtoS2); //drive to the first sample while lift lowers and intake starts
 ////        sleep(700L); //wait for intake to lower, maybe remove?
 //        Actions.runBlocking(forwardAfter2); //move forward to eat sample
         hardware.liftPower(0); //stop lift to mitigate loppfasdhrfejgtk
-        sleep(500L); //time to pick up sample
+        sleep(400L); //time to pick up sample
         hardware.wristUp(); //START transfer of sample
         hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
         hardware.intakeStop(); //stop intaking
         sleep(900L);
         hardware.intakeOut();
-        sleep(1000L);
+        sleep(900L);
         hardware.liftPower(1);
 
         Actions.runBlocking(S2toHB);
@@ -133,7 +133,7 @@ public class AAunnovatedAuto extends LinearOpMode {
         hardware.intakeSlideOutLess();
         sleep(1000L); //time to pick up sample
         hardware.liftPower(0); //stop lift to mitigate loppfasdhrfejgtk
-//        Actions.runBlocking(S3toSpin);
+        Actions.runBlocking(S3toSpin);
         hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
         hardware.wristUp(); //START transfer of sample
         hardware.intakeStop(); //stop intaking

@@ -86,12 +86,12 @@ public class RRHardware {
 
     public void wristDown() {
         wFold.setPosition(1);
-        wTurn.setPosition(.95);
+        wTurn.setPosition(-1);
     }
 
     public void wristUp() {
-        wFold.setPosition(.4);
-        wTurn.setPosition(-1);
+        wFold.setPosition(.425);
+        wTurn.setPosition(.95);
     }
 
     public void intakeSlideOut() {
@@ -100,8 +100,8 @@ public class RRHardware {
     }
 
     public void intakeSlideOutLess() {
-        intakeExtensionL.setPosition(0.28);
-        intakeExtensionR.setPosition(0.62);
+        intakeExtensionL.setPosition(0.30);
+        intakeExtensionR.setPosition(0.60);
     }
 
     public void intakeSlideIn() {

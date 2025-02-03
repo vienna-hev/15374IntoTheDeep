@@ -12,15 +12,12 @@ public class AAunnovatedAuto extends LinearOpMode {
     Action driveToHB;
     Action HBtoS1;
     Action S1toHB;
-    Action forwardAfter;
-    Action forwardAfter2;
     Action HBtoS2;
     Action S2toHB;
     Action HBtoS3;
-    Action S3toHB;
     Action S3toSpin;
-    Action HBtoBack;
-    Action test;
+    Action S3toHB;
+    Action HBtoPark;
     public RRHardware hardware;
 
     @Override
@@ -67,40 +64,41 @@ public class AAunnovatedAuto extends LinearOpMode {
         S3toHB = drive.actionBuilder(new Pose2d(-54, -54, Math.toRadians(120)))
                 .splineToLinearHeading(new Pose2d(-55, -50, Math.toRadians(45)), Math.toRadians(0))
                 .build();
+        HBtoPark = drive.actionBuilder(new Pose2d(-55, -50, Math.toRadians(45)))
+                .splineToLinearHeading(new Pose2d(-20, -26, Math.toRadians(180)), Math.toRadians(360))
+                .lineToX(-7)
+//                .splineToLinearHeading(new Pose2d(-4, -20, Math.toRadians(180)), Math.toRadians(270))
+                .build();
 
         waitForStart();
-        hardware.liftPower(.9); //START moving the lift
+        hardware.liftGoUp(); //START moving the lift
         Actions.runBlocking(driveToHB); //drive to the high basket
-        hardware.liftPower(.3);
         hardware.bucketServo.setPosition(0.3); //drop sample
         sleep(1100L); //wait for sample to fall
-        hardware.bucketServo.setPosition(1); //reset bucket (no hit basket)
+        hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
         hardware.wristDown();
-        hardware.liftPower(-1); //START moving the lift downward
+        hardware.liftGoDown(); //START moving the lift downward
         hardware.intakeIn();//START intaking before moving to mitigate long delay
 
         hardware.intakeSlideIn();
-        sleep(500);
+        sleep(400);
         Actions.runBlocking(HBtoS1); //drive to the first sample while lift lowers and intake starts
-        sleep(400L); //wait for intake to lower, maybe remove?
-//        Actions.runBlocking(forwardAfter); //move forward to eat sample
-        hardware.liftPower(0); //stop lift to mitigate loppfasdhrfejgtk
+        sleep(300L); //wait for intake to lower, maybe remove?
         hardware.wristUp(); //START transfer of sample
         hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
         hardware.intakeStop(); //stop intaking
         sleep(900L);
         hardware.intakeOut();
         sleep(900L);
-        hardware.liftPower(1);
+        hardware.liftGoUp();
 
         Actions.runBlocking(S1toHB);
         sleep(900L); //this long to wait for lift?
-        hardware.liftPower(.3);
         hardware.bucketServo.setPosition(0.3); //drop sample
         sleep(1000L); //wait for sample to fall
         hardware.wristDown();
-        hardware.bucketServo.setPosition(1); //reset bucket (no hit basket)
-        hardware.liftPower(-1); //START moving the lift downward
+        hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
+        hardware.liftGoDown(); //START moving the lift downward
         hardware.intakeIn();//START intaking before moving to mitigate long delay
 
         hardware.intakeSlideIn();
@@ -116,7 +114,7 @@ public class AAunnovatedAuto extends LinearOpMode {
         sleep(900L);
         hardware.intakeOut();
         sleep(900L);
-        hardware.liftPower(1);
+        hardware.liftGoUp();
 
         Actions.runBlocking(S2toHB);
         sleep(900L); //this long to wait for lift?
@@ -124,8 +122,8 @@ public class AAunnovatedAuto extends LinearOpMode {
         hardware.bucketServo.setPosition(0.3); //drop sample
         sleep(900L); //wait for sample to fall
         hardware.wristDown();
-        hardware.bucketServo.setPosition(1); //reset bucket (no hit basket)
-        hardware.liftPower(-1); //START moving the lift downward
+        hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
+        hardware.liftGoDown(); //START moving the lift downward
         hardware.intakeIn();//START intaking before moving to mitigate long delay
 //
         hardware.intakeSlideIn();
@@ -140,17 +138,19 @@ public class AAunnovatedAuto extends LinearOpMode {
         sleep(800L);
         hardware.intakeOut();
         sleep(1000L);
-        hardware.liftPower(1);
+        hardware.liftGoUp();
 
         Actions.runBlocking(S3toHB);
+        hardware.intakeStop();
         sleep(900L); //this long to wait for lift?
-        hardware.liftPower(.3);
         hardware.bucketServo.setPosition(0.3); //drop sample
         sleep(900L); //wait for sample to fall
-        hardware.bucketServo.setPosition(1); //reset bucket (no hit basket)
-        hardware.liftPower(-1); //START moving the lift downward
+        hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
+        hardware.liftGoPark();
 
-//         time left: 3 seconds
+        Actions.runBlocking(HBtoPark);
+
+//         time left: 0 seconds!!!
     }
 }
 

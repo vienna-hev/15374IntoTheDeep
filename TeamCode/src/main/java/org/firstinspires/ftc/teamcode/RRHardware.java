@@ -41,8 +41,12 @@ public class RRHardware {
         wFold = hardwareMap.get(Servo.class, "WL");
         wTurn = hardwareMap.get(Servo.class, "WF");
 
-//        upMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        upMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightUpMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftUpMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        double ticks = 384.5D;
     }
 
     public final void sleep(long milliseconds) {
@@ -51,6 +55,39 @@ public class RRHardware {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    public void liftGoUp() {
+        leftUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftUpMotor.setPower(1);
+        rightUpMotor.setPower(-1);
+        leftUpMotor.setTargetPosition(3150);
+        rightUpMotor.setTargetPosition(-3150);
+        leftUpMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightUpMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    public void liftGoDown() {
+        leftUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftUpMotor.setPower(-1);
+        rightUpMotor.setPower(1);
+        leftUpMotor.setTargetPosition(-3150);
+        rightUpMotor.setTargetPosition(3150);
+        leftUpMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightUpMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    public void liftGoPark() {
+        leftUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftUpMotor.setPower(-1);
+        rightUpMotor.setPower(1);
+        leftUpMotor.setTargetPosition(-2500);
+        rightUpMotor.setTargetPosition(2500);
+        leftUpMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightUpMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void depositHB() {

@@ -55,6 +55,10 @@ public class ZZOneDrive extends LinearOpMode {
 
         //intake in and out
         while (opModeIsActive()) {
+            telemetry.addData("Left Position:", liftLeft.getCurrentPosition());
+            telemetry.addData("Right Position:", liftRight.getCurrentPosition());
+            telemetry.update();
+
             if (gamepad1.b) {
                 intakeLeft.setPower(-1);
                 intakeRight.setPower(1);

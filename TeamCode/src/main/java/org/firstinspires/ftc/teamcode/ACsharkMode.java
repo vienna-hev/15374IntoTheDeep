@@ -9,15 +9,12 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
-public class AAsharkMode extends LinearOpMode {
+public class ACsharkMode extends LinearOpMode {
     public DcMotor frontRight, frontLeft, backLeft, backRight;
-    public DcMotorEx leftUpMotor;
-    public DcMotorEx rightUpMotor;
+    public DcMotorEx leftUpMotor, rightUpMotor;
     public CRServo intakeLeft, intakeRight;
-    public Servo wristLeft;
-    public Servo wristFront;
-    public Servo intakeExtensionR;
-    public Servo intakeExtensionL;
+    public Servo wristLeft, wristFront;
+    public Servo intakeExtensionR, intakeExtensionL;
     public Servo bucketServo;
 
     @Override

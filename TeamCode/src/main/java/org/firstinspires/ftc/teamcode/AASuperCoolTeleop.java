@@ -45,6 +45,8 @@ public class AASuperCoolTeleop extends LinearOpMode {
         double strafeSpeed = 1;
         double turnSpeed = 0.5;
         double speed, strafe, turn, flPwr, frPwr, blPwr, brPwr, denominator, tortoisity, telescopicity;
+        boolean ascent = false;
+        boolean isPressed = false;
 
         double exLIn = 0.1; //retracted position for the left slide
         double exLOut = 0.5; //extended position for the left slide
@@ -108,6 +110,22 @@ public class AASuperCoolTeleop extends LinearOpMode {
                 bucket.setPosition(0);
             } else {
                 bucket.setPosition(.7);
+            }
+
+            //first level ascent
+            if (gamepad2.right_bumper){
+                if (!isPressed) {
+                    isPressed = true;
+                    if (ascent == false) {
+                        bucket.setPosition(.35);
+                        ascent = true;
+                    } else if (ascent == true) {
+                        bucket.setPosition(.7);
+                        ascent = false;
+                    }
+                }
+            } else {
+                isPressed = false;
             }
 
             speed = gamepad1.left_stick_y * driveSpeed;

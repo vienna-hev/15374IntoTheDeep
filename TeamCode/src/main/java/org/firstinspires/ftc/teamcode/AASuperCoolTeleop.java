@@ -107,7 +107,7 @@ public class AASuperCoolTeleop extends LinearOpMode {
             if (gamepad2.right_trigger > .5) {
                 bucket.setPosition(0);
             } else {
-                bucket.setPosition(1);
+                bucket.setPosition(.7);
             }
 
             speed = gamepad1.left_stick_y * driveSpeed;

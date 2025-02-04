@@ -117,7 +117,7 @@ public class AASuperCoolTeleop extends LinearOpMode {
                 if (!isPressed) {
                     isPressed = true;
                     if (ascent == false) {
-                        bucket.setPosition(.35);
+                        bucket.setPosition(.6);
                         ascent = true;
                     } else if (ascent == true) {
                         bucket.setPosition(.7);

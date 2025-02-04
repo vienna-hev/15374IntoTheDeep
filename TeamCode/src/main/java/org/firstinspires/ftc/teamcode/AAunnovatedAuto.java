@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class AAunnovatedAuto extends LinearOpMode {
     Action driveToHB;
     Action HBtoS1;
+    Action forwardAfter;
     Action S1toHB;
     Action HBtoS2;
     Action S2toHB;
@@ -36,8 +37,11 @@ public class AAunnovatedAuto extends LinearOpMode {
                 .build();
 
         HBtoS1 = drive.actionBuilder(new Pose2d(-55, -49, Math.toRadians(45)))
-                .splineToLinearHeading(new Pose2d(-48, -48, Math.toRadians(90)), Math.toRadians(45)) //S1
-                .strafeTo(new Vector2d(-48, -42))
+                .splineToLinearHeading(new Pose2d(-48, -50, Math.toRadians(90)), Math.toRadians(45)) //S1
+                .build();
+
+        forwardAfter = drive.actionBuilder(new Pose2d(-48, -50, Math.toRadians(90)))
+                .lineToY(-44)
                 .build();
 
         S1toHB = drive.actionBuilder(new Pose2d(-48, -42, Math.toRadians(90))) //S1
@@ -74,15 +78,16 @@ public class AAunnovatedAuto extends LinearOpMode {
         hardware.liftGoUp(); //START moving the lift
         Actions.runBlocking(driveToHB); //drive to the high basket
         hardware.bucketServo.setPosition(0.3); //drop sample
-        sleep(1100L); //wait for sample to fall
+        sleep(1000L); //wait for sample to fall
         hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
         hardware.wristDown();
         hardware.liftGoDown(); //START moving the lift downward
         hardware.intakeIn();//START intaking before moving to mitigate long delay
 
         hardware.intakeSlideIn();
-        sleep(400);
+        sleep(500);
         Actions.runBlocking(HBtoS1); //drive to the first sample while lift lowers and intake starts
+        Actions.runBlocking(forwardAfter);
         sleep(300L); //wait for intake to lower, maybe remove?
         hardware.wristUp(); //START transfer of sample
         hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
@@ -145,7 +150,7 @@ public class AAunnovatedAuto extends LinearOpMode {
         sleep(900L); //this long to wait for lift?
         hardware.bucketServo.setPosition(0.3); //drop sample
         sleep(900L); //wait for sample to fall
-        hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
+        hardware.bucketServo.setPosition(.6); //reset bucket (no hit basket)
         hardware.liftGoPark();
 
         Actions.runBlocking(HBtoPark);

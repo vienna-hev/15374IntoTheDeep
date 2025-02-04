@@ -129,7 +129,7 @@ public class ZZOneDrive extends LinearOpMode {
             if (Math.abs(turn) < 0.1) {
                 turn = 0;
             } else if (Math.abs(turn) < 0.5) {
-                turn = turnSpeed / 2;
+                turn = Math.signum(turn) * turnSpeed / 2;
             } else {
                 turn *= turnSpeed;
             }

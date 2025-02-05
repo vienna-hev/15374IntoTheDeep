@@ -11,11 +11,10 @@ public class TOHardware {
     public CRServo intakeLeft, intakeRight;
     public Servo foldLeft, flip, slideLeft, slideRight, bucket;
 
-    private double telescopicity;
-    private final double exLIn = 0.1;
-    private final double exLOut = 0.5;
-    private final double exRIn = 0.73;
-    private final double exROut = 0.5;
+    final double exLIn = 0.1;
+    final double exLOut = 0.5;
+    final double exRIn = 0.73;
+    final double exROut = 0.5;
 
     public TOHardware(HardwareMap hardwareMap) {
         frontLeft = hardwareMap.get(DcMotor.class, "FL");
@@ -42,11 +41,11 @@ public class TOHardware {
         bucket = hardwareMap.get(Servo.class, "bucketServo");
     }
 
-    public void funcIntake(boolean inBoolButton, boolean outBoolButton) {
-        if (outBoolButton) {
+    public void funcIntake(boolean inButton, boolean outButton) {
+        if (outButton) {
             intakeLeft.setPower(-1);
             intakeRight.setPower(1);
-        } else if (inBoolButton) {
+        } else if (inButton) {
             intakeLeft.setPower(1);
             intakeRight.setPower(-1);
         } else {
@@ -66,13 +65,102 @@ public class TOHardware {
     }
 
     public void funcExtend(double doubleButton) {
-        telescopicity = doubleButton;
-        if (telescopicity > 0) {
-            slideLeft.setPosition(exLIn + (exLOut - exLIn) * telescopicity);
-            slideRight.setPosition(exRIn + (exROut - exRIn) * telescopicity);
+        if (doubleButton > 0.1) {
+            slideLeft.setPosition(exLIn + (exLOut - exLIn) * doubleButton);
+            slideRight.setPosition(exRIn + (exROut - exRIn) * doubleButton);
         } else {
             slideLeft.setPosition(exLIn);
             slideRight.setPosition(exRIn);
         }
+    }
+
+    public void funcLift(boolean upButton, boolean downButton, double analogDec, boolean digitalDec) {
+        double tortoisity;
+        if (digitalDec) {
+            tortoisity = 0.7;
+        } else {
+            tortoisity = analogDec;
+        }
+
+        if (downButton) {
+            liftRight.setPower(1 - tortoisity);
+            liftLeft.setPower(tortoisity - 1);
+        } else if (upButton) {
+            liftRight.setPower(tortoisity - 1);
+            liftLeft.setPower(1 - tortoisity);
+        } else {
+            liftRight.setPower(0);
+            liftLeft.setPower(0);
+        }
+    }
+
+    public void funcBucket(boolean boolButton) {
+        if (boolButton) {
+            bucket.setPosition(0);
+        } else {
+            bucket.setPosition(1);
+        }
+    }
+
+    public void funcDrive(double xControl, double yControl, double yawControl) {
+        double speed = yControl;
+        double strafe = xControl;
+        double turn = yawControl;
+
+        if (Math.abs(speed) < 0.1) {
+            speed = 0;
+        }
+        if (Math.abs(strafe) < 0.1) {
+            strafe = 0;
+        }
+        if (Math.abs(turn) < 0.1) {
+            turn = 0;
+        } else if (Math.abs(turn) < 0.5) {
+            turn = Math.signum(turn) * 0.5;
+        }
+
+        double flPwr = speed - turn - strafe;
+        double frPwr = speed + turn + strafe;
+        double blPwr = speed - turn + strafe;
+        double brPwr = speed + turn - strafe;
+
+        double denominator = Math.max(Math.max(Math.max(flPwr, frPwr), Math.max(blPwr, brPwr)), 1);
+
+        frontLeft.setPower(flPwr / denominator);
+        frontRight.setPower(frPwr / denominator);
+        backLeft.setPower(blPwr / denominator);
+        backRight.setPower(brPwr / denominator);
+    }
+
+    public void funcDrive(double xControl, double yControl, double yawControl, double driveSpeed, double strafeSpeed, double turnSpeed) {
+        double speed = yControl * driveSpeed;
+        double strafe = xControl * strafeSpeed;
+        double turn = yawControl;
+
+        if (Math.abs(speed) < 0.1) {
+            speed = 0;
+        }
+        if (Math.abs(strafe) < 0.1) {
+            strafe = 0;
+        }
+        if (Math.abs(turn) < 0.1) {
+            turn = 0;
+        } else if (Math.abs(turn) < 0.5) {
+            turn = Math.signum(turn) * turnSpeed / 2;
+        } else {
+            turn *= turnSpeed;
+        }
+
+        double flPwr = speed - turn - strafe;
+        double frPwr = speed + turn + strafe;
+        double blPwr = speed - turn + strafe;
+        double brPwr = speed + turn - strafe;
+
+        double denominator = Math.max(Math.max(Math.max(flPwr, frPwr), Math.max(blPwr, brPwr)), 1);
+
+        frontLeft.setPower(flPwr / denominator);
+        frontRight.setPower(frPwr / denominator);
+        backLeft.setPower(blPwr / denominator);
+        backRight.setPower(brPwr / denominator);
     }
 }

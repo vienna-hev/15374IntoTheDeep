@@ -48,7 +48,7 @@ public class AASuperCoolTeleop extends LinearOpMode {
         boolean ascent = false;
         boolean isPressed = false;
 
-        double exLIn = 0.9; //retracted position for the left slide
+        double exLIn = 0.1; //retracted position for the left slide
         double exLOut = 0.5; //extended position for the left slide
         double exRIn = 0.73; //retracted position for the right slide
         double exROut = 0.5; //extended position for the right slide

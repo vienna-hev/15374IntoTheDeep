@@ -11,10 +11,10 @@ public class TOHardware {
     public CRServo intakeLeft, intakeRight;
     public Servo foldLeft, flip, slideLeft, slideRight, bucket;
 
-    final double exLIn = 0.1;
-    final double exLOut = 0.5;
-    final double exRIn = 0.73;
-    final double exROut = 0.5;
+    final double exLIn = 0.3; //retracted position for the left slide
+    final double exLOut = 0.52; //extended position for the left slide
+    final double exRIn = .78; //retracted position for the right slide
+    final double exROut = 0.475; //extended position for the right slide
 
     public TOHardware(HardwareMap hardwareMap) {
         frontLeft = hardwareMap.get(DcMotor.class, "FL");
@@ -22,8 +22,8 @@ public class TOHardware {
         backLeft = hardwareMap.get(DcMotor.class, "BL");
         backRight = hardwareMap.get(DcMotor.class, "BR");
 
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

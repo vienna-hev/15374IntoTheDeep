@@ -10,153 +10,21 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class AASuperCoolTeleop extends LinearOpMode {
-    public DcMotor frontRight, frontLeft, backRight, backLeft;
-    public DcMotorEx liftRight, liftLeft;
-    public Servo wFold, extendRight, extendLeft, bucket, wTurn;
-    public CRServo intakeRight, intakeLeft;
+    public TOHardware hardware;
 
     @Override
     public void runOpMode() {
-
-        frontRight = hardwareMap.get(DcMotor.class, "FR");
-        frontLeft = hardwareMap.get(DcMotor.class, "FL");
-        backLeft = hardwareMap.get(DcMotor.class, "BL");
-        backRight = hardwareMap.get(DcMotor.class, "BR");
-
-        liftLeft = hardwareMap.get(DcMotorEx.class, "LUM");
-        liftRight = hardwareMap.get(DcMotorEx.class, "RUM");
-        intakeLeft = hardwareMap.get(CRServo.class, "intakeLeft");
-        intakeRight = hardwareMap.get(CRServo.class, "intakeRight");
-        extendLeft = hardwareMap.get(Servo.class, "intakeExtensionLeft");
-        extendRight = hardwareMap.get(Servo.class, "intakeExtensionRight");
-        bucket = hardwareMap.get(Servo.class, "bucketServo");
-        wFold = hardwareMap.get(Servo.class, "WL");
-        wTurn = hardwareMap.get(Servo.class, "WF");
-
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        double driveSpeed = 1;
-        double strafeSpeed = 1;
-        double turnSpeed = 0.5;
-        double speed, strafe, turn, flPwr, frPwr, blPwr, brPwr, denominator, tortoisity, telescopicity;
-        boolean ascent = false;
-        boolean isPressed = false;
-
-        double exLIn = 0.1; //retracted position for the left slide
-        double exLOut = 0.5; //extended position for the left slide
-        double exRIn = 0.73; //retracted position for the right slide
-        double exROut = 0.5; //extended position for the right slide
+        hardware = new TOHardware(hardwareMap);
 
         waitForStart();
 
-        //intake in and out
         while (opModeIsActive()) {
-            if (gamepad2.dpad_left) {
-                    intakeLeft.setPower(-1);
-                    intakeRight.setPower(1);
-            } else if (gamepad2.dpad_right) {
-                intakeLeft.setPower(1);
-                intakeRight.setPower(-1);
-            } else {
-                intakeLeft.setPower(0);
-                intakeRight.setPower(0);
-            }
-
-            //intake down and up
-            if (gamepad2.left_stick_y > 0.5) {
-                wFold.setPosition(1);
-                wTurn.setPosition(-1);
-            } else {
-                wFold.setPosition(.425);
-                wTurn.setPosition(0.95);
-            }
-
-            //intake extend and retract
-            telescopicity = gamepad2.right_stick_x;
-            if (telescopicity > 0.1) {
-                extendLeft.setPosition(exLIn + (exLOut - exLIn) * telescopicity);
-                extendRight.setPosition(exRIn + (exROut - exRIn) * telescopicity);
-            } else {
-                extendLeft.setPosition(exLIn);
-                extendRight.setPosition(exRIn);
-            }
-
-            //outtake up and down
-            if (gamepad2.left_bumper) {
-                tortoisity = 0.7;
-            } else {
-                tortoisity = gamepad2.left_trigger;
-            }
-
-            if (gamepad2.x) {
-                liftRight.setPower(1 - tortoisity);
-                liftLeft.setPower(tortoisity - 1);
-            } else if (gamepad2.y) {
-                liftRight.setPower(tortoisity - 1);
-                liftLeft.setPower(1 - tortoisity);
-            } else {
-                liftRight.setPower(0);
-                liftLeft.setPower(0);
-            }
-
-            //outtake out and in
-            if (gamepad2.right_trigger > .5) {
-                bucket.setPosition(0);
-            } else {
-                bucket.setPosition(.7);
-            }
-
-            //first level ascent
-            if (gamepad2.right_bumper){
-                if (!isPressed) {
-                    isPressed = true;
-                    if (!ascent) {
-                        bucket.setPosition(.6);
-                        ascent = true;
-                    } else {
-                        bucket.setPosition(.7);
-                        ascent = false;
-                    }
-                }
-            } else {
-                isPressed = false;
-            }
-
-            speed = gamepad1.left_stick_y * driveSpeed;
-            strafe = gamepad1.left_stick_x * strafeSpeed;
-            turn = gamepad1.right_stick_x + gamepad1.right_trigger - gamepad1.left_trigger;
-
-            if (Math.abs(speed) < 0.1) {
-                speed = 0;
-            }
-            if (Math.abs(turn) < 0.1) {
-                turn = 0;
-            } else if (Math.abs(turn) < 0.5) {
-                turn = Math.signum(turn) * turnSpeed / 2;
-            } else {
-                turn *= turnSpeed;
-            }
-            if (Math.abs(strafe) < 0.1) {
-                strafe = 0;
-            }
-
-            flPwr = speed - turn - strafe;
-            frPwr = speed + turn + strafe;
-            blPwr = speed - turn + strafe;
-            brPwr = speed + turn - strafe;
-
-            denominator = Math.max(Math.max(Math.max(flPwr, frPwr), Math.max(blPwr, brPwr)), 1);
-
-            frontLeft.setPower(flPwr / denominator);
-            frontRight.setPower(frPwr / denominator);
-            backLeft.setPower(blPwr / denominator);
-            backRight.setPower(brPwr / denominator);
+            hardware.funcIntake(gamepad2.dpad_right, gamepad2.dpad_left);
+            hardware.funcWrist(gamepad2.left_stick_y > 0.5);
+            hardware.funcExtend(gamepad2.right_stick_x);
+            hardware.funcLift(gamepad2.y, gamepad2.x, gamepad2.left_trigger, gamepad2.left_bumper);
+            hardware.funcBucket(gamepad2.right_trigger > 0.5);
+            hardware.funcDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x + gamepad1.right_trigger - gamepad1.left_trigger, 1.0, 1.0, 0.5);
         }
     }
 }

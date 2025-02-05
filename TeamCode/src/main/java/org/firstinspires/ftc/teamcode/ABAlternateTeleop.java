@@ -46,9 +46,9 @@ public class ABAlternateTeleop extends LinearOpMode {
         double turnSpeed = 0.5;
         double speed, strafe, turn, flPwr, frPwr, blPwr, brPwr, denominator, tortoisity, telescopicity;
 
-        double exLIn = 0.14; //retracted position for the left slide
-        double exLOut = 0.35; //extended position for the left slide
-        double exRIn = 1; //retracted position for the right slide
+        double exLIn = 0.3; //retracted position for the left slide
+        double exLOut = 0.52; //extended position for the left slide
+        double exRIn = .78; //retracted position for the right slide
         double exROut = 0.475; //extended position for the right slide
 
         waitForStart();

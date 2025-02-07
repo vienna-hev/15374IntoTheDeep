@@ -57,6 +57,10 @@ public class RRHardware {
         }
     }
 
+    public void bucketDown() {
+        bucketServo.setPosition(.1);
+    }
+
     public void liftGoUp() {
         leftUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -132,18 +136,18 @@ public class RRHardware {
     }
 
     public void intakeSlideOut() {
-        intakeExtensionL.setPosition(0.35);
-        intakeExtensionR.setPosition(0.475);
+        intakeExtensionL.setPosition(0.52);
+        intakeExtensionR.setPosition(0.44);
     }
 
     public void intakeSlideOutLess() {
-        intakeExtensionL.setPosition(0.30);
-        intakeExtensionR.setPosition(0.60);
+        intakeExtensionL.setPosition(0.40);
+        intakeExtensionR.setPosition(0.56);
     }
 
     public void intakeSlideIn() {
-        intakeExtensionL.setPosition(0.14);
-        intakeExtensionR.setPosition(1);
+        intakeExtensionL.setPosition(0.3);
+        intakeExtensionR.setPosition(.66);
     }
 }
 

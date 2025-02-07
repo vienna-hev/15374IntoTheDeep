@@ -18,6 +18,10 @@ public class ZZOneDrive extends LinearOpMode {
 
         waitForStart();
 
+        double exPos = 0.5;
+        boolean rightPressed = false;
+        boolean leftPressed = false;
+
         while (opModeIsActive()) {
             hardware.funcIntake(gamepad1.a, gamepad1.b);
             hardware.funcWrist(gamepad1.right_bumper);

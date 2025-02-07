@@ -13,8 +13,8 @@ public class TOHardware {
 
     final double exLIn = 0.3; //retracted position for the left slide
     final double exLOut = 0.52; //extended position for the left slide
-    final double exRIn = .78; //retracted position for the right slide
-    final double exROut = 0.475; //extended position for the right slide
+    final double exRIn = .66; //retracted position for the right slide
+    final double exROut = 0.44; //extended position for the right slide
 
     public TOHardware(HardwareMap hardwareMap) {
         frontLeft = hardwareMap.get(DcMotor.class, "FL");

@@ -96,9 +96,9 @@ public class TOHardware {
 
     public void funcBucket(boolean boolButton) {
         if (boolButton) {
-            bucket.setPosition(0);
+            bucket.setPosition(.4);
         } else {
-            bucket.setPosition(1);
+            bucket.setPosition(.7);
         }
     }
 

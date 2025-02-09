@@ -33,50 +33,50 @@ public class AAunnovatedAuto extends LinearOpMode {
         PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose); //all HB pos: (x-1, y-1)
 
         driveToHB = drive.actionBuilder(initialPose)
-                .splineToLinearHeading(new Pose2d(-60, -50, Math.toRadians(45)), Math.toRadians(180)) //tangent changed 1/26 (270 --> 295)
+                .splineToLinearHeading(new Pose2d(-61, -51, Math.toRadians(45)), Math.toRadians(180)) //tangent changed 1/26 (270 --> 295)
                 .build();
 
-        HBtoS1 = drive.actionBuilder(new Pose2d(-60, -50, Math.toRadians(45)))
-                .splineToLinearHeading(new Pose2d(-47.7, -50, Math.toRadians(90)), Math.toRadians(45)) //S1
+        HBtoS1 = drive.actionBuilder(new Pose2d(-61, -51, Math.toRadians(45)))
+                .splineToLinearHeading(new Pose2d(-47.5, -50, Math.toRadians(90)), Math.toRadians(45)) //S1
                 .build();
 
-        forwardAfter = drive.actionBuilder(new Pose2d(-47.7, -50, Math.toRadians(90)))
+        forwardAfter = drive.actionBuilder(new Pose2d(-47.5, -50, Math.toRadians(90)))
                 .lineToY(-45)
                 .build();
 
-        S1toHB = drive.actionBuilder(new Pose2d(-47.7, -50, Math.toRadians(90))) //S1
-                .splineToLinearHeading(new Pose2d(-57, -51, Math.toRadians(45)), Math.toRadians(225)) //tangent changed 1/26 (180 --> 270)
+        S1toHB = drive.actionBuilder(new Pose2d(-47.5, -50, Math.toRadians(90))) //S1
+                .splineToLinearHeading(new Pose2d(-58, -52, Math.toRadians(45)), Math.toRadians(225)) //tangent changed 1/26 (180 --> 270)
                 .build();
 
-        HBtoS2 = drive.actionBuilder(new Pose2d(-57, -51, Math.toRadians(45)))
+        HBtoS2 = drive.actionBuilder(new Pose2d(-58, -52, Math.toRadians(45)))
                 .splineToLinearHeading(new Pose2d(-59, -47, Math.toRadians(91)), Math.toRadians(180)) //tangent changed 1/26 (90 --> 180)
                 .strafeTo(new Vector2d(-59, -44))
                 .build();
 
         S2toHB = drive.actionBuilder(new Pose2d(-59, -44, Math.toRadians(91)))
-                .splineToLinearHeading(new Pose2d(-55, -54, Math.toRadians(45)), Math.toRadians(225))
+                .splineToLinearHeading(new Pose2d(-56, -55, Math.toRadians(45)), Math.toRadians(225))
                 .build();
 
-        HBtoS3 = drive.actionBuilder(new Pose2d(-55, -54, Math.toRadians(45))) //uh oh this will probably break the robot
-                .splineToLinearHeading(new Pose2d(-54.5, -53, Math.toRadians(120)), Math.toRadians(120))
+        HBtoS3 = drive.actionBuilder(new Pose2d(-56, -55, Math.toRadians(45))) //uh oh this will probably break the robot
+                .splineToLinearHeading(new Pose2d(-54.5, -52.5, Math.toRadians(120)), Math.toRadians(120))
                 .build();
 
-        S3toSpin = drive.actionBuilder(new Pose2d(-54.5, -53, Math.toRadians(118)))
+        S3toSpin = drive.actionBuilder(new Pose2d(-54.5, -52.5, Math.toRadians(118)))
                 .turnTo(Math.toRadians(115))
-                .turnTo(Math.toRadians(118))
+                .turnTo(Math.toRadians(117))
                 .build();
 
-        S3toHB = drive.actionBuilder(new Pose2d(-54.5, -52, Math.toRadians(118)))
-                .splineToLinearHeading(new Pose2d(-58, -55, Math.toRadians(35)), Math.toRadians(0))
+        S3toHB = drive.actionBuilder(new Pose2d(-54.5, -52.5, Math.toRadians(117)))
+                .splineToLinearHeading(new Pose2d(-59, -56, Math.toRadians(35)), Math.toRadians(0))
                 .build();
 
-        HBtoPark = drive.actionBuilder(new Pose2d(-58, -55, Math.toRadians(35)))
+        HBtoPark = drive.actionBuilder(new Pose2d(-59, -56, Math.toRadians(35)))
                 .splineToLinearHeading(new Pose2d(-20, -26, Math.toRadians(180)), Math.toRadians(360))
                 .lineToX(-7)
                 .build();
 
         waitForStart();
-        hardware.bucketServo.setPosition(.3);
+        hardware.bucketServo.setPosition(.4);
         hardware.bucketServo.setPosition(.7);
         hardware.liftGoUp(); //START moving the lift
         Actions.runBlocking(driveToHB); //drive to the high basket
@@ -103,7 +103,7 @@ public class AAunnovatedAuto extends LinearOpMode {
 
         Actions.runBlocking(S1toHB);
         sleep(700L); //this long to wait for lift?
-        hardware.bucketServo.setPosition(0.3); //drop sample
+        hardware.bucketServo.setPosition(0.4); //drop sample
         sleep(1000L); //wait for sample to fall
         hardware.wristDown();
         hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
@@ -129,7 +129,7 @@ public class AAunnovatedAuto extends LinearOpMode {
         Actions.runBlocking(S2toHB);
         sleep(700L); //this long to wait for lift?
         hardware.liftPower(.3);
-        hardware.bucketServo.setPosition(0.3); //drop sample
+        hardware.bucketServo.setPosition(0.4); //drop sample
         sleep(900L); //wait for sample to fall
         hardware.wristDown();
         hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
@@ -147,13 +147,13 @@ public class AAunnovatedAuto extends LinearOpMode {
         hardware.intakeStop(); //stop intaking
         sleep(900L);
         hardware.intakeOut();
-        sleep(900L);
+        sleep(700L);
         hardware.intakeStop();
         hardware.liftGoUp();
 
         Actions.runBlocking(S3toHB);
         sleep(700L); //this long to wait for lift?
-        hardware.bucketServo.setPosition(0.3); //drop sample
+        hardware.bucketServo.setPosition(0.4); //drop sample
         sleep(900L); //wait for sample to fall
         hardware.bucketServo.setPosition(.6); //reset bucket (no hit basket)
         hardware.liftGoPark();

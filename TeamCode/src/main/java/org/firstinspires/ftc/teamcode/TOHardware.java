@@ -7,14 +7,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class TOHardware {
-    public DcMotor frontLeft, frontRight, backLeft, backRight, liftLeft, liftRight;
+    public DcMotor frontLeft, frontRight, backLeft, backRight, liftLeft, liftRight, intakeExtension;
     public CRServo intakeLeft, intakeRight;
-    public Servo foldLeft, flip, slideLeft, slideRight, bucket;
+    public Servo foldLeft, flip, bucket;
 
-    final double exLIn = 0.3; //retracted position for the left slide
-    final double exLOut = 0.52; //extended position for the left slide
-    final double exRIn = .66; //retracted position for the right slide
-    final double exROut = 0.44; //extended position for the right slide
 
     public TOHardware(HardwareMap hardwareMap) {
         frontLeft = hardwareMap.get(DcMotor.class, "FL");
@@ -32,13 +28,13 @@ public class TOHardware {
 
         liftLeft = hardwareMap.get(DcMotor.class, "LUM");
         liftRight = hardwareMap.get(DcMotor.class, "RUM");
-        intakeLeft = hardwareMap.get(CRServo.class, "intakeLeft");
-        intakeRight = hardwareMap.get(CRServo.class, "intakeRight");
-        slideLeft = hardwareMap.get(Servo.class, "intakeExtensionLeft");
-        slideRight = hardwareMap.get(Servo.class, "intakeExtensionRight");
+        intakeLeft = hardwareMap.get(CRServo.class, "IWL");
+        intakeRight = hardwareMap.get(CRServo.class, "IWR");
+        intakeExtension = hardwareMap.get(DcMotor.class, "IE");
         foldLeft = hardwareMap.get(Servo.class, "WL");
         flip = hardwareMap.get(Servo.class, "WF");
-        bucket = hardwareMap.get(Servo.class, "bucketServo");
+        bucket = hardwareMap.get(Servo.class, "BS");
+
     }
 
     public void funcIntake(boolean inButton, boolean outButton) {
@@ -56,21 +52,19 @@ public class TOHardware {
 
     public void funcWrist(boolean boolButton) {
         if (boolButton) {
-            foldLeft.setPosition(1);
+            foldLeft.setPosition(.1);
             flip.setPosition(-1);
         } else {
-            foldLeft.setPosition(0.4);
+            foldLeft.setPosition(0.9);
             flip.setPosition(0.95);
         }
     }
 
     public void funcExtend(double doubleButton) {
-        if (doubleButton > 0.1) {
-            slideLeft.setPosition(exLIn + (exLOut - exLIn) * doubleButton);
-            slideRight.setPosition(exRIn + (exROut - exRIn) * doubleButton);
+        if (Math.abs(doubleButton) > 0.1) {
+            intakeExtension.setPower(doubleButton);
         } else {
-            slideLeft.setPosition(exLIn);
-            slideRight.setPosition(exRIn);
+            intakeExtension.setPower(0);
         }
     }
 

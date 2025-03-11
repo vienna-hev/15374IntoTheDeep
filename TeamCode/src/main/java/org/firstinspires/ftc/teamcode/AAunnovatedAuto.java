@@ -76,91 +76,94 @@ public class AAunnovatedAuto extends LinearOpMode {
                 .build();
 
         waitForStart();
-        hardware.bucketServo.setPosition(.4);
-        hardware.bucketServo.setPosition(.7);
-        hardware.liftGoUp(); //START moving the lift
-        Actions.runBlocking(driveToHB); //drive to the high basket
-        hardware.bucketDown();
-        sleep(800L); //wait for sample to fall
-        hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
-        hardware.wristDown();
-        hardware.liftGoDown(); //START moving the lift downward
-        hardware.intakeIn();//START intaking before moving to mitigate long delay
-
-        hardware.intakeSlideIn();
-        sleep(500);
-        Actions.runBlocking(HBtoS1); //drive to the first sample while lift lowers and intake starts
-        Actions.runBlocking(forwardAfter);
-        sleep(300L); //wait for intake to lower, maybe remove?
-        hardware.wristUp(); //START transfer of sample
-        hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
-        hardware.intakeStop(); //stop intaking
-        sleep(900L);
-        hardware.intakeOut();
-        sleep(900L);
-        hardware.intakeStop();
-        hardware.liftGoUp();
-
-        Actions.runBlocking(S1toHB);
-        sleep(700L); //this long to wait for lift?
-        hardware.bucketServo.setPosition(0.4); //drop sample
-        sleep(1000L); //wait for sample to fall
-        hardware.wristDown();
-        hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
-        hardware.liftGoDown(); //START moving the lift downward
-        hardware.intakeIn();//START intaking before moving to mitigate long delay
-
-        hardware.intakeSlideIn();
-        sleep(500L);
-        Actions.runBlocking(HBtoS2); //drive to the first sample while lift lowers and intake starts
-////        sleep(700L); //wait for intake to lower, maybe remove?
-//        Actions.runBlocking(forwardAfter2); //move forward to eat sample
-        hardware.liftPower(0); //stop lift to mitigate loppfasdhrfejgtk
-        sleep(400L); //time to pick up sample
-        hardware.wristUp(); //START transfer of sample
-        hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
-        hardware.intakeStop(); //stop intaking
-        sleep(900L);
-        hardware.intakeOut();
-        sleep(900L);
-        hardware.intakeStop();
-        hardware.liftGoUp();
-
-        Actions.runBlocking(S2toHB);
-        sleep(700L); //this long to wait for lift?
-        hardware.liftPower(.3);
-        hardware.bucketServo.setPosition(0.4); //drop sample
-        sleep(900L); //wait for sample to fall
-        hardware.wristDown();
-        hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
-        hardware.liftGoDown(); //START moving the lift downward
-        hardware.intakeIn();//START intaking before moving to mitigate long delay
-//
-        hardware.intakeSlideIn();
-        Actions.runBlocking(HBtoS3); //drive to the first sample while lift lowers and intake starts
         hardware.intakeSlideOutLess();
-        sleep(500L); //time to pick up sample
-        Actions.runBlocking(S3toSpin);
-        sleep(500);
-        hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
-        hardware.wristUp(); //START transfer of sample
-        hardware.intakeStop(); //stop intaking
-        sleep(900L);
-        hardware.intakeOut();
-        sleep(700L);
-        hardware.intakeStop();
-        hardware.liftGoUp();
-
-        Actions.runBlocking(S3toHB);
-        sleep(700L); //this long to wait for lift?
-        hardware.bucketServo.setPosition(0.4); //drop sample
-        sleep(900L); //wait for sample to fall
-        hardware.bucketServo.setPosition(.6); //reset bucket (no hit basket)
-        hardware.liftGoPark();
-
-        Actions.runBlocking(HBtoPark);
-
-//         time left: 0 seconds!!!
+        sleep(1000);
+//        hardware.intakeSlideOutLess();
+//        hardware.bucketServo.setPosition(.4);
+//        hardware.bucketServo.setPosition(.7);
+//        hardware.liftGoUp(); //START moving the lift
+//        Actions.runBlocking(driveToHB); //drive to the high basket
+//        hardware.bucketDown();
+//        sleep(800L); //wait for sample to fall
+//        hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
+//        hardware.wristDown();
+//        hardware.liftGoDown(); //START moving the lift downward
+//        hardware.intakeIn();//START intaking before moving to mitigate long delay
+//
+//        hardware.intakeSlideIn();
+//        sleep(500);
+//        Actions.runBlocking(HBtoS1); //drive to the first sample while lift lowers and intake starts
+//        Actions.runBlocking(forwardAfter);
+//        sleep(300L); //wait for intake to lower, maybe remove?
+//        hardware.wristUp(); //START transfer of sample
+//        hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
+//        hardware.intakeStop(); //stop intaking
+//        sleep(900L);
+//        hardware.intakeOut();
+//        sleep(900L);
+//        hardware.intakeStop();
+//        hardware.liftGoUp();
+//
+//        Actions.runBlocking(S1toHB);
+//        sleep(700L); //this long to wait for lift?
+//        hardware.bucketServo.setPosition(0.4); //drop sample
+//        sleep(1000L); //wait for sample to fall
+//        hardware.wristDown();
+//        hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
+//        hardware.liftGoDown(); //START moving the lift downward
+//        hardware.intakeIn();//START intaking before moving to mitigate long delay
+//
+//        hardware.intakeSlideIn();
+//        sleep(500L);
+//        Actions.runBlocking(HBtoS2); //drive to the first sample while lift lowers and intake starts
+//////        sleep(700L); //wait for intake to lower, maybe remove?
+////        Actions.runBlocking(forwardAfter2); //move forward to eat sample
+//        hardware.liftPower(0); //stop lift to mitigate loppfasdhrfejgtk
+//        sleep(400L); //time to pick up sample
+//        hardware.wristUp(); //START transfer of sample
+//        hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
+//        hardware.intakeStop(); //stop intaking
+//        sleep(900L);
+//        hardware.intakeOut();
+//        sleep(900L);
+//        hardware.intakeStop();
+//        hardware.liftGoUp();
+//
+//        Actions.runBlocking(S2toHB);
+//        sleep(700L); //this long to wait for lift?
+//        hardware.liftPower(.3);
+//        hardware.bucketServo.setPosition(0.4); //drop sample
+//        sleep(900L); //wait for sample to fall
+//        hardware.wristDown();
+//        hardware.bucketServo.setPosition(.7); //reset bucket (no hit basket)
+//        hardware.liftGoDown(); //START moving the lift downward
+//        hardware.intakeIn();//START intaking before moving to mitigate long delay
+////
+//        hardware.intakeSlideIn();
+//        Actions.runBlocking(HBtoS3); //drive to the first sample while lift lowers and intake starts
+//        hardware.intakeSlideOutLess();
+//        sleep(500L); //time to pick up sample
+//        Actions.runBlocking(S3toSpin);
+//        sleep(500);
+//        hardware.intakeSlideIn(); //ensure that intake/outtake are aligned
+//        hardware.wristUp(); //START transfer of sample
+//        hardware.intakeStop(); //stop intaking
+//        sleep(900L);
+//        hardware.intakeOut();
+//        sleep(700L);
+//        hardware.intakeStop();
+//        hardware.liftGoUp();
+//
+//        Actions.runBlocking(S3toHB);
+//        sleep(700L); //this long to wait for lift?
+//        hardware.bucketServo.setPosition(0.4); //drop sample
+//        sleep(900L); //wait for sample to fall
+//        hardware.bucketServo.setPosition(.6); //reset bucket (no hit basket)
+//        hardware.liftGoPark();
+//
+//        Actions.runBlocking(HBtoPark);
+//
+////         time left: 0 seconds!!!
     }
 }
 

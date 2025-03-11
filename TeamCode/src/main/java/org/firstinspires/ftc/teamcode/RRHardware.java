@@ -18,8 +18,7 @@ public class RRHardware {
     public CRServo intakeRight;
     public Servo wFold;
     public Servo wTurn;
-    public Servo intakeExtensionR;
-    public Servo intakeExtensionL;
+    public DcMotor intakeExtension;
     public Servo bucketServo;
 
     public RRHardware(HardwareMap hardwareMap) {
@@ -33,11 +32,10 @@ public class RRHardware {
 
         leftUpMotor = hardwareMap.get(DcMotorEx.class, "LUM");
         rightUpMotor = hardwareMap.get(DcMotorEx.class, "RUM");
-        intakeLeft = hardwareMap.get(CRServo.class, "intakeLeft");
-        intakeRight = hardwareMap.get(CRServo.class, "intakeRight");
-        intakeExtensionL = hardwareMap.get(Servo.class, "intakeExtensionLeft");
-        intakeExtensionR = hardwareMap.get(Servo.class, "intakeExtensionRight");
-        bucketServo = hardwareMap.get(Servo.class, "bucketServo");
+        intakeLeft = hardwareMap.get(CRServo.class, "IWL");
+        intakeRight = hardwareMap.get(CRServo.class, "IWR");
+        intakeExtension = hardwareMap.get(DcMotor.class, "IE");
+        bucketServo = hardwareMap.get(Servo.class, "BS");
         wFold = hardwareMap.get(Servo.class, "WL");
         wTurn = hardwareMap.get(Servo.class, "WF");
 
@@ -45,6 +43,9 @@ public class RRHardware {
         rightUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightUpMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftUpMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        intakeExtension.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        intakeExtension.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         double ticks = 384.5D;
     }
@@ -135,49 +136,17 @@ public class RRHardware {
         wTurn.setPosition(.95);
     }
 
-    public void intakeSlideOut() {
-        intakeExtensionL.setPosition(0.52);
-        intakeExtensionR.setPosition(0.44);
-    }
-
     public void intakeSlideOutLess() {
-        intakeExtensionL.setPosition(0.42);
-        intakeExtensionR.setPosition(0.54);
+        intakeExtension.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        intakeExtension.setPower(-1);
+        intakeExtension.setTargetPosition(-700);
+        intakeExtension.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void intakeSlideIn() {
-        intakeExtensionL.setPosition(0.3);
-        intakeExtensionR.setPosition(.66);
+        intakeExtension.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        intakeExtension.setPower(1);
+        intakeExtension.setTargetPosition(700);
+        intakeExtension.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }
-
-//        public void turnDown(double power) {
-//        wTurn.setPosition(0);
-//        sleep(1000);
-//    }
-//
-//    public void turnUp(double power) {
-//        wTurn.setPosition(1);
-//        sleep(1000);
-//    }
-
-//public void moveIntake(double power) {
-//        for (int x = 8; x > 0; x--){
-//            if(!touchSensor.isPressed()){
-//                intakeLeft.setPower(-power);
-//                intakeRight.setPower(power);
-//                sleep(1000);
-//            }
-//            else {
-//                intakeLeft.setPower(0);
-//                intakeRight.setPower(0);
-//                break;
-//            }
-//        }
-//
-////        while (!touchSensor.isPressed()){
-////            intakeLeft.setPower(-power);
-////            intakeRight.setPower(power);
-////        }
-//    }
-    //.4 to intake, -.2 to outtake

@@ -52,11 +52,11 @@ public class TOHardware {
 
     public void funcWrist(boolean boolButton) {
         if (boolButton) {
-            foldLeft.setPosition(.1);
+            foldLeft.setPosition(.9);
             flip.setPosition(-1);
         } else {
-            foldLeft.setPosition(0.9);
-            flip.setPosition(0.95);
+            foldLeft.setPosition(0.1);
+            flip.setPosition(.95);
         }
     }
 

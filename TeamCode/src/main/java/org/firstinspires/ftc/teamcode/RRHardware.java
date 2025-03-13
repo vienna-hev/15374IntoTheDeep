@@ -62,6 +62,17 @@ public class RRHardware {
         bucketServo.setPosition(.4);
     }
 
+    public void depositHB() {
+    leftUpMotor.setPower(1);
+    rightUpMotor.setPower(1);
+    sleep(2500); //time the slide rises for to reach
+    bucketServo.setPosition(.5); //position that drops sample
+    sleep(1600); //hopefully goes back after this time, position needs to be set again?
+    bucketServo.setPosition(0); //reset the bucket so it does not hit the baskets
+    leftUpMotor.setPower(-1);
+    rightUpMotor.setPower(-1);
+    }
+
     public void liftGoUp() {
         leftUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -93,17 +104,6 @@ public class RRHardware {
         rightUpMotor.setTargetPosition(2560);
         leftUpMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightUpMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
-
-    public void depositHB() {
-        leftUpMotor.setPower(1);
-        rightUpMotor.setPower(1);
-        sleep(2500); //time the slide rises for to reach
-        bucketServo.setPosition(.5); //position that drops sample
-        sleep(1600); //hopefully goes back after this time, position needs to be set again?
-        bucketServo.setPosition(0); //reset the bucket so it does not hit the baskets
-        leftUpMotor.setPower(-1);
-        rightUpMotor.setPower(-1);
     }
 
     public void liftPower(double liftPwr) {
@@ -139,14 +139,14 @@ public class RRHardware {
     public void intakeSlideOutLess() {
         intakeExtension.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intakeExtension.setPower(-1);
-        intakeExtension.setTargetPosition(-700);
+        intakeExtension.setTargetPosition(-140);
         intakeExtension.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void intakeSlideIn() {
         intakeExtension.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intakeExtension.setPower(1);
-        intakeExtension.setTargetPosition(700);
+        intakeExtension.setTargetPosition(140);
         intakeExtension.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 }

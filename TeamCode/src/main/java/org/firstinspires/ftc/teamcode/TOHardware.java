@@ -69,19 +69,19 @@ public class TOHardware {
     }
 
     public void funcLift(boolean upButton, boolean downButton, double analogDec, boolean digitalDec) {
-        double tortoisity;
+        double powerDec;
         if (digitalDec) {
-            tortoisity = 0.7;
+            powerDec = 0.7;
         } else {
-            tortoisity = analogDec;
+            powerDec = analogDec;
         }
 
         if (downButton) {
-            liftRight.setPower(1 - tortoisity);
-            liftLeft.setPower(tortoisity - 1);
+            liftRight.setPower(1 - powerDec);
+            liftLeft.setPower(powerDec - 1);
         } else if (upButton) {
-            liftRight.setPower(tortoisity - 1);
-            liftLeft.setPower(1 - tortoisity);
+            liftRight.setPower(powerDec - 1);
+            liftLeft.setPower(1 - powerDec);
         } else {
             liftRight.setPower(0);
             liftLeft.setPower(0);

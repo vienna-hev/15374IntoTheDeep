@@ -58,7 +58,7 @@ public class AAunnovatedAuto extends LinearOpMode {
                 .build();
 
         HBtoS3 = drive.actionBuilder(new Pose2d(-56, -55, Math.toRadians(45))) //uh oh this will probably break the robot
-                .splineToLinearHeading(new Pose2d(-54.5, -52.5, Math.toRadians(120)), Math.toRadians(120))
+                .splineToLinearHeading(new Pose2d(-54.25, -52.75, Math.toRadians(120)), Math.toRadians(120))
                 .build();
 
         S3toSpin = drive.actionBuilder(new Pose2d(-54.5, -52.5, Math.toRadians(120)))

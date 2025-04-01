@@ -30,6 +30,7 @@ public class RRHardware {
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
+
         leftUpMotor = hardwareMap.get(DcMotorEx.class, "LUM");
         rightUpMotor = hardwareMap.get(DcMotorEx.class, "RUM");
         intakeLeft = hardwareMap.get(CRServo.class, "IWL");
@@ -38,6 +39,8 @@ public class RRHardware {
         bucketServo = hardwareMap.get(Servo.class, "BS");
         wFold = hardwareMap.get(Servo.class, "WL");
         wTurn = hardwareMap.get(Servo.class, "WF");
+
+        intakeExtension.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         leftUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightUpMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

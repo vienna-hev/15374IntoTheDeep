@@ -130,12 +130,12 @@ public class RRHardware {
     }
 
     public void wristDown() {
-        wFold.setPosition(1);
-        wTurn.setPosition(-1);
+        wFold.setPosition(.9);
+        wTurn.setPosition(.27);
     }
 
     public void wristUp() {
-        wFold.setPosition(.425);
+        wFold.setPosition(.35);
         wTurn.setPosition(.95);
     }
 

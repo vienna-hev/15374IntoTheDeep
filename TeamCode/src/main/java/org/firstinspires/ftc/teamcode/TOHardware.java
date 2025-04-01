@@ -53,15 +53,15 @@ public class TOHardware {
     public void funcWrist(boolean boolButton) {
         if (boolButton) {
             foldLeft.setPosition(.9);
-            flip.setPosition(-1);
+            flip.setPosition(0.27);
         } else {
-            foldLeft.setPosition(0.2);
-            flip.setPosition(1); //.95
+            foldLeft.setPosition(0.35);
+            flip.setPosition(0.95);
         }
     }
 
     public void funcExtend(double doubleButton) {
-        if (Math.abs(doubleButton) < -0.1) { // > 0.1
+        if (Math.abs(doubleButton) > 0.1) { // > 0.1
             intakeExtension.setPower(doubleButton);
         } else {
             intakeExtension.setPower(0);

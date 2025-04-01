@@ -55,13 +55,13 @@ public class TOHardware {
             foldLeft.setPosition(.9);
             flip.setPosition(-1);
         } else {
-            foldLeft.setPosition(0.1);
-            flip.setPosition(.95);
+            foldLeft.setPosition(0.2);
+            flip.setPosition(1); //.95
         }
     }
 
     public void funcExtend(double doubleButton) {
-        if (Math.abs(doubleButton) > 0.1) {
+        if (Math.abs(doubleButton) < -0.1) { // > 0.1
             intakeExtension.setPower(doubleButton);
         } else {
             intakeExtension.setPower(0);

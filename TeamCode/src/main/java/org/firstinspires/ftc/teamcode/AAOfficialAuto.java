@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous
-public class AAunnovatedAuto extends LinearOpMode {
+public class AAOfficialAuto extends LinearOpMode {
     Action driveToHB;
     Action HBtoS1;
     Action forwardAfter;

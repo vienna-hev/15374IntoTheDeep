@@ -55,14 +55,14 @@ public class TOHardware {
             foldLeft.setPosition(.9);
             flip.setPosition(0.27);
         } else {
-            foldLeft.setPosition(0.35);
+            foldLeft.setPosition(.4);
             flip.setPosition(0.95);
         }
     }
 
     public void funcExtend(double doubleButton) {
         if (Math.abs(doubleButton) > 0.1) { // > 0.1
-            intakeExtension.setPower(doubleButton);
+            intakeExtension.setPower(doubleButton * 0.9);
         } else {
             intakeExtension.setPower(0);
         }

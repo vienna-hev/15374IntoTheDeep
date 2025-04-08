@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -17,10 +19,6 @@ public class ZZOneDrive extends LinearOpMode {
         hardware = new TWOHardware(hardwareMap);
 
         waitForStart();
-
-        double exPos = 0.5;
-        boolean rightPressed = false;
-        boolean leftPressed = false;
 
         while (opModeIsActive()) {
             hardware.funcIntake(gamepad1.a, gamepad1.b);

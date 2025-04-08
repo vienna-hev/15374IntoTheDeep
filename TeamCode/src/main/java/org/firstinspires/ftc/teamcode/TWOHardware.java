@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -36,8 +38,9 @@ public class TWOHardware {
         flip = hardwareMap.get(Servo.class, "WF");
         bucket = hardwareMap.get(Servo.class, "BS");
 
-        intakeExtension.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intakeExtension.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeExtension.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        intakeExtension.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
@@ -57,28 +60,30 @@ public class TWOHardware {
     public void funcWrist(boolean boolButton) {
         if (boolButton) {
             foldLeft.setPosition(.9);
-            flip.setPosition(-1);
+            flip.setPosition(0.27);
         } else {
-            foldLeft.setPosition(0.1);
-            flip.setPosition(.95);
+            foldLeft.setPosition(.4);
+            flip.setPosition(0.95);
         }
     }
 
     public void funcExtend(double extendButton, boolean resetButton) {
-        int goalPos = (int)(extendButton * 300); //the coefficient is the range
+        int range = 300;
+        int goalPos = (int)(extendButton * range); //the coefficient is the range
         int curPos = intakeExtension.getCurrentPosition();
+        double difPos = (double)(goalPos - curPos) / (double)range;
         int tolerance = 10;
 
         if (resetButton) {
+            intakeExtension.setPower(-1);
             intakeExtension.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            intakeExtension.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        if (curPos < goalPos + tolerance) {
-            intakeExtension.setPower(0.5);
-        } else if (curPos > goalPos - tolerance) {
-            intakeExtension.setPower(-0.5);
-        } else {
+        if (curPos + tolerance > goalPos && curPos - tolerance < goalPos) {
             intakeExtension.setPower(0);
+        } else {
+            intakeExtension.setPower(0.5 * difPos + 0.2);
         }
     }
 

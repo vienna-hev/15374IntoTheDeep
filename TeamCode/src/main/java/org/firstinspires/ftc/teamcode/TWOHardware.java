@@ -68,7 +68,7 @@ public class TWOHardware {
     }
 
     public void funcExtend(double extendButton, boolean resetButton) {
-        int range = 300;
+        int range = 350;
         int goalPos = (int)(extendButton * range); //the coefficient is the range
         int curPos = intakeExtension.getCurrentPosition();
         double difPos = (double)(goalPos - curPos) / (double)range;
@@ -83,7 +83,7 @@ public class TWOHardware {
         if (curPos + tolerance > goalPos && curPos - tolerance < goalPos) {
             intakeExtension.setPower(0);
         } else {
-            intakeExtension.setPower(0.5 * difPos + 0.2);
+            intakeExtension.setPower(Math.sqrt(Math.abs(difPos)) * Math.signum(difPos) + 0.2);
         }
     }
 
